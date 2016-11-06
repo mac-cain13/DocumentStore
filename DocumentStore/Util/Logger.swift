@@ -35,11 +35,16 @@ class PrintLogger: Logger {
     let logLevelString: String
 
     switch level {
-    case .trace: logLevelString = "Trace"
-    case .debug: logLevelString = "Debug"
-    case .info: logLevelString = "Info"
-    case .warn: logLevelString = "Warn"
-    case .error: logLevelString = "Error"
+    case .trace:
+      logLevelString = "Trace"
+    case .debug:
+      logLevelString = "Debug"
+    case .info:
+      logLevelString = "Info"
+    case .warn:
+      logLevelString = "Warn"
+    case .error:
+      logLevelString = "Error"
     }
 
     debugPrint("[DocumentStore] \(logLevelString): \(message)")

@@ -42,12 +42,16 @@ public enum IndexStorageType {
 
   var attributeType: NSAttributeType {
     switch self {
-    case .bool: return .booleanAttributeType
-    case .date: return .dateAttributeType
-    case .double: return .doubleAttributeType
-    case .int: return .integer64AttributeType
-    case .string: return .stringAttributeType
+    case .bool:
+      return .booleanAttributeType
+    case .date:
+      return .dateAttributeType
+    case .double:
+      return .doubleAttributeType
+    case .int:
+      return .integer64AttributeType
+    case .string:
+      return .stringAttributeType
     }
   }
 }
-

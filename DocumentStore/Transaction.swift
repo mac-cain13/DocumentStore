@@ -87,10 +87,14 @@ public class ReadTransaction {
           return try DocumentType.deserializeDocument(from: documentData)
         } catch let error as DocumentDeserializationError {
           logger.log(level: .warn, message: "Deserializing '\(DocumentType.documentDescriptor.identifier)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
+
           switch error.resolution {
-          case .Delete: context.delete($0)
-          case .Skip: break
+          case .Delete:
+            context.delete($0)
+          case .Skip:
+            break
           }
+
           return nil
         } catch let error {
           throw TransactionError.SerializationFailed(error)

@@ -35,7 +35,7 @@ public struct AnyIndex<DocumentType: Document>: Hashable {
     self.resolver = index.resolver
   }
 
-  public static func ==(lhs: AnyIndex<DocumentType>, rhs: AnyIndex<DocumentType>) -> Bool {
+  public static func == (lhs: AnyIndex<DocumentType>, rhs: AnyIndex<DocumentType>) -> Bool {
     return lhs.identifier == rhs.identifier
   }
 }
@@ -51,7 +51,7 @@ struct UntypedAnyIndex: Hashable {
     self.storageType = index.storageType
   }
 
-  static func ==(lhs: UntypedAnyIndex, rhs: UntypedAnyIndex) -> Bool {
+  static func == (lhs: UntypedAnyIndex, rhs: UntypedAnyIndex) -> Bool {
     return lhs.identifier == rhs.identifier
   }
 }

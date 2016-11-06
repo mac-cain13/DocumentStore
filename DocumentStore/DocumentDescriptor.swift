@@ -33,7 +33,7 @@ public struct AnyDocumentDescriptor: Hashable {
     self.indices = Set(descriptor.indices.map(UntypedAnyIndex.init))
   }
 
-  public static func ==(lhs: AnyDocumentDescriptor, rhs: AnyDocumentDescriptor) -> Bool {
+  public static func == (lhs: AnyDocumentDescriptor, rhs: AnyDocumentDescriptor) -> Bool {
     return lhs.identifier == rhs.identifier
   }
 }

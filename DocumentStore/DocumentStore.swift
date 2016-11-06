@@ -53,7 +53,6 @@ public final class DocumentStore {
 
     logger.log(level: .debug, message: "Model generation finished.")
 
-
     // Setup persistent stack
     logger.log(level: .debug, message: "Setting up persistent store...")
 

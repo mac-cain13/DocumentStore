@@ -24,7 +24,7 @@ public struct DocumentDeserializationError: Error {
     self.resolution = resolution
     self.underlyingError = underlyingError
   }
-} 
+}
 
 public protocol Document {
   static var documentDescriptor: DocumentDescriptor<Self> { get }
