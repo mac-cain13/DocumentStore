@@ -36,8 +36,6 @@ public class ReadTransaction {
   }
 
   func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
-    // TODO: Check if document type is registered in this store
-
     let request: NSFetchRequest<NSNumber> = fetchRequest(for: query)
 
     do {
@@ -54,8 +52,6 @@ public class ReadTransaction {
   }
 
   func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType] {
-    // TODO: Check if document type is registered in this store
-
     // Set up the fetch request
     let request: NSFetchRequest<NSManagedObject> = fetchRequest(for: query)
     request.returnsObjectsAsFaults = false
@@ -106,8 +102,6 @@ public class ReadTransaction {
 public final class ReadWriteTransaction: ReadTransaction {
   @discardableResult
   public func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
-    // TODO: Check if document type is registered in this store
-
     let request: NSFetchRequest<NSManagedObject> = fetchRequest(for: query)
     request.includesPropertyValues = false
 
@@ -127,7 +121,6 @@ public final class ReadWriteTransaction: ReadTransaction {
   }
 
   public func add<DocumentType: Document>(document: DocumentType) throws {
-    // TODO: Check if document type is registered in this store
     let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
 
     do {

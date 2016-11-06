@@ -11,16 +11,12 @@ import CoreData
 
 let DocumentDataAttributeName = "_DocumentData"
 
-// TODO: Add SwiftLint
-
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
   private let logger: Logger
 
   public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logger: Logger = NoLogger()) {
     self.logger = logger
-
-    // TODO: Perform some validation on document descriptors; No duplicate identifiers, no starting with '_', no indices starting with '_'
 
     // Generate data model
     logger.log(level: .debug, message: "Generating data model...")
@@ -62,8 +58,6 @@ public final class DocumentStore {
     logger.log(level: .debug, message: "Setting up persistent store...")
 
     persistentContainer = NSPersistentContainer(name: identifier, managedObjectModel: model)
-    // TODO: Make sure store is loaded, migrations and reindexed async
-    // TODO: Configure merge policy
     persistentContainer.loadPersistentStores { _, error in
       if let error = error {
         logger.log(level: .error, message: "Failed to load persistent store, this will result in an unusable DocumentStore.", error: error)
@@ -73,7 +67,6 @@ public final class DocumentStore {
 
   // MARK: Transaction initialization
 
-  // TODO: Split up transactions and queries in read/readwrite
   public func read<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadTransaction) throws -> T) {
     readWrite(queue: queue, handler: handler) { transaction in
       let result = try actions(transaction)

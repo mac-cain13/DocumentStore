@@ -24,9 +24,7 @@ public struct DocumentDeserializationError: Error {
     self.resolution = resolution
     self.underlyingError = underlyingError
   }
-}
-
-// TODO: Wishlist; Documents with an identifier (generated value or specified by the protocol) 
+} 
 
 public protocol Document {
   static var documentDescriptor: DocumentDescriptor<Self> { get }
