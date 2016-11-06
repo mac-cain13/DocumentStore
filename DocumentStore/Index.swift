@@ -40,7 +40,7 @@ public struct AnyIndex<DocumentType: Document>: Hashable {
   }
 }
 
-struct UntypedAnyIndex: Hashable {
+struct UntypedAnyIndex: Hashable, Validatable {
   let identifier: String
   let storageType: IndexStorageType
 
@@ -49,6 +49,17 @@ struct UntypedAnyIndex: Hashable {
   init<DocumentType: Document>(index: AnyIndex<DocumentType>) {
     self.identifier = index.identifier
     self.storageType = index.storageType
+  }
+
+  func validate() -> [ValidationIssue] {
+    var issues: [ValidationIssue] = []
+
+    // Identifiers may not start with `_`
+    if identifier.characters.first == "_" {
+      issues.append("`\(identifier)` is an invalid Index identifier, identifiers may not start with an `_`.")
+    }
+
+    return issues
   }
 
   static func == (lhs: UntypedAnyIndex, rhs: UntypedAnyIndex) -> Bool {

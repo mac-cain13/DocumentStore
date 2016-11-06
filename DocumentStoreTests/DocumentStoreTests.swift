@@ -11,7 +11,7 @@ import DocumentStore
 
 ////////
 
-let documentStore = DocumentStore(
+let documentStore = try? DocumentStore(
   identifier: "TestDocumentStore",
   documentDescriptors: [
     Developer.documentDescriptor.eraseType(),
@@ -92,7 +92,7 @@ class DocumentStoreTests: XCTestCase {
 //        return .SaveChanges
 //      }
 
-      documentStore.read(handler: { _ in }) {
+      documentStore!.read(handler: { _ in }) {
         return try Developer.query()
           .filter { $0.name == "Mathijs" }
           .first(in: $0)

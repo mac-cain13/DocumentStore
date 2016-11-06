@@ -10,7 +10,8 @@ import Foundation
 
 public struct DocumentStoreError: Error, CustomStringConvertible {
   public enum ErrorKind: Int {
-    case fetchRequestFailed = 1
+    case documentDescriptionInvalid = 1
+    case fetchRequestFailed
     case documentDataAttributeCorruption
   }
 

@@ -22,7 +22,7 @@ public struct DocumentDescriptor<DocumentType: Document> {
   }
 }
 
-public struct AnyDocumentDescriptor: Hashable {
+public struct AnyDocumentDescriptor: Hashable, Validatable {
   let identifier: String
   let indices: Set<UntypedAnyIndex>
 
@@ -31,6 +31,28 @@ public struct AnyDocumentDescriptor: Hashable {
   public init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
     self.identifier = descriptor.identifier
     self.indices = Set(descriptor.indices.map(UntypedAnyIndex.init))
+  }
+
+  func validate() -> [ValidationIssue] {
+    var issues: [ValidationIssue] = []
+
+    // Identifiers may not start with `_`
+    if identifier.characters.first == "_" {
+      issues.append("`\(identifier)` is an invalid identifier DocumentDescriptor, identifiers may not start with an `_`.")
+    }
+
+    // Indices also should be valid
+    issues += indices.flatMap { $0.validate() }
+
+    // Two indices may not have the same identifier
+    issues += indices
+      .map { $0.identifier }
+      .duplicates()
+      .map {
+        "DocumentDescriptor `\(identifier)` has multiple indices with `\($0)` as identifier, every index identifier must be unique."
+      }
+
+    return issues
   }
 
   public static func == (lhs: AnyDocumentDescriptor, rhs: AnyDocumentDescriptor) -> Bool {

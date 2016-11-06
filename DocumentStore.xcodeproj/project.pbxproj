@@ -23,6 +23,8 @@
 		D5FCEF341DCE18360028364C /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF331DCE18360028364C /* SortDescriptor.swift */; };
 		D5FCEF371DCF4E830028364C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF361DCF4E830028364C /* Extensions.swift */; };
 		D5FCEF391DCF54DF0028364C /* DocumentStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF381DCF54DF0028364C /* DocumentStoreError.swift */; };
+		D5FCEF401DCFC21A0028364C /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF3F1DCFC21A0028364C /* Validatable.swift */; };
+		D5FCEF421DCFC7C20028364C /* Array+Duplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF411DCFC7C20028364C /* Array+Duplicates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		D5FCEF331DCE18360028364C /* SortDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptor.swift; sourceTree = "<group>"; };
 		D5FCEF361DCF4E830028364C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D5FCEF381DCF54DF0028364C /* DocumentStoreError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStoreError.swift; sourceTree = "<group>"; };
+		D5FCEF3F1DCFC21A0028364C /* Validatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
+		D5FCEF411DCFC7C20028364C /* Array+Duplicates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Duplicates.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +141,8 @@
 				D5FCEF2B1DCDCF0A0028364C /* Logger.swift */,
 				D5FCEF361DCF4E830028364C /* Extensions.swift */,
 				D5FCEF381DCF54DF0028364C /* DocumentStoreError.swift */,
+				D5FCEF3F1DCFC21A0028364C /* Validatable.swift */,
+				D5FCEF411DCFC7C20028364C /* Array+Duplicates.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -276,8 +282,10 @@
 				D5FCEF341DCE18360028364C /* SortDescriptor.swift in Sources */,
 				D59047FB1DCBA44E000F2517 /* DocumentStore.swift in Sources */,
 				D53424E81DCD3F060051917D /* Query.swift in Sources */,
+				D5FCEF421DCFC7C20028364C /* Array+Duplicates.swift in Sources */,
 				D50219511DCD39FA00408ADC /* DocumentDescriptor.swift in Sources */,
 				D53424E51DCD3BB10051917D /* Transaction.swift in Sources */,
+				D5FCEF401DCFC21A0028364C /* Validatable.swift in Sources */,
 				D59048011DCBD9F8000F2517 /* Index.swift in Sources */,
 				D59047FF1DCBD139000F2517 /* Document.swift in Sources */,
 				D5FCEF371DCF4E830028364C /* Extensions.swift in Sources */,

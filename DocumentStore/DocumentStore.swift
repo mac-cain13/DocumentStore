@@ -11,12 +11,29 @@ import CoreData
 
 let DocumentDataAttributeName = "_DocumentData"
 
+/// DocumentStore
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
   private let logger: Logger
 
-  public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logger: Logger = NoLogger()) {
+  public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logger: Logger = NoLogger()) throws {
     self.logger = logger
+
+    // Validate document descriptors
+    logger.log(level: .debug, message: "Validating document descriptors...")
+
+    let validationIssues = documentDescriptors.validate() + documentDescriptors
+      .map { $0.identifier }
+      .duplicates()
+      .map { "Multiple DocumentDescriptors have `\($0)` as identifier, every document descriptor must have an unique identifier." }
+
+    guard validationIssues.isEmpty else {
+      let errorMessage = "One or more document descriptors are invalid:\n - " + validationIssues.joined(separator: "\n - ")
+      logger.log(level: .warn, message: errorMessage)
+      throw DocumentStoreError(kind: .documentDescriptionInvalid, message: errorMessage, underlyingError: nil)
+    }
+
+    logger.log(level: .debug, message: "Document descriptors valid.")
 
     // Generate data model
     logger.log(level: .debug, message: "Generating data model...")
