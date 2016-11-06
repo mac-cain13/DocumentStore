@@ -26,41 +26,16 @@ public enum CommitAction {
   case DiscardChanges
 }
 
-public final class Transaction {
-  private let context: NSManagedObjectContext
-  private let logger: Logger
+public class ReadTransaction {
+  fileprivate let context: NSManagedObjectContext
+  fileprivate let logger: Logger
 
   init(context: NSManagedObjectContext, logger: Logger) {
     self.context = context
     self.logger = logger
   }
 
-  private func fetchRequest<DocumentType, ResultType>(for query: Query<DocumentType>) -> NSFetchRequest<ResultType> {
-    let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.identifier)
-    request.predicate = query.predicate
-    request.sortDescriptors = query.sortDescriptors
-    request.fetchOffset = query.skip
-    if let limit = query.limit {
-      request.fetchLimit = limit
-    }
-
-    switch ResultType.self {
-    case is NSManagedObject.Type:
-      request.resultType = .managedObjectResultType
-    case is NSManagedObjectID.Type:
-      request.resultType = .managedObjectIDResultType
-    case is NSDictionary.Type:
-      request.resultType = .dictionaryResultType
-    case is NSNumber.Type:
-      request.resultType = .countResultType
-    default:
-      assertionFailure("This type of NSFetchRequestResult is not supported by DocumentStore.Transaction.")
-    }
-
-    return request
-  }
-
-  func count<DocumentType>(query: Query<DocumentType>) throws -> Int {
+  func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     // TODO: Check if document type is registered in this store
 
     let request: NSFetchRequest<NSNumber> = fetchRequest(for: query)
@@ -78,7 +53,7 @@ public final class Transaction {
     }
   }
 
-  func fetch<DocumentType>(query: Query<DocumentType>) throws -> [DocumentType] {
+  func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType] {
     // TODO: Check if document type is registered in this store
 
     // Set up the fetch request
@@ -126,12 +101,14 @@ public final class Transaction {
         }
       }
   }
+}
 
+public final class ReadWriteTransaction: ReadTransaction {
   @discardableResult
-  func delete<DocumentType>(query: Query<DocumentType>) throws -> Int {
+  public func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     // TODO: Check if document type is registered in this store
-    
-    let request: NSFetchRequest<NSManagedObject> = self.fetchRequest(for: query)
+
+    let request: NSFetchRequest<NSManagedObject> = fetchRequest(for: query)
     request.includesPropertyValues = false
 
     do {
@@ -170,4 +147,29 @@ public final class Transaction {
       try context.save()
     }
   }
+}
+
+private func fetchRequest<DocumentType, ResultType>(for query: Query<DocumentType>) -> NSFetchRequest<ResultType> {
+  let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.identifier)
+  request.predicate = query.predicate
+  request.sortDescriptors = query.sortDescriptors
+  request.fetchOffset = query.skip
+  if let limit = query.limit {
+    request.fetchLimit = limit
+  }
+
+  switch ResultType.self {
+  case is NSManagedObject.Type:
+    request.resultType = .managedObjectResultType
+  case is NSManagedObjectID.Type:
+    request.resultType = .managedObjectIDResultType
+  case is NSDictionary.Type:
+    request.resultType = .dictionaryResultType
+  case is NSNumber.Type:
+    request.resultType = .countResultType
+  default:
+    assertionFailure("This type of NSFetchRequestResult is not supported by DocumentStore.Transaction.")
+  }
+
+  return request
 }

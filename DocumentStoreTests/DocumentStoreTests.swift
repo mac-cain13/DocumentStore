@@ -96,9 +96,9 @@ class DocumentStoreTests: XCTestCase {
 //      }
 
       documentStore.read(handler: { _ in }) {
-        return try Developer.query(with: $0)
+        return try Developer.query()
           .filter { $0.name == "Mathijs" }
-          .first()
+          .first(in: $0)
       }
 
     }

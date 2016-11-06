@@ -36,7 +36,7 @@ public protocol Document {
 }
 
 public extension Document {
-  public static func query(with transaction: Transaction) -> Query<Self> {
-    return Query(transaction: transaction)
+  public static func query() -> Query<Self> {
+    return Query()
   }
 }

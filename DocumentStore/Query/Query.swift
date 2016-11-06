@@ -9,14 +9,12 @@
 import Foundation
 
 public struct Query<DocumentType: Document> {
-  private let transaction: Transaction
   private(set) var sortDescriptors: [NSSortDescriptor]
   private(set) var predicate: NSPredicate?
   private(set) var skip: Int
   private(set) var limit: Int?
 
-  init(transaction: Transaction) {
-    self.transaction = transaction
+  init() {
     self.sortDescriptors = []
     self.predicate = nil
     self.skip = 0
@@ -65,22 +63,22 @@ public struct Query<DocumentType: Document> {
     return orderBy { [closure($0)] }
   }
 
-  // MARK: Executing
+  // MARK: Fetching
 
-  public func count() throws -> Int {
-    return try transaction.count(query: self)
+  public func count(in transaction: ReadTransaction) throws -> Int {
+    return try transaction.count(matching: self)
   }
 
-  public func all() throws -> [DocumentType] {
-    return try transaction.fetch(query: self)
+  public func all(in transaction: ReadTransaction) throws -> [DocumentType] {
+    return try transaction.fetch(matching: self)
   }
 
-  public func first() throws -> DocumentType? {
-    return try limit(1).all().first
+  public func first(in transaction: ReadTransaction) throws -> DocumentType? {
+    return try limit(1).all(in: transaction).first
   }
 
   @discardableResult
-  public func delete() throws -> Int {
-    return try transaction.delete(query: self)
+  public func delete(in transaction: ReadWriteTransaction) throws -> Int {
+    return try transaction.delete(matching: self)
   }
 }

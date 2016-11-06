@@ -74,21 +74,21 @@ public final class DocumentStore {
   // MARK: Transaction initialization
 
   // TODO: Split up transactions and queries in read/readwrite
-  public func read<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (Transaction) throws -> T) {
+  public func read<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadTransaction) throws -> T) {
     readWrite(queue: queue, handler: handler) { transaction in
       let result = try actions(transaction)
       return (.DiscardChanges, result)
     }
   }
 
-  public func write(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<Void>) -> Void, actions: @escaping (Transaction) throws -> CommitAction) {
+  public func write(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<Void>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> CommitAction) {
     readWrite(queue: queue, handler: handler) { transaction in
       let commitAction = try actions(transaction)
       return (commitAction, ())
     }
   }
 
-  public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (Transaction) throws -> (CommitAction, T)) {
+  public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> (CommitAction, T)) {
     persistentContainer.performBackgroundTask { [logger] context in
       do {
         try context.setQueryGenerationFrom(NSQueryGenerationToken.current)
@@ -96,7 +96,7 @@ public final class DocumentStore {
         logger.log(level: .warn, message: "Failed to pin transaction, this could lead to inconsistent read operations.", error: error)
       }
 
-      let transaction = Transaction(context: context, logger: logger)
+      let transaction = ReadWriteTransaction(context: context, logger: logger)
       do {
         let (commitAction, result) = try actions(transaction)
 
