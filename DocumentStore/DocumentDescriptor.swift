@@ -22,7 +22,7 @@ public struct DocumentDescriptor<DocumentType: Document> {
   }
 }
 
-public struct AnyDocumentDescriptor: Validatable {
+public struct AnyDocumentDescriptor: Validatable, Equatable {
   let identifier: String
   let indices: [UntypedAnyIndex]
 
@@ -51,5 +51,9 @@ public struct AnyDocumentDescriptor: Validatable {
       }
 
     return issues
+  }
+
+  public static func == (lhs: AnyDocumentDescriptor, rhs: AnyDocumentDescriptor) -> Bool {
+    return lhs.identifier == rhs.identifier && lhs.indices == rhs.indices
   }
 }

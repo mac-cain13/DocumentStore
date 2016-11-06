@@ -14,9 +14,11 @@ let DocumentDataAttributeName = "_DocumentData"
 /// DocumentStore
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
+  private let documentDescriptors: [AnyDocumentDescriptor]
   private let logger: Logger
 
   public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logger: Logger = NoLogger()) throws {
+    self.documentDescriptors = documentDescriptors
     self.logger = logger
 
     // Validate document descriptors
@@ -98,14 +100,14 @@ public final class DocumentStore {
   }
 
   public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> (CommitAction, T)) {
-    persistentContainer.performBackgroundTask { [logger] context in
+    persistentContainer.performBackgroundTask { [logger, documentDescriptors] context in
       do {
         try context.setQueryGenerationFrom(NSQueryGenerationToken.current)
       } catch let error {
         logger.log(level: .warn, message: "Failed to pin transaction, this could lead to inconsistent read operations.", error: error)
       }
 
-      let transaction = ReadWriteTransaction(context: context, logger: logger)
+      let transaction = ReadWriteTransaction(context: context, documentDescriptors: documentDescriptors, logger: logger)
       do {
         let (commitAction, result) = try actions(transaction)
 

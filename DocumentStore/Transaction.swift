@@ -28,14 +28,29 @@ public enum CommitAction {
 
 public class ReadTransaction {
   fileprivate let context: NSManagedObjectContext
+  private let documentDescriptors: [AnyDocumentDescriptor]
   fileprivate let logger: Logger
 
-  init(context: NSManagedObjectContext, logger: Logger) {
+  init(context: NSManagedObjectContext, documentDescriptors: [AnyDocumentDescriptor], logger: Logger) {
     self.context = context
+    self.documentDescriptors = documentDescriptors
     self.logger = logger
   }
 
+  fileprivate func validateUseOfDocumentType<DocumentType: Document>(_: DocumentType.Type) throws {
+    guard documentDescriptors.contains(DocumentType.documentDescriptor.eraseType()) else {
+      let error = DocumentStoreError(
+        kind: .documentDescriptionNotRegistered,
+        message: "The document description with identifier '\(DocumentType.documentDescriptor.identifier)' is not registered with the DocumentStore this transaction is associated with, please pass all DocumentDescriptions that are used to the DocumentStore initializer.",
+        underlyingError: nil
+      )
+      throw TransactionError.DocumentStoreError(error)
+    }
+  }
+
   func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+    try validateUseOfDocumentType(DocumentType.self)
+
     let request: NSFetchRequest<NSNumber> = fetchRequest(for: query)
 
     do {
@@ -52,6 +67,8 @@ public class ReadTransaction {
   }
 
   func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType] {
+    try validateUseOfDocumentType(DocumentType.self)
+
     // Set up the fetch request
     let request: NSFetchRequest<NSManagedObject> = fetchRequest(for: query)
     request.returnsObjectsAsFaults = false
@@ -106,6 +123,8 @@ public class ReadTransaction {
 public final class ReadWriteTransaction: ReadTransaction {
   @discardableResult
   public func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+    try validateUseOfDocumentType(DocumentType.self)
+
     let request: NSFetchRequest<NSManagedObject> = fetchRequest(for: query)
     request.includesPropertyValues = false
 
@@ -125,6 +144,8 @@ public final class ReadWriteTransaction: ReadTransaction {
   }
 
   public func add<DocumentType: Document>(document: DocumentType) throws {
+    try validateUseOfDocumentType(DocumentType.self)
+
     let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
 
     do {

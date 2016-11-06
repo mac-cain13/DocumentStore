@@ -11,6 +11,7 @@ import Foundation
 public struct DocumentStoreError: Error, CustomStringConvertible {
   public enum ErrorKind: Int {
     case documentDescriptionInvalid = 1
+    case documentDescriptionNotRegistered
     case fetchRequestFailed
     case documentDataAttributeCorruption
   }

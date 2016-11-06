@@ -34,7 +34,7 @@ public struct AnyIndex<DocumentType: Document> {
   }
 }
 
-struct UntypedAnyIndex: Validatable {
+struct UntypedAnyIndex: Validatable, Equatable {
   let identifier: String
   let storageType: IndexStorageType
 
@@ -52,5 +52,9 @@ struct UntypedAnyIndex: Validatable {
     }
 
     return issues
+  }
+
+  static func == (lhs: UntypedAnyIndex, rhs: UntypedAnyIndex) -> Bool {
+    return lhs.identifier == rhs.identifier && lhs.storageType == rhs.storageType
   }
 }
