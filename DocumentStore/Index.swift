@@ -22,29 +22,21 @@ public struct Index<DocumentType: Document, ValueType: IndexValueType> {
   }
 }
 
-public struct AnyIndex<DocumentType: Document>: Hashable {
+public struct AnyIndex<DocumentType: Document> {
   let identifier: String
   let storageType: IndexStorageType
   let resolver: (DocumentType) -> Any
-
-  public var hashValue: Int { return identifier.hashValue }
 
   public init<ValueType: IndexValueType>(index: Index<DocumentType, ValueType>) {
     self.identifier = index.identifier
     self.storageType = ValueType.indexStorageType
     self.resolver = index.resolver
   }
-
-  public static func == (lhs: AnyIndex<DocumentType>, rhs: AnyIndex<DocumentType>) -> Bool {
-    return lhs.identifier == rhs.identifier
-  }
 }
 
-struct UntypedAnyIndex: Hashable, Validatable {
+struct UntypedAnyIndex: Validatable {
   let identifier: String
   let storageType: IndexStorageType
-
-  var hashValue: Int { return identifier.hashValue }
 
   init<DocumentType: Document>(index: AnyIndex<DocumentType>) {
     self.identifier = index.identifier
@@ -60,9 +52,5 @@ struct UntypedAnyIndex: Hashable, Validatable {
     }
 
     return issues
-  }
-
-  static func == (lhs: UntypedAnyIndex, rhs: UntypedAnyIndex) -> Bool {
-    return lhs.identifier == rhs.identifier
   }
 }

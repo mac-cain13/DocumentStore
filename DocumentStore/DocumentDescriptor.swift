@@ -22,15 +22,13 @@ public struct DocumentDescriptor<DocumentType: Document> {
   }
 }
 
-public struct AnyDocumentDescriptor: Hashable, Validatable {
+public struct AnyDocumentDescriptor: Validatable {
   let identifier: String
-  let indices: Set<UntypedAnyIndex>
-
-  public var hashValue: Int { return identifier.hashValue }
+  let indices: [UntypedAnyIndex]
 
   public init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
     self.identifier = descriptor.identifier
-    self.indices = Set(descriptor.indices.map(UntypedAnyIndex.init))
+    self.indices = descriptor.indices.map(UntypedAnyIndex.init)
   }
 
   func validate() -> [ValidationIssue] {
@@ -53,9 +51,5 @@ public struct AnyDocumentDescriptor: Hashable, Validatable {
       }
 
     return issues
-  }
-
-  public static func == (lhs: AnyDocumentDescriptor, rhs: AnyDocumentDescriptor) -> Bool {
-    return lhs.identifier == rhs.identifier
   }
 }
