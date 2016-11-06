@@ -78,4 +78,9 @@ public struct Query<DocumentType: Document> {
   public func first() throws -> DocumentType? {
     return try limit(1).all().first
   }
+
+  @discardableResult
+  public func delete() throws -> Int {
+    return try transaction.delete(query: self)
+  }
 }

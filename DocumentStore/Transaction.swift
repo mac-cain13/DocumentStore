@@ -127,6 +127,28 @@ public final class Transaction {
       }
   }
 
+  @discardableResult
+  func delete<DocumentType>(query: Query<DocumentType>) throws -> Int {
+    // TODO: Check if document type is registered in this store
+    
+    let request: NSFetchRequest<NSManagedObject> = self.fetchRequest(for: query)
+    request.includesPropertyValues = false
+
+    do {
+      let fetchResult = try context.fetch(request)
+      fetchResult.forEach(context.delete)
+      return fetchResult.count
+    } catch let underlyingError {
+      let error = DocumentStoreError(
+        kind: .fetchRequestFailed,
+        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        underlyingError: underlyingError
+      )
+      logger.log(level: .error, message: "Error while performing fetch.", error: error)
+      throw TransactionError.DocumentStoreError(error)
+    }
+  }
+
   public func add<DocumentType: Document>(document: DocumentType) throws {
     // TODO: Check if document type is registered in this store
     let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
