@@ -12,7 +12,11 @@ import XCTest
 class ConstantsTests: XCTestCase {
 
   func testDocumentDataAttributeName() {
-    XCTAssertEqual(DocumentDataAttributeName, "_DocumentData", "Unexpected constant values, changing constants will break existing users DocumentStores!")
+    XCTAssertEqual(
+      DocumentDataAttributeName,
+      "_DocumentData",
+      "Unexpected constant values, changing constants will break existing users DocumentStores!"
+    )
   }
 
 }

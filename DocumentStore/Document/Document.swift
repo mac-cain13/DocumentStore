@@ -16,7 +16,7 @@ public protocol Document {
 }
 
 public extension Document {
-  public static func query() -> Query<Self> {
-    return Query()
+  public static func all() -> Collection<Self> {
+    return Collection()
   }
 }

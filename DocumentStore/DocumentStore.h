@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double DocumentStoreVersionNumber;
 FOUNDATION_EXPORT const unsigned char DocumentStoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <DocumentStore/PublicHeader.h>
-
-

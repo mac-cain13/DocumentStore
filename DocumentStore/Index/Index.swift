@@ -27,7 +27,7 @@ public struct AnyIndex<DocumentType: Document> {
   let storageType: IndexStorageType
   let resolver: (DocumentType) -> Any
 
-  public init<ValueType: IndexValueType>(index: Index<DocumentType, ValueType>) {
+  init<ValueType: IndexValueType>(index: Index<DocumentType, ValueType>) {
     self.identifier = index.identifier
     self.storageType = ValueType.indexStorageType
     self.resolver = index.resolver
@@ -45,6 +45,11 @@ struct UntypedAnyIndex: Validatable, Equatable {
 
   func validate() -> [ValidationIssue] {
     var issues: [ValidationIssue] = []
+
+    // Identifiers may not be empty
+    if identifier.isEmpty {
+      issues.append("Index identifiers may not be empty.")
+    }
 
     // Identifiers may not start with `_`
     if identifier.characters.first == "_" {

@@ -20,10 +20,10 @@ public final class ReadWriteTransaction: ReadTransaction {
   }
 
   @discardableResult
-  public func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+  public func delete<DocumentType>(_ collection: Collection<DocumentType>) throws -> Int {
     try validateUseOfDocumentType(DocumentType.self)
 
-    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
+    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
     request.includesPropertyValues = false
 
     do {

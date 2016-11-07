@@ -29,7 +29,7 @@ extension Developer: Document {
   static let age: Index<Developer, Int> = { Index(identifier: "age") { $0.age } }()
 
   static let documentDescriptor = DocumentDescriptor<Developer>(
-    identifier: "Artist",
+    identifier: "Developer",
     indices: [
       name.eraseType(),
       age.eraseType()
@@ -91,12 +91,12 @@ class DocumentStoreTests: XCTestCase {
 //        try transaction.add(document: rswiftDeveloper)
 //        return .SaveChanges
 //      }
-
-      documentStore!.read(handler: { _ in }) {
-        return try Developer.query()
-          .filter { $0.name == "Mathijs" }
-          .first(in: $0)
-      }
+//
+//      documentStore!.read(handler: { _ in }) {
+//        return try Developer.all()
+//          .filter { $0.name == "Mathijs" }
+//          .first(in: $0)
+//      }
 
     }
 

@@ -1,5 +1,5 @@
 //
-//  Array+Duplicates.swift
+//  Sequence+Duplicates.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 06-11-16.
@@ -10,6 +10,6 @@ import Foundation
 
 extension Sequence where Iterator.Element: Hashable {
   func duplicates() -> Set<Iterator.Element> {
-    return Set(filter { element in !filter({ $0 == element }).isEmpty })
+    return Set(filter { element in filter({ $0 == element }).count > 1 })
   }
 }

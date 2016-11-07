@@ -1,5 +1,5 @@
 //
-//  Query+NSFetchRequest.swift
+//  Collection+NSFetchRequest.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 07-11-16.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension Query {
+extension Collection {
   func fetchRequest<ResultType>() -> NSFetchRequest<ResultType> {
     let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.identifier)
     request.predicate = predicate

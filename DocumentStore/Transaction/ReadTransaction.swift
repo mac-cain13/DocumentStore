@@ -31,10 +31,10 @@ public class ReadTransaction {
     }
   }
 
-  func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+  func count<DocumentType>(_ collection: Collection<DocumentType>) throws -> Int {
     try validateUseOfDocumentType(DocumentType.self)
 
-    let request: NSFetchRequest<NSNumber> = query.fetchRequest()
+    let request: NSFetchRequest<NSNumber> = collection.fetchRequest()
 
     do {
       return try context.count(for: request)
@@ -49,11 +49,11 @@ public class ReadTransaction {
     }
   }
 
-  func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType] {
+  func fetch<DocumentType>(_ collection: Collection<DocumentType>) throws -> [DocumentType] {
     try validateUseOfDocumentType(DocumentType.self)
 
     // Set up the fetch request
-    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
+    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
     request.returnsObjectsAsFaults = false
 
     // Perform the fetch
