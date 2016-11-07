@@ -101,6 +101,8 @@ public final class DocumentStore {
 
   public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> (CommitAction, T)) {
     persistentContainer.performBackgroundTask { [logger, documentDescriptors] context in
+      context.mergePolicy = NSMergePolicy.overwrite
+
       do {
         try context.setQueryGenerationFrom(NSQueryGenerationToken.current)
       } catch let error {
