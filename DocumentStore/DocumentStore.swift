@@ -9,68 +9,40 @@
 import Foundation
 import CoreData
 
-let DocumentDataAttributeName = "_DocumentData"
+public struct DocumentStoreError: Error, CustomStringConvertible {
+  public enum ErrorKind: Int {
+    case documentDescriptionInvalid = 1
+    case documentDescriptionNotRegistered
+    case fetchRequestFailed
+    case documentDataAttributeCorruption
+  }
 
-/// DocumentStore
+  public let kind: ErrorKind
+  public let message: String
+  public let underlyingError: Error?
+
+  public var description: String {
+    let underlyingErrorDescription = underlyingError.map { " - \($0)" } ?? ""
+    return "DocumentStoreError #\(kind.rawValue): \(message)\(underlyingErrorDescription)"
+  }
+}
+
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
   private let documentDescriptors: [AnyDocumentDescriptor]
   private let logger: Logger
 
-  public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logger: Logger = NoLogger()) throws {
+  public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger = NoLogger()) throws {
     self.documentDescriptors = documentDescriptors
     self.logger = logger
 
     // Validate document descriptors
     logger.log(level: .debug, message: "Validating document descriptors...")
-
-    let validationIssues = documentDescriptors.validate() + documentDescriptors
-      .map { $0.identifier }
-      .duplicates()
-      .map { "Multiple DocumentDescriptors have `\($0)` as identifier, every document descriptor must have an unique identifier." }
-
-    guard validationIssues.isEmpty else {
-      let errorMessage = "One or more document descriptors are invalid:\n - " + validationIssues.joined(separator: "\n - ")
-      logger.log(level: .warn, message: errorMessage)
-      throw DocumentStoreError(kind: .documentDescriptionInvalid, message: errorMessage, underlyingError: nil)
-    }
-
-    logger.log(level: .debug, message: "Document descriptors valid.")
+    try validate(documentDescriptors, logTo: logger)
 
     // Generate data model
     logger.log(level: .debug, message: "Generating data model...")
-
-    logger.log(level: .trace, message: "  Creating shared attribute `_DocumentData`...")
-    let documentDataAttribute = NSAttributeDescription()
-    documentDataAttribute.name = DocumentDataAttributeName
-    documentDataAttribute.attributeType = .binaryDataAttributeType
-    documentDataAttribute.isIndexed = false
-    documentDataAttribute.isOptional = false
-    documentDataAttribute.allowsExternalBinaryDataStorage = true
-
-    let model = NSManagedObjectModel()
-    model.entities = documentDescriptors.map { documentDescriptor in
-      logger.log(level: .trace, message: "  Creating entity `\(documentDescriptor.identifier)`...")
-
-      let indexAttributes = documentDescriptor.indices.map { index -> NSAttributeDescription in
-        logger.log(level: .trace, message: "    Creating attribute `\(index.identifier)` of type \(index.storageType.attributeType)...")
-
-        let attribute = NSAttributeDescription()
-        attribute.name = index.identifier
-        attribute.attributeType = index.storageType.attributeType
-        attribute.isIndexed = true
-        attribute.isOptional = false
-        attribute.allowsExternalBinaryDataStorage = false
-        return attribute
-      }
-
-      let entity = NSEntityDescription()
-      entity.name = documentDescriptor.identifier
-      entity.properties = [documentDataAttribute] + indexAttributes
-      return entity
-    }
-
-    logger.log(level: .debug, message: "Model generation finished.")
+    let model = managedObjectModel(from: documentDescriptors, logTo: logger)
 
     // Setup persistent stack
     logger.log(level: .debug, message: "Setting up persistent store...")
@@ -109,7 +81,7 @@ public final class DocumentStore {
         logger.log(level: .warn, message: "Failed to pin transaction, this could lead to inconsistent read operations.", error: error)
       }
 
-      let transaction = ReadWriteTransaction(context: context, documentDescriptors: documentDescriptors, logger: logger)
+      let transaction = ReadWriteTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
       do {
         let (commitAction, result) = try actions(transaction)
 

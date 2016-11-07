@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  Range+AdvancedBy.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 06-11-16.

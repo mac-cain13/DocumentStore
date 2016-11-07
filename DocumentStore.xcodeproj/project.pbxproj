@@ -21,10 +21,10 @@
 		D5FCEF301DCDF9230028364C /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF2F1DCDF9230028364C /* Predicate.swift */; };
 		D5FCEF321DCE01B80028364C /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF311DCE01B80028364C /* Expression.swift */; };
 		D5FCEF341DCE18360028364C /* SortDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF331DCE18360028364C /* SortDescriptor.swift */; };
-		D5FCEF371DCF4E830028364C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF361DCF4E830028364C /* Extensions.swift */; };
-		D5FCEF391DCF54DF0028364C /* DocumentStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF381DCF54DF0028364C /* DocumentStoreError.swift */; };
+		D5FCEF371DCF4E830028364C /* Range+AdvancedBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF361DCF4E830028364C /* Range+AdvancedBy.swift */; };
 		D5FCEF401DCFC21A0028364C /* Validatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF3F1DCFC21A0028364C /* Validatable.swift */; };
 		D5FCEF421DCFC7C20028364C /* Array+Duplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF411DCFC7C20028364C /* Array+Duplicates.swift */; };
+		D5FCEF441DD05E4D0028364C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF431DD05E4D0028364C /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +55,10 @@
 		D5FCEF2F1DCDF9230028364C /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
 		D5FCEF311DCE01B80028364C /* Expression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
 		D5FCEF331DCE18360028364C /* SortDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptor.swift; sourceTree = "<group>"; };
-		D5FCEF361DCF4E830028364C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D5FCEF381DCF54DF0028364C /* DocumentStoreError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStoreError.swift; sourceTree = "<group>"; };
+		D5FCEF361DCF4E830028364C /* Range+AdvancedBy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Range+AdvancedBy.swift"; sourceTree = "<group>"; };
 		D5FCEF3F1DCFC21A0028364C /* Validatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validatable.swift; sourceTree = "<group>"; };
 		D5FCEF411DCFC7C20028364C /* Array+Duplicates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Duplicates.swift"; sourceTree = "<group>"; };
+		D5FCEF431DD05E4D0028364C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +114,7 @@
 			children = (
 				D5F593BD1DC9C6F2005B214D /* DocumentStore.h */,
 				D5F593BE1DC9C6F2005B214D /* Info.plist */,
+				D5FCEF431DD05E4D0028364C /* Constants.swift */,
 				D59047FA1DCBA44E000F2517 /* DocumentStore.swift */,
 				D53424E41DCD3BB10051917D /* Transaction.swift */,
 				D59047FE1DCBD139000F2517 /* Document.swift */,
@@ -139,9 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				D5FCEF2B1DCDCF0A0028364C /* Logger.swift */,
-				D5FCEF361DCF4E830028364C /* Extensions.swift */,
-				D5FCEF381DCF54DF0028364C /* DocumentStoreError.swift */,
 				D5FCEF3F1DCFC21A0028364C /* Validatable.swift */,
+				D5FCEF361DCF4E830028364C /* Range+AdvancedBy.swift */,
 				D5FCEF411DCFC7C20028364C /* Array+Duplicates.swift */,
 			);
 			path = Util;
@@ -278,17 +278,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5FCEF391DCF54DF0028364C /* DocumentStoreError.swift in Sources */,
 				D5FCEF341DCE18360028364C /* SortDescriptor.swift in Sources */,
 				D59047FB1DCBA44E000F2517 /* DocumentStore.swift in Sources */,
 				D53424E81DCD3F060051917D /* Query.swift in Sources */,
 				D5FCEF421DCFC7C20028364C /* Array+Duplicates.swift in Sources */,
 				D50219511DCD39FA00408ADC /* DocumentDescriptor.swift in Sources */,
 				D53424E51DCD3BB10051917D /* Transaction.swift in Sources */,
+				D5FCEF441DD05E4D0028364C /* Constants.swift in Sources */,
 				D5FCEF401DCFC21A0028364C /* Validatable.swift in Sources */,
 				D59048011DCBD9F8000F2517 /* Index.swift in Sources */,
 				D59047FF1DCBD139000F2517 /* Document.swift in Sources */,
-				D5FCEF371DCF4E830028364C /* Extensions.swift in Sources */,
+				D5FCEF371DCF4E830028364C /* Range+AdvancedBy.swift in Sources */,
 				D50219531DCD3A1D00408ADC /* IndexValueType.swift in Sources */,
 				D5FCEF301DCDF9230028364C /* Predicate.swift in Sources */,
 				D5FCEF2C1DCDCF0A0028364C /* Logger.swift in Sources */,

@@ -26,11 +26,11 @@ extension Logger {
   }
 }
 
-class NoLogger: Logger {
+final class NoLogger: Logger {
   func log(level: LogLevel, message: String) {}
 }
 
-class PrintLogger: Logger {
+final class PrintLogger: Logger {
   func log(level: LogLevel, message: String) {
     let logLevelString: String
 

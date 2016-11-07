@@ -31,7 +31,7 @@ public class ReadTransaction {
   private let documentDescriptors: [AnyDocumentDescriptor]
   fileprivate let logger: Logger
 
-  init(context: NSManagedObjectContext, documentDescriptors: [AnyDocumentDescriptor], logger: Logger) {
+  init(context: NSManagedObjectContext, documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger) {
     self.context = context
     self.documentDescriptors = documentDescriptors
     self.logger = logger
