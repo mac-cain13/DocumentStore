@@ -1,5 +1,5 @@
 //
-//  Transaction.swift
+//  ReadTransaction.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 04-11-16.
@@ -9,27 +9,10 @@
 import Foundation
 import CoreData
 
-public enum TransactionResult<T> {
-  case Success(T)
-  case Failure(TransactionError)
-}
-
-public enum TransactionError: Error {
-  case ActionThrewError(Error)
-  case SaveFailed(Error)
-  case SerializationFailed(Error)
-  case DocumentStoreError(DocumentStoreError)
-}
-
-public enum CommitAction {
-  case SaveChanges
-  case DiscardChanges
-}
-
 public class ReadTransaction {
-  fileprivate let context: NSManagedObjectContext
+  private let context: NSManagedObjectContext
   private let documentDescriptors: [AnyDocumentDescriptor]
-  fileprivate let logger: Logger
+  private let logger: Logger
 
   init(context: NSManagedObjectContext, documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger) {
     self.context = context
@@ -37,7 +20,7 @@ public class ReadTransaction {
     self.logger = logger
   }
 
-  fileprivate func validateUseOfDocumentType<DocumentType: Document>(_: DocumentType.Type) throws {
+  func validateUseOfDocumentType<DocumentType: Document>(_: DocumentType.Type) throws {
     guard documentDescriptors.contains(DocumentType.documentDescriptor.eraseType()) else {
       let error = DocumentStoreError(
         kind: .documentDescriptionNotRegistered,
@@ -51,7 +34,7 @@ public class ReadTransaction {
   func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     try validateUseOfDocumentType(DocumentType.self)
 
-    let request: NSFetchRequest<NSNumber> = fetchRequest(for: query)
+    let request: NSFetchRequest<NSNumber> = query.fetchRequest()
 
     do {
       return try context.count(for: request)
@@ -70,7 +53,7 @@ public class ReadTransaction {
     try validateUseOfDocumentType(DocumentType.self)
 
     // Set up the fetch request
-    let request: NSFetchRequest<NSManagedObject> = fetchRequest(for: query)
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     request.returnsObjectsAsFaults = false
 
     // Perform the fetch
@@ -118,76 +101,4 @@ public class ReadTransaction {
         }
       }
   }
-}
-
-public final class ReadWriteTransaction: ReadTransaction {
-  @discardableResult
-  public func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
-    try validateUseOfDocumentType(DocumentType.self)
-
-    let request: NSFetchRequest<NSManagedObject> = fetchRequest(for: query)
-    request.includesPropertyValues = false
-
-    do {
-      let fetchResult = try context.fetch(request)
-      fetchResult.forEach(context.delete)
-      return fetchResult.count
-    } catch let underlyingError {
-      let error = DocumentStoreError(
-        kind: .fetchRequestFailed,
-        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
-        underlyingError: underlyingError
-      )
-      logger.log(level: .error, message: "Error while performing fetch.", error: error)
-      throw TransactionError.DocumentStoreError(error)
-    }
-  }
-
-  public func add<DocumentType: Document>(document: DocumentType) throws {
-    try validateUseOfDocumentType(DocumentType.self)
-
-    let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
-
-    do {
-      let documentData = try document.serializeDocument()
-      entity.setValue(documentData, forKey: DocumentDataAttributeName)
-    } catch let error {
-      throw TransactionError.SerializationFailed(error)
-    }
-
-    DocumentType.documentDescriptor.indices.forEach {
-      entity.setValue($0.resolver(document), forKey: $0.identifier)
-    }
-  }
-
-  func saveChanges() throws {
-    if context.hasChanges {
-      try context.save()
-    }
-  }
-}
-
-private func fetchRequest<DocumentType, ResultType>(for query: Query<DocumentType>) -> NSFetchRequest<ResultType> {
-  let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.identifier)
-  request.predicate = query.predicate
-  request.sortDescriptors = query.sortDescriptors
-  request.fetchOffset = query.skip
-  if let limit = query.limit {
-    request.fetchLimit = limit
-  }
-
-  switch ResultType.self {
-  case is NSManagedObject.Type:
-    request.resultType = .managedObjectResultType
-  case is NSManagedObjectID.Type:
-    request.resultType = .managedObjectIDResultType
-  case is NSDictionary.Type:
-    request.resultType = .dictionaryResultType
-  case is NSNumber.Type:
-    request.resultType = .countResultType
-  default:
-    assertionFailure("This type of NSFetchRequestResult is not supported by DocumentStore.Transaction.")
-  }
-
-  return request
 }

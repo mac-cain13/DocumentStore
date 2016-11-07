@@ -1,8 +1,8 @@
 //
-//  Document.swift
+//  DocumentDeserializationError.swift
 //  DocumentStore
 //
-//  Created by Mathijs Kadijk on 03-11-16.
+//  Created by Mathijs Kadijk on 07-11-16.
 //  Copyright © 2016 Mathijs Kadijk. All rights reserved.
 //
 
@@ -23,18 +23,5 @@ public struct DocumentDeserializationError: Error {
   public init(resolution: Resolution, underlyingError: Error) {
     self.resolution = resolution
     self.underlyingError = underlyingError
-  }
-}
-
-public protocol Document {
-  static var documentDescriptor: DocumentDescriptor<Self> { get }
-
-  static func deserializeDocument(from data: Data) throws -> Self
-  func serializeDocument() throws -> Data
-}
-
-public extension Document {
-  public static func query() -> Query<Self> {
-    return Query()
   }
 }

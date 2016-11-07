@@ -9,24 +9,6 @@
 import Foundation
 import CoreData
 
-public struct DocumentStoreError: Error, CustomStringConvertible {
-  public enum ErrorKind: Int {
-    case documentDescriptionInvalid = 1
-    case documentDescriptionNotRegistered
-    case fetchRequestFailed
-    case documentDataAttributeCorruption
-  }
-
-  public let kind: ErrorKind
-  public let message: String
-  public let underlyingError: Error?
-
-  public var description: String {
-    let underlyingErrorDescription = underlyingError.map { " - \($0)" } ?? ""
-    return "DocumentStoreError #\(kind.rawValue): \(message)\(underlyingErrorDescription)"
-  }
-}
-
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
   private let documentDescriptors: [AnyDocumentDescriptor]
