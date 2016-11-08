@@ -8,59 +8,34 @@
 
 import Foundation
 
-public struct Collection<DocumentType: Document> {
-  private(set) var sortDescriptors: [NSSortDescriptor]
-  private(set) var predicate: NSPredicate?
-  private(set) var skip: Int
-  private(set) var limit: Int?
+public protocol Collection {
+  associatedtype DocumentType: Document
 
-  init() {
-    self.sortDescriptors = []
-    self.predicate = nil
-    self.skip = 0
-    self.limit = nil
-  }
+  var predicate: Predicate<DocumentType>? { get }
+  var skip: Int { get }
+  var limit: Int? { get }
 
   // MARK: Limiting
 
-  public func skip(_ number: Int) -> Collection<DocumentType> {
-    var collection = self
-    collection.skip = skip + number
-    return collection
-  }
+  func skip(_ number: Int) -> Self
 
-  public func limit(_ number: Int) -> Collection<DocumentType> {
-    var collection = self
-    collection.limit = number
-    return collection
-  }
+  func limit(_ number: Int) -> Self
 
   // MARK: Filtering
 
-  public func filter(_ closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Collection<DocumentType> {
-    let predicate = closure(DocumentType.self).predicate
+  func filter(isIncluded closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Self
 
-    var collection = self
-    collection.predicate = collection.predicate.map { NSCompoundPredicate(type: .and, subpredicates: [$0, predicate]) } ?? predicate
-    return collection
-  }
+  // MARK: Ordering
 
-  public func exclude(_ closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Collection<DocumentType> {
+  func orderBy(_ closure: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> OrderedCollection<DocumentType>
+}
+
+public extension Collection {
+
+  // MARK: Filtering
+
+  public func exclude(_ closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Self {
     return filter { !closure($0) }
-  }
-
-  // MARK: Sorting
-
-  public func orderBy(_ closure: (DocumentType.Type) -> [SortDescriptor<DocumentType>]) -> Collection<DocumentType> {
-    let sortDescriptors = closure(DocumentType.self).map { $0.sortDescriptor }
-
-    var collection = self
-    collection.sortDescriptors = sortDescriptors
-    return collection
-  }
-
-  public func orderBy(_ closure: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> Collection<DocumentType> {
-    return orderBy { [closure($0)] }
   }
 
   // MARK: Fetching

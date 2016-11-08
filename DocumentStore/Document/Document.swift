@@ -16,7 +16,7 @@ public protocol Document {
 }
 
 public extension Document {
-  public static func all() -> Collection<Self> {
-    return Collection()
+  public static func all() -> UnorderedCollection<Self> {
+    return UnorderedCollection()
   }
 }

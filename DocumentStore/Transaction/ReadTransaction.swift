@@ -31,8 +31,8 @@ public class ReadTransaction {
     }
   }
 
-  func count<DocumentType>(_ collection: Collection<DocumentType>) throws -> Int {
-    try validateUseOfDocumentType(DocumentType.self)
+  func count<CollectionType: Collection>(_ collection: CollectionType) throws -> Int {
+    try validateUseOfDocumentType(CollectionType.DocumentType.self.self)
 
     let request: NSFetchRequest<NSNumber> = collection.fetchRequest()
 
@@ -41,7 +41,7 @@ public class ReadTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .fetchRequestFailed,
-        message: "Failed to count '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to count '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing count.", error: error)
@@ -49,8 +49,8 @@ public class ReadTransaction {
     }
   }
 
-  func fetch<DocumentType>(_ collection: Collection<DocumentType>) throws -> [DocumentType] {
-    try validateUseOfDocumentType(DocumentType.self)
+  func fetch<CollectionType: Collection>(_ collection: CollectionType) throws -> [CollectionType.DocumentType] {
+    try validateUseOfDocumentType(CollectionType.DocumentType.self)
 
     // Set up the fetch request
     let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
@@ -63,7 +63,7 @@ public class ReadTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .fetchRequestFailed,
-        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to fetch '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
@@ -77,16 +77,16 @@ public class ReadTransaction {
           guard let documentData = $0.value(forKey: DocumentDataAttributeName) as? Data else {
             let error = DocumentStoreError(
               kind: .documentDataAttributeCorruption,
-              message: "Failed to retrieve '\(DocumentDataAttributeName)' attribute contents and cast it to `Data` for a '\(DocumentType.documentDescriptor.identifier)' document. This is an error in the DocumentStore library, please report this issue.",
+              message: "Failed to retrieve '\(DocumentDataAttributeName)' attribute contents and cast it to `Data` for a '\(CollectionType.DocumentType.documentDescriptor.identifier)' document. This is an error in the DocumentStore library, please report this issue.",
               underlyingError: nil
             )
             logger.log(level: .error, message: "Encountered corrupt '\(DocumentDataAttributeName)' attribute.", error: error)
             throw DocumentDeserializationError(resolution: .Skip, underlyingError: error)
           }
 
-          return try DocumentType.deserializeDocument(from: documentData)
+          return try CollectionType.DocumentType.deserializeDocument(from: documentData)
         } catch let error as DocumentDeserializationError {
-          logger.log(level: .warn, message: "Deserializing '\(DocumentType.documentDescriptor.identifier)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
+          logger.log(level: .warn, message: "Deserializing '\(CollectionType.DocumentType.documentDescriptor.identifier)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
 
           switch error.resolution {
           case .Delete:

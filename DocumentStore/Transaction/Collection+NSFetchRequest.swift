@@ -12,11 +12,15 @@ import CoreData
 extension Collection {
   func fetchRequest<ResultType>() -> NSFetchRequest<ResultType> {
     let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.identifier)
-    request.predicate = predicate
-    request.sortDescriptors = sortDescriptors
+    request.predicate = predicate?.predicate
     request.fetchOffset = skip
+
     if let limit = limit {
       request.fetchLimit = limit
+    }
+
+    if let orderedCollection = self as? OrderedCollection<DocumentType> {
+      request.sortDescriptors = orderedCollection.sortDescriptors.map { $0.sortDescriptor }
     }
 
     switch ResultType.self {

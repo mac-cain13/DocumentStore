@@ -55,7 +55,11 @@ prefix public func ! <DocumentType>(predicate: Predicate<DocumentType>) -> Predi
 
 // MARK: Predicate combinators
 
-public func && <DocumentType>(left: Predicate<DocumentType>, right: Predicate<DocumentType>) -> Predicate<DocumentType> {
+public func && <DocumentType>(left: Predicate<DocumentType>?, right: Predicate<DocumentType>) -> Predicate<DocumentType> {
+  guard let left = left else {
+    return right
+  }
+
   let predicate = NSCompoundPredicate(type: .and, subpredicates: [left.predicate, right.predicate])
   return Predicate(predicate: predicate)
 }

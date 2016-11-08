@@ -20,8 +20,8 @@ public final class ReadWriteTransaction: ReadTransaction {
   }
 
   @discardableResult
-  public func delete<DocumentType>(_ collection: Collection<DocumentType>) throws -> Int {
-    try validateUseOfDocumentType(DocumentType.self)
+  public func delete<CollectionType: Collection>(_ collection: CollectionType) throws -> Int {
+    try validateUseOfDocumentType(CollectionType.DocumentType.self)
 
     let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
     request.includesPropertyValues = false
@@ -33,7 +33,7 @@ public final class ReadWriteTransaction: ReadTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .fetchRequestFailed,
-        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to fetch '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
