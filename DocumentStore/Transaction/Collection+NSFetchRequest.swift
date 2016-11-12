@@ -13,10 +13,10 @@ extension Collection {
   func fetchRequest<ResultType>() -> NSFetchRequest<ResultType> {
     let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.identifier)
     request.predicate = predicate?.predicate
-    request.fetchOffset = skip
+    request.fetchOffset = Int(exactly: skip) ?? Int.max
 
     if let limit = limit {
-      request.fetchLimit = limit
+      request.fetchLimit = Int(exactly: limit) ?? Int.max
     }
 
     if let orderedCollection = self as? OrderedCollection<DocumentType> {

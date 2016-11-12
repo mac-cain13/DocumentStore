@@ -8,15 +8,15 @@
 
 import Foundation
 
-public struct OrderedCollection<Type: Document>: UnorderedCollectionType {
+public struct OrderedCollection<Type: Document>: Collection {
   public typealias DocumentType = Type
 
   internal(set) public var sortDescriptors: [SortDescriptor<DocumentType>]
   internal(set) public var predicate: Predicate<DocumentType>?
-  internal(set) public var skip: Int
-  internal(set) public var limit: Int?
+  internal(set) public var skip: UInt
+  internal(set) public var limit: UInt?
 
-  init<CollectionType: UnorderedCollectionType>(collection: CollectionType, sortDescriptors: [SortDescriptor<DocumentType>]) where CollectionType.DocumentType == DocumentType {
+  init<CollectionType: Collection>(collection: CollectionType, sortDescriptors: [SortDescriptor<DocumentType>]) where CollectionType.DocumentType == DocumentType {
     self.sortDescriptors = sortDescriptors
     self.predicate = collection.predicate
     self.skip = collection.skip

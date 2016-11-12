@@ -2,40 +2,57 @@
 //  Collection.swift
 //  DocumentStore
 //
-//  Created by Mathijs Kadijk on 04-11-16.
+//  Created by Mathijs Kadijk on 12-11-16.
 //  Copyright © 2016 Mathijs Kadijk. All rights reserved.
 //
 
 import Foundation
 
-public protocol Collection {
+/// Alias solely for testing
+typealias DocumentStoreCollection = Collection
+
+protocol Collection {
   associatedtype DocumentType: Document
 
-  var predicate: Predicate<DocumentType>? { get }
-  var skip: Int { get }
-  var limit: Int? { get }
+  var predicate: Predicate<DocumentType>? { get set }
+  var skip: UInt { get set }
+  var limit: UInt? { get set }
+}
+
+extension Collection {
 
   // MARK: Limiting
 
-  func skip(_ number: Int) -> Self
+  public func skipping(upTo numberOfItems: UInt) -> Self {
+    var collection = self
+    collection.skip = skip + numberOfItems
+    return collection
+  }
 
-  func limit(_ number: Int) -> Self
+  public func limiting(upTo numberOfItems: UInt) -> Self {
+    assert(numberOfItems > 0, "Number of items to limit to must be greater than zero.")
+
+    var collection = self
+    collection.limit = min(limit ?? UInt.max, numberOfItems)
+    return collection
+  }
 
   // MARK: Filtering
 
-  func filter(isIncluded closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Self
+  public func filtering(_ isIncluded: (DocumentType.Type) -> Predicate<DocumentType>) -> Self {
+    var collection = self
+    collection.predicate = collection.predicate && isIncluded(DocumentType.self)
+    return collection
+  }
+
+  public func excluding(_ closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Self {
+    return filtering { !closure($0) }
+  }
 
   // MARK: Ordering
 
-  func orderBy(_ closure: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> OrderedCollection<DocumentType>
-}
-
-public extension Collection {
-
-  // MARK: Filtering
-
-  public func exclude(_ closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Self {
-    return filter { !closure($0) }
+  public func ordered(by sortDescriptor: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> OrderedCollection<DocumentType> {
+    return OrderedCollection(collection: self, sortDescriptors: [sortDescriptor(DocumentType.self)])
   }
 
   // MARK: Fetching
@@ -49,7 +66,7 @@ public extension Collection {
   }
 
   public func first(in transaction: ReadTransaction) throws -> DocumentType? {
-    return try limit(1).array(in: transaction).first
+    return try limiting(upTo: 1).array(in: transaction).first
   }
 
   @discardableResult

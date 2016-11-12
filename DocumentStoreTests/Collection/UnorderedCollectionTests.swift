@@ -1,5 +1,5 @@
 //
-//  DocumentTests.swift
+//  UnorderedCollectionTests.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 07-11-16.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import DocumentStore
 
-class DocumentTests: XCTestCase {
+class UnorderedCollectionTests: XCTestCase {
 
   private struct TestDocument: Document {
     static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
@@ -23,12 +23,17 @@ class DocumentTests: XCTestCase {
     }
   }
 
-  func testAllHasNoRestrictions() {
-    let collectionFromDocument = TestDocument.all()
+  private var collection = UnorderedCollection<TestDocument>()
 
-    XCTAssertNil(collectionFromDocument.predicate)
-    XCTAssertEqual(collectionFromDocument.skip, 0)
-    XCTAssertNil(collectionFromDocument.limit)
+  override func setUp() {
+    super.setUp()
+    collection = UnorderedCollection<TestDocument>()
+  }
+
+  func testNoRestrictionsByDefault() {
+    XCTAssertNil(collection.predicate)
+    XCTAssertEqual(collection.skip, 0)
+    XCTAssertNil(collection.limit)
   }
 
 }

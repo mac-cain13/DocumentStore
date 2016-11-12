@@ -63,7 +63,8 @@ public final class DocumentStore {
         logger.log(level: .warn, message: "Failed to pin transaction, this could lead to inconsistent read operations.", error: error)
       }
 
-      let transaction = ReadWriteTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
+      let coreDataTransaction = CoreDataTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
+      let transaction = ReadWriteTransaction(transaction: coreDataTransaction)
       do {
         let (commitAction, result) = try actions(transaction)
 
