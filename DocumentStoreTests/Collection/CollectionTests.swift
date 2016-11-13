@@ -8,76 +8,8 @@
 
 import XCTest
 @testable import DocumentStore
-import CoreData
 
 class CollectionTests: XCTestCase {
-
-  private struct TestDocument: Document {
-    static let isTest = Index<TestDocument, Bool>(identifier: "isTest") { _ in false }
-
-    static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [])
-
-    func serializeDocument() throws -> Data {
-      return Data()
-    }
-
-    static func deserializeDocument(from data: Data) throws -> TestDocument {
-      return TestDocument()
-    }
-  }
-
-  private struct TestCollection: DocumentStoreCollection {
-    typealias DocumentType = TestDocument
-
-    var predicate: Predicate<DocumentType>?
-    var skip: UInt
-    var limit: UInt?
-
-    init() {
-      self.predicate = nil
-      self.skip = 0
-      self.limit = nil
-    }
-  }
-
-  private class TestTransaction: ReadWritableTransaction {
-    var countCalls = 0
-    var fetchCalls = 0
-    var deleteCalls = 0
-    var addCalls = 0
-    var saveChangesCalls = 0
-
-    var fetchLimitCallback: ((UInt?) -> Void)?
-
-    func count<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> Int {
-      countCalls += 1
-      return 2
-    }
-
-    func fetch<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> [CollectionType.DocumentType] {
-      fetchLimitCallback?(collection.limit)
-
-      fetchCalls += 1
-      return [
-        try? CollectionType.DocumentType.deserializeDocument(from: Data()),
-        try? CollectionType.DocumentType.deserializeDocument(from: Data())
-      ].flatMap { $0 }
-    }
-
-    @discardableResult
-    func delete<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> Int {
-      deleteCalls += 1
-      return 1
-    }
-
-    func add<DocumentType: Document>(document: DocumentType) throws {
-      addCalls += 1
-    }
-
-    func saveChanges() throws {
-      saveChangesCalls += 1
-    }
-  }
 
   private var collection = TestCollection()
 
@@ -207,5 +139,71 @@ class CollectionTests: XCTestCase {
     } catch {
       XCTFail("Unexpected error")
     }
+  }
+}
+
+private struct TestDocument: Document {
+  static let isTest = Index<TestDocument, Bool>(identifier: "") { _ in false }
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+
+  func serializeDocument() throws -> Data {
+    return Data()
+  }
+
+  static func deserializeDocument(from data: Data) throws -> TestDocument {
+    return TestDocument()
+  }
+}
+
+private struct TestCollection: DocumentStoreCollection {
+  typealias DocumentType = TestDocument
+
+  var predicate: Predicate<DocumentType>?
+  var skip: UInt
+  var limit: UInt?
+
+  init() {
+    self.predicate = nil
+    self.skip = 0
+    self.limit = nil
+  }
+}
+
+private class TestTransaction: ReadWritableTransaction {
+  var countCalls = 0
+  var fetchCalls = 0
+  var deleteCalls = 0
+  var addCalls = 0
+  var saveChangesCalls = 0
+
+  var fetchLimitCallback: ((UInt?) -> Void)?
+
+  func count<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> Int {
+    countCalls += 1
+    return 2
+  }
+
+  func fetch<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> [CollectionType.DocumentType] {
+    fetchLimitCallback?(collection.limit)
+
+    fetchCalls += 1
+    return [
+      try? CollectionType.DocumentType.deserializeDocument(from: Data()),
+      try? CollectionType.DocumentType.deserializeDocument(from: Data())
+      ].flatMap { $0 }
+  }
+
+  @discardableResult
+  func delete<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> Int {
+    deleteCalls += 1
+    return 1
+  }
+
+  func add<DocumentType: Document>(document: DocumentType) throws {
+    addCalls += 1
+  }
+
+  func saveChanges() throws {
+    saveChangesCalls += 1
   }
 }

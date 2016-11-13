@@ -11,18 +11,6 @@ import XCTest
 
 class DocumentDescriptorTests: XCTestCase {
 
-  private struct TestDocument: Document {
-    static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
-
-    func serializeDocument() throws -> Data {
-      return Data()
-    }
-
-    static func deserializeDocument(from data: Data) throws -> TestDocument {
-      return TestDocument()
-    }
-  }
-
   func testValidDescriptor() {
     let issues = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: []).eraseType().validate()
 
@@ -99,5 +87,16 @@ class DocumentDescriptorTests: XCTestCase {
       ] + indexIssues
     )
   }
+}
 
+private struct TestDocument: Document {
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+
+  func serializeDocument() throws -> Data {
+    return Data()
+  }
+
+  static func deserializeDocument(from data: Data) throws -> TestDocument {
+    return TestDocument()
+  }
 }

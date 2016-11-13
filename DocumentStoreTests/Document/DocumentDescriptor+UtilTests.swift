@@ -12,22 +12,6 @@ import CoreData
 
 class DocumentDescriptorUtilTests: XCTestCase {
 
-  private func errorMessage(with issues: [ValidationIssue]) -> String {
-    return "One or more document descriptors are invalid:\n - " + issues.joined(separator: "\n - ")
-  }
-
-  private struct TestDocument: Document {
-    static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [])
-
-    func serializeDocument() throws -> Data {
-      return Data()
-    }
-
-    static func deserializeDocument(from data: Data) throws -> TestDocument {
-      return TestDocument()
-    }
-  }
-
   // MARK: Validate
 
   func testValidateEmpty() {
@@ -154,5 +138,21 @@ class DocumentDescriptorUtilTests: XCTestCase {
     ]
 
     XCTAssertEqual(logger.loggedMessages, expectedLogs)
+  }
+}
+
+private func errorMessage(with issues: [ValidationIssue]) -> String {
+  return "One or more document descriptors are invalid:\n - " + issues.joined(separator: "\n - ")
+}
+
+private struct TestDocument: Document {
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [])
+
+  func serializeDocument() throws -> Data {
+    return Data()
+  }
+
+  static func deserializeDocument(from data: Data) throws -> TestDocument {
+    return TestDocument()
   }
 }

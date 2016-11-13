@@ -35,7 +35,7 @@ public func >= <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, r
 }
 
 public func < <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) > NSExpression(forConstantValue: right))
+  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) < NSExpression(forConstantValue: right))
 }
 
 public func <= <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {

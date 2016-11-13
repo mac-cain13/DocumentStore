@@ -11,18 +11,6 @@ import XCTest
 
 class IndexTests: XCTestCase {
 
-  private struct TestDocument: Document {
-    static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
-
-    func serializeDocument() throws -> Data {
-      return Data()
-    }
-
-    static func deserializeDocument(from data: Data) throws -> TestDocument {
-      return TestDocument()
-    }
-  }
-
   func testValid() {
     let index = Index<TestDocument, Bool>(identifier: "TestIndex", resolver: { _ in false }).eraseType()
     XCTAssertTrue(UntypedAnyIndex(index: index).validate().isEmpty)
@@ -39,5 +27,16 @@ class IndexTests: XCTestCase {
       XCTAssertEqual(UntypedAnyIndex(index: index).validate(), ["`\(identifier)` is an invalid Index identifier, identifiers may not start with an `_`."])
     }
   }
+}
 
+private struct TestDocument: Document {
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+
+  func serializeDocument() throws -> Data {
+    return Data()
+  }
+
+  static func deserializeDocument(from data: Data) throws -> TestDocument {
+    return TestDocument()
+  }
 }

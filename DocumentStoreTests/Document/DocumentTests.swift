@@ -11,18 +11,6 @@ import XCTest
 
 class DocumentTests: XCTestCase {
 
-  private struct TestDocument: Document {
-    static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
-
-    func serializeDocument() throws -> Data {
-      return Data()
-    }
-
-    static func deserializeDocument(from data: Data) throws -> TestDocument {
-      return TestDocument()
-    }
-  }
-
   func testAllHasNoRestrictions() {
     let collectionFromDocument = TestDocument.all()
 
@@ -30,5 +18,16 @@ class DocumentTests: XCTestCase {
     XCTAssertEqual(collectionFromDocument.skip, 0)
     XCTAssertNil(collectionFromDocument.limit)
   }
+}
 
+private struct TestDocument: Document {
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+
+  func serializeDocument() throws -> Data {
+    return Data()
+  }
+
+  static func deserializeDocument(from data: Data) throws -> TestDocument {
+    return TestDocument()
+  }
 }

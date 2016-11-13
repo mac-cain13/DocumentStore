@@ -18,5 +18,4 @@ class ConstantsTests: XCTestCase {
       "Unexpected constant values, changing constants will break existing users DocumentStores!"
     )
   }
-
 }

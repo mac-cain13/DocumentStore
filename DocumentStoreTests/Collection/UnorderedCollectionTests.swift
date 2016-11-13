@@ -11,18 +11,6 @@ import XCTest
 
 class UnorderedCollectionTests: XCTestCase {
 
-  private struct TestDocument: Document {
-    static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
-
-    func serializeDocument() throws -> Data {
-      return Data()
-    }
-
-    static func deserializeDocument(from data: Data) throws -> TestDocument {
-      return TestDocument()
-    }
-  }
-
   private var collection = UnorderedCollection<TestDocument>()
 
   override func setUp() {
@@ -35,5 +23,16 @@ class UnorderedCollectionTests: XCTestCase {
     XCTAssertEqual(collection.skip, 0)
     XCTAssertNil(collection.limit)
   }
+}
 
+private struct TestDocument: Document {
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+
+  func serializeDocument() throws -> Data {
+    return Data()
+  }
+
+  static func deserializeDocument(from data: Data) throws -> TestDocument {
+    return TestDocument()
+  }
 }

@@ -11,11 +11,6 @@ import XCTest
 
 class ValidatableTests: XCTestCase {
 
-  private struct FixedValidatable: Validatable {
-    fileprivate let issues: [ValidationIssue]
-    func validate() -> [ValidationIssue] { return issues }
-  }
-
   func testValidatableSequenceReturnsAllIssues() {
     let firstValidatable = FixedValidatable(issues: ["Issue #1.1", "Issue #1.2"])
     let secondValidatable = FixedValidatable(issues: [])
@@ -26,5 +21,9 @@ class ValidatableTests: XCTestCase {
       firstValidatable.issues + secondValidatable.issues + thirdValidatable.issues
     )
   }
+}
 
+private struct FixedValidatable: Validatable {
+  fileprivate let issues: [ValidationIssue]
+  func validate() -> [ValidationIssue] { return issues }
 }

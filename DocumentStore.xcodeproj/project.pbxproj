@@ -13,6 +13,10 @@
 		D5160E6B1DD792C1006C8177 /* WritableTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5160E6A1DD792C1006C8177 /* WritableTransaction.swift */; };
 		D5160E6D1DD792E0006C8177 /* ReadableTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5160E6C1DD792E0006C8177 /* ReadableTransaction.swift */; };
 		D5160E6F1DD7935F006C8177 /* ReadWritableTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5160E6E1DD7935F006C8177 /* ReadWritableTransaction.swift */; };
+		D51711CF1DD88488002B676A /* OrderedCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711CE1DD88488002B676A /* OrderedCollectionTests.swift */; };
+		D51711D11DD888B4002B676A /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D01DD888B4002B676A /* ExpressionTests.swift */; };
+		D51711D31DD8A67E002B676A /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D21DD8A67E002B676A /* PredicateTests.swift */; };
+		D51711D51DD8AD23002B676A /* SortDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D41DD8AD23002B676A /* SortDescriptorTests.swift */; };
 		D543BAB61DD2871C00268043 /* UnorderedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D543BAB51DD2871C00268043 /* UnorderedCollection.swift */; };
 		D543BAB81DD2875700268043 /* OrderedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D543BAB71DD2875700268043 /* OrderedCollection.swift */; };
 		D54B9CB61DD0EA5600F7DA25 /* NoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54B9CB51DD0EA5600F7DA25 /* NoLogger.swift */; };
@@ -72,6 +76,10 @@
 		D5160E6A1DD792C1006C8177 /* WritableTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WritableTransaction.swift; sourceTree = "<group>"; };
 		D5160E6C1DD792E0006C8177 /* ReadableTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadableTransaction.swift; sourceTree = "<group>"; };
 		D5160E6E1DD7935F006C8177 /* ReadWritableTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWritableTransaction.swift; sourceTree = "<group>"; };
+		D51711CE1DD88488002B676A /* OrderedCollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedCollectionTests.swift; sourceTree = "<group>"; };
+		D51711D01DD888B4002B676A /* ExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
+		D51711D21DD8A67E002B676A /* PredicateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateTests.swift; sourceTree = "<group>"; };
+		D51711D41DD8AD23002B676A /* SortDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptorTests.swift; sourceTree = "<group>"; };
 		D543BAB51DD2871C00268043 /* UnorderedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnorderedCollection.swift; sourceTree = "<group>"; };
 		D543BAB71DD2875700268043 /* OrderedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedCollection.swift; sourceTree = "<group>"; };
 		D54B9CB51DD0EA5600F7DA25 /* NoLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoLogger.swift; sourceTree = "<group>"; };
@@ -201,6 +209,10 @@
 			children = (
 				D565A1221DD74593000FB0C8 /* CollectionTests.swift */,
 				D54B9CD51DD128BD00F7DA25 /* UnorderedCollectionTests.swift */,
+				D51711CE1DD88488002B676A /* OrderedCollectionTests.swift */,
+				D51711D01DD888B4002B676A /* ExpressionTests.swift */,
+				D51711D21DD8A67E002B676A /* PredicateTests.swift */,
+				D51711D41DD8AD23002B676A /* SortDescriptorTests.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -484,16 +496,20 @@
 				D54B9CBD1DD0EDB500F7DA25 /* DocumentTests.swift in Sources */,
 				D54B9CC51DD10D6700F7DA25 /* Sequence+DuplicatesTests.swift in Sources */,
 				D54B9CC91DD1159D00F7DA25 /* DocumentDescriptor+UtilTests.swift in Sources */,
+				D51711D31DD8A67E002B676A /* PredicateTests.swift in Sources */,
 				D54B9CBA1DD0EB5100F7DA25 /* ValidatableTests.swift in Sources */,
 				D54B9CC11DD1064700F7DA25 /* DocumentDescriptorTests.swift in Sources */,
+				D51711D11DD888B4002B676A /* ExpressionTests.swift in Sources */,
 				D54B9CD31DD1270000F7DA25 /* IndexStorageTypeTests.swift in Sources */,
 				D54B9CCC1DD118C500F7DA25 /* MockLogger.swift in Sources */,
 				D54B9CD61DD128BD00F7DA25 /* UnorderedCollectionTests.swift in Sources */,
+				D51711D51DD8AD23002B676A /* SortDescriptorTests.swift in Sources */,
 				D54B9CD11DD1264100F7DA25 /* IndexValueTypeTests.swift in Sources */,
 				D5F593C91DC9C6F2005B214D /* DocumentStoreTests.swift in Sources */,
 				D54B9CCF1DD1244E00F7DA25 /* IndexTests.swift in Sources */,
 				D5FCEF461DD062CE0028364C /* ConstantsTests.swift in Sources */,
 				D565A1231DD74593000FB0C8 /* CollectionTests.swift in Sources */,
+				D51711CF1DD88488002B676A /* OrderedCollectionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
