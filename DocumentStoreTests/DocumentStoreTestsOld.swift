@@ -73,7 +73,7 @@ extension Shipment: Document {
 
 ///////
 
-class DocumentStoreTests: XCTestCase {
+class DocumentStoreTestsOld: XCTestCase {
 
     override func setUp() {
         super.setUp()

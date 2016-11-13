@@ -17,6 +17,8 @@
 		D51711D11DD888B4002B676A /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D01DD888B4002B676A /* ExpressionTests.swift */; };
 		D51711D31DD8A67E002B676A /* PredicateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D21DD8A67E002B676A /* PredicateTests.swift */; };
 		D51711D51DD8AD23002B676A /* SortDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D41DD8AD23002B676A /* SortDescriptorTests.swift */; };
+		D51711D81DD8B1C1002B676A /* DocumentStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D71DD8B1C1002B676A /* DocumentStoreTests.swift */; };
+		D51711DA1DD8B55B002B676A /* DocumentStoreErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51711D91DD8B55B002B676A /* DocumentStoreErrorTests.swift */; };
 		D543BAB61DD2871C00268043 /* UnorderedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D543BAB51DD2871C00268043 /* UnorderedCollection.swift */; };
 		D543BAB81DD2875700268043 /* OrderedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D543BAB71DD2875700268043 /* OrderedCollection.swift */; };
 		D54B9CB61DD0EA5600F7DA25 /* NoLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54B9CB51DD0EA5600F7DA25 /* NoLogger.swift */; };
@@ -39,7 +41,7 @@
 		D59047FF1DCBD139000F2517 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047FE1DCBD139000F2517 /* Document.swift */; };
 		D59048011DCBD9F8000F2517 /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59048001DCBD9F8000F2517 /* Index.swift */; };
 		D5F593C41DC9C6F2005B214D /* DocumentStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F593BA1DC9C6F2005B214D /* DocumentStore.framework */; };
-		D5F593C91DC9C6F2005B214D /* DocumentStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F593C81DC9C6F2005B214D /* DocumentStoreTests.swift */; };
+		D5F593C91DC9C6F2005B214D /* DocumentStoreTestsOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F593C81DC9C6F2005B214D /* DocumentStoreTestsOld.swift */; };
 		D5F593CB1DC9C6F2005B214D /* DocumentStore.h in Headers */ = {isa = PBXBuildFile; fileRef = D5F593BD1DC9C6F2005B214D /* DocumentStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5FCEF2C1DCDCF0A0028364C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF2B1DCDCF0A0028364C /* Logger.swift */; };
 		D5FCEF301DCDF9230028364C /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF2F1DCDF9230028364C /* Predicate.swift */; };
@@ -80,6 +82,8 @@
 		D51711D01DD888B4002B676A /* ExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
 		D51711D21DD8A67E002B676A /* PredicateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredicateTests.swift; sourceTree = "<group>"; };
 		D51711D41DD8AD23002B676A /* SortDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortDescriptorTests.swift; sourceTree = "<group>"; };
+		D51711D71DD8B1C1002B676A /* DocumentStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStoreTests.swift; sourceTree = "<group>"; };
+		D51711D91DD8B55B002B676A /* DocumentStoreErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStoreErrorTests.swift; sourceTree = "<group>"; };
 		D543BAB51DD2871C00268043 /* UnorderedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnorderedCollection.swift; sourceTree = "<group>"; };
 		D543BAB71DD2875700268043 /* OrderedCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderedCollection.swift; sourceTree = "<group>"; };
 		D54B9CB51DD0EA5600F7DA25 /* NoLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoLogger.swift; sourceTree = "<group>"; };
@@ -105,7 +109,7 @@
 		D5F593BD1DC9C6F2005B214D /* DocumentStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DocumentStore.h; sourceTree = "<group>"; };
 		D5F593BE1DC9C6F2005B214D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5F593C31DC9C6F2005B214D /* DocumentStoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DocumentStoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5F593C81DC9C6F2005B214D /* DocumentStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStoreTests.swift; sourceTree = "<group>"; };
+		D5F593C81DC9C6F2005B214D /* DocumentStoreTestsOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStoreTestsOld.swift; sourceTree = "<group>"; };
 		D5F593CA1DC9C6F2005B214D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5FCEF2B1DCDCF0A0028364C /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		D5FCEF2F1DCDF9230028364C /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
@@ -144,6 +148,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D51711D61DD8B18F002B676A /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				D51711D71DD8B1C1002B676A /* DocumentStoreTests.swift */,
+				D51711D91DD8B55B002B676A /* DocumentStoreErrorTests.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		D53424E61DCD3EEB0051917D /* Collection */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,8 +274,9 @@
 				D54B9CBB1DD0EDA300F7DA25 /* Document */,
 				D54B9CCD1DD1242C00F7DA25 /* Index */,
 				D54B9CD41DD1289D00F7DA25 /* Collection */,
+				D51711D61DD8B18F002B676A /* Store */,
 				D54B9CC31DD10CFE00F7DA25 /* Util */,
-				D5F593C81DC9C6F2005B214D /* DocumentStoreTests.swift */,
+				D5F593C81DC9C6F2005B214D /* DocumentStoreTestsOld.swift */,
 				D54B9CCA1DD118AE00F7DA25 /* Mocks */,
 				D5F593CA1DC9C6F2005B214D /* Info.plist */,
 			);
@@ -503,9 +517,11 @@
 				D54B9CD31DD1270000F7DA25 /* IndexStorageTypeTests.swift in Sources */,
 				D54B9CCC1DD118C500F7DA25 /* MockLogger.swift in Sources */,
 				D54B9CD61DD128BD00F7DA25 /* UnorderedCollectionTests.swift in Sources */,
+				D51711DA1DD8B55B002B676A /* DocumentStoreErrorTests.swift in Sources */,
+				D51711D81DD8B1C1002B676A /* DocumentStoreTests.swift in Sources */,
 				D51711D51DD8AD23002B676A /* SortDescriptorTests.swift in Sources */,
 				D54B9CD11DD1264100F7DA25 /* IndexValueTypeTests.swift in Sources */,
-				D5F593C91DC9C6F2005B214D /* DocumentStoreTests.swift in Sources */,
+				D5F593C91DC9C6F2005B214D /* DocumentStoreTestsOld.swift in Sources */,
 				D54B9CCF1DD1244E00F7DA25 /* IndexTests.swift in Sources */,
 				D5FCEF461DD062CE0028364C /* ConstantsTests.swift in Sources */,
 				D565A1231DD74593000FB0C8 /* CollectionTests.swift in Sources */,
