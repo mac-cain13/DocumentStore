@@ -8,7 +8,11 @@
 
 import Foundation
 
+/// Action to take when the `ReadWriteTransaction` is completed.
 public enum CommitAction {
-  case SaveChanges
-  case DiscardChanges
+  /// Save the changes made
+  case saveChanges
+
+  /// Discard any changes that have been made
+  case discardChanges
 }

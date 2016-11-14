@@ -8,7 +8,9 @@
 
 import Foundation
 
+/// Type that can be used as the value for an `Index`.
 public protocol IndexValueType {
+  /// Type of storage that should be used when storing this value.
   static var indexStorageType: IndexStorageType { get }
 }
 

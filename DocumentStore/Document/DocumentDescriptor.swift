@@ -19,7 +19,8 @@ public struct DocumentDescriptor<DocumentType: Document> {
   /// Create a description of a `Document`
   ///
   /// Warning: Do never change the identifier, this is the only unique reference there is for the 
-  ///          storage system to know what `Document` you are describing.
+  ///          storage system to know what `Document` you are describing. Doing so will result in 
+  ///          data loss!
   ///
   /// - Parameters:
   ///   - identifier: Unique unchangable (within one store) identifier of the described `Document`
@@ -45,7 +46,7 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
   /// List of all indices that should be created for the described `Document`.
   let indices: [UntypedAnyIndex]
 
-  /// Type erase a existing `DocumentDescriptor`
+  /// Type erase an existing `DocumentDescriptor`
   ///
   /// - Parameters:
   ///   - descriptor: The `DocumentDescriptor` to type erase

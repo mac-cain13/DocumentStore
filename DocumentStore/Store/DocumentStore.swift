@@ -42,7 +42,7 @@ public final class DocumentStore {
   public func read<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadTransaction) throws -> T) {
     readWrite(queue: queue, handler: handler) { transaction in
       let result = try actions(transaction)
-      return (.DiscardChanges, result)
+      return (.discardChanges, result)
     }
   }
 
@@ -68,7 +68,7 @@ public final class DocumentStore {
       do {
         let (commitAction, result) = try actions(transaction)
 
-        if case .SaveChanges = commitAction {
+        if case .saveChanges = commitAction {
           do {
             try transaction.saveChanges()
           } catch let error {

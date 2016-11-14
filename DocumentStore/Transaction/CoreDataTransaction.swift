@@ -81,7 +81,7 @@ class CoreDataTransaction: ReadWritableTransaction {
               underlyingError: nil
             )
             logger.log(level: .error, message: "Encountered corrupt '\(DocumentDataAttributeName)' attribute.", error: error)
-            throw DocumentDeserializationError(resolution: .Skip, underlyingError: error)
+            throw DocumentDeserializationError(resolution: .skipDocument, underlyingError: error)
           }
 
           return try CollectionType.DocumentType.deserializeDocument(from: documentData)
@@ -89,13 +89,14 @@ class CoreDataTransaction: ReadWritableTransaction {
           logger.log(level: .warn, message: "Deserializing '\(CollectionType.DocumentType.documentDescriptor.identifier)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
 
           switch error.resolution {
-          case .Delete:
+          case .deleteDocument:
             context.delete($0)
-          case .Skip:
-            break
+            return nil
+          case .skipDocument:
+            return nil
+          case .abortOperation:
+            throw TransactionError.serializationFailed(error.underlyingError)
           }
-
-          return nil
         } catch let error {
           throw TransactionError.serializationFailed(error)
         }

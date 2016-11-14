@@ -39,7 +39,7 @@ class OrderedCollectionTests: XCTestCase {
 
   func testThenBy() {
     let appendedSortDescriptor = TestDocument.isTest.ascending()
-    let collection = self.collection.thenBy { _ in appendedSortDescriptor }
+    let collection = self.collection.thenOrdered { _ in appendedSortDescriptor }
 
     let allSortDescriptors = sortDescriptors + [appendedSortDescriptor]
     XCTAssertEqual(collection.sortDescriptors.map { $0.sortDescriptor }, allSortDescriptors.map { $0.sortDescriptor })

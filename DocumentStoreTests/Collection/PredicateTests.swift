@@ -53,7 +53,7 @@ class PredicateTests: XCTestCase {
   }
 
   func testLike() {
-    let predicate = (TestDocument.isTest ~= false).predicate
+    let predicate = (TestDocument.isTestString ~= "").predicate
     XCTAssertEqual(predicate, left ~= right)
   }
 
@@ -88,6 +88,7 @@ class PredicateTests: XCTestCase {
 
 private struct TestDocument: Document {
   static let isTest = Index<TestDocument, Bool>(identifier: "") { _ in false }
+  static let isTestString = Index<TestDocument, String>(identifier: "") { _ in "" }
   static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
 
   func serializeDocument() throws -> Data {

@@ -36,6 +36,14 @@ func <= (left: NSExpression, right: NSExpression) -> NSPredicate {
   return directComparisonPredicate(left: left, right: right, type: .lessThanOrEqualTo)
 }
 
+/// Like operator, similar in behavior to SQL LIKE.
+///
+/// Notes: ? and * are allowed as wildcard characters, where ? matches 1 character and * matches 0 or more characters.
+///
+/// - Parameters:
+///   - left: Expression on the left side of the comparison
+///   - right: Expression on the right side of the comparison
+/// - Returns: A `NSPredicate` representing the comparison
 func ~= (left: NSExpression, right: NSExpression) -> NSPredicate {
   return directComparisonPredicate(left: left, right: right, type: .like)
 }
