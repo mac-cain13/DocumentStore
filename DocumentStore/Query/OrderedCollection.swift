@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 public struct OrderedCollection<Type: Document>: Collection {
   public typealias DocumentType = Type

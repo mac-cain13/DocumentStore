@@ -8,4 +8,11 @@
 
 import Foundation
 
-protocol ReadWritableTransaction: ReadableTransaction, WritableTransaction {}
+protocol ReadWritableTransaction: ReadableTransaction {
+  @discardableResult
+  func delete<CollectionType: Collection>(_ collection: CollectionType) throws -> Int
+
+  func add<DocumentType: Document>(document: DocumentType) throws
+
+  func saveChanges() throws
+}

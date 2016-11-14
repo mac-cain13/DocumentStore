@@ -72,13 +72,13 @@ public final class DocumentStore {
           do {
             try transaction.saveChanges()
           } catch let error {
-            return queue.async { handler(.Failure(.SaveFailed(error))) }
+            return queue.async { handler(.failure(.saveFailed(error))) }
           }
         }
 
-        return queue.async { handler(.Success(result)) }
+        return queue.async { handler(.success(result)) }
       } catch let error {
-        return queue.async { handler(.Failure(.ActionThrewError(error))) }
+        return queue.async { handler(.failure(.actionThrewError(error))) }
       }
     }
   }

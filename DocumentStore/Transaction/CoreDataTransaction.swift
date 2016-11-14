@@ -20,14 +20,14 @@ class CoreDataTransaction: ReadWritableTransaction {
     self.logger = logger
   }
 
-  func validateUseOfDocumentType<DocumentType: Document>(_: DocumentType.Type) throws {
+  private func validateUseOfDocumentType<DocumentType: Document>(_: DocumentType.Type) throws {
     guard documentDescriptors.contains(DocumentType.documentDescriptor.eraseType()) else {
       let error = DocumentStoreError(
         kind: .documentDescriptionNotRegistered,
         message: "The document description with identifier '\(DocumentType.documentDescriptor.identifier)' is not registered with the DocumentStore this transaction is associated with, please pass all DocumentDescriptions that are used to the DocumentStore initializer.",
         underlyingError: nil
       )
-      throw TransactionError.DocumentStoreError(error)
+      throw TransactionError.documentStoreError(error)
     }
   }
 
@@ -45,7 +45,7 @@ class CoreDataTransaction: ReadWritableTransaction {
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing count.", error: error)
-      throw TransactionError.DocumentStoreError(error)
+      throw TransactionError.documentStoreError(error)
     }
   }
 
@@ -67,7 +67,7 @@ class CoreDataTransaction: ReadWritableTransaction {
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
-      throw TransactionError.DocumentStoreError(error)
+      throw TransactionError.documentStoreError(error)
     }
 
     // Deserialize documents
@@ -97,7 +97,7 @@ class CoreDataTransaction: ReadWritableTransaction {
 
           return nil
         } catch let error {
-          throw TransactionError.SerializationFailed(error)
+          throw TransactionError.serializationFailed(error)
         }
     }
   }
@@ -120,7 +120,7 @@ class CoreDataTransaction: ReadWritableTransaction {
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
-      throw TransactionError.DocumentStoreError(error)
+      throw TransactionError.documentStoreError(error)
     }
   }
 
@@ -133,7 +133,7 @@ class CoreDataTransaction: ReadWritableTransaction {
       let documentData = try document.serializeDocument()
       entity.setValue(documentData, forKey: DocumentDataAttributeName)
     } catch let error {
-      throw TransactionError.SerializationFailed(error)
+      throw TransactionError.serializationFailed(error)
     }
 
     DocumentType.documentDescriptor.indices.forEach {

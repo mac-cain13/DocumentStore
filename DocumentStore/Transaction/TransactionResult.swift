@@ -9,6 +9,6 @@
 import Foundation
 
 public enum TransactionResult<T> {
-  case Success(T)
-  case Failure(TransactionError)
+  case success(T)
+  case failure(TransactionError)
 }

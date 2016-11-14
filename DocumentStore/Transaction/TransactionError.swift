@@ -9,8 +9,8 @@
 import Foundation
 
 public enum TransactionError: Error {
-  case ActionThrewError(Error)
-  case SaveFailed(Error)
-  case SerializationFailed(Error)
-  case DocumentStoreError(DocumentStoreError)
+  case actionThrewError(Error)
+  case saveFailed(Error)
+  case serializationFailed(Error)
+  case documentStoreError(DocumentStoreError)
 }
