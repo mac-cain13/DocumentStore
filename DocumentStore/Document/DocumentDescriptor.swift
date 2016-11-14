@@ -8,29 +8,55 @@
 
 import Foundation
 
+/// Description of a `Document` that among other things identifies it.
 public struct DocumentDescriptor<DocumentType: Document> {
+  /// Unique unchangable (within one store) identifier of the described `Document`.
   let identifier: String
+
+  /// List of all indices that should be created for the described `Document`.
   let indices: [AnyIndex<DocumentType>]
 
+  /// Create a description of a `Document`
+  ///
+  /// Warning: Do never change the identifier, this is the only unique reference there is for the 
+  ///          storage system to know what `Document` you are describing.
+  ///
+  /// - Parameters:
+  ///   - identifier: Unique unchangable (within one store) identifier of the described `Document`
+  ///   - indices: List of all indices that should be created for the described `Document`
   public init(identifier: String, indices: [AnyIndex<DocumentType>]) {
     self.identifier = identifier
     self.indices = indices
   }
 
+  /// Type erasure for use of a `DocumentDescriptor` in a list.
+  ///
+  /// - Returns: `AnyDocumentDescriptor` wrapping this descriptor
   public func eraseType() -> AnyDocumentDescriptor {
     return AnyDocumentDescriptor(descriptor: self)
   }
 }
 
+/// Type erased version of a `DocumentDescriptor`.
 public struct AnyDocumentDescriptor: Validatable, Equatable {
+  /// Unique unchangable (within one store) identifier of the described `Document`.
   let identifier: String
+
+  /// List of all indices that should be created for the described `Document`.
   let indices: [UntypedAnyIndex]
 
-  public init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
+  /// Type erase a existing `DocumentDescriptor`
+  ///
+  /// - Parameters:
+  ///   - descriptor: The `DocumentDescriptor` to type erase
+  init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
     self.identifier = descriptor.identifier
     self.indices = descriptor.indices.map(UntypedAnyIndex.init)
   }
 
+  /// Validates the identifier and it's indices.
+  ///
+  /// - Returns: All validation issues
   func validate() -> [ValidationIssue] {
     var issues: [ValidationIssue] = []
 
