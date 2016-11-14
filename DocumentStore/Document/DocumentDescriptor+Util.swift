@@ -9,13 +9,6 @@
 import Foundation
 import CoreData
 
-/// Validates a list of `DocumentDescriptors`, logs any issues to the `Logger` and throws a 
-/// `DocumentStoreError` if any issues where found.
-///
-/// - Parameters:
-///   - documentDescriptors: The `DocumentDescriptors` to validate
-///   - logger: Logger to use
-/// - Throws: `DocumentStoreError` of kind `documentDescriptionInvalid`
 func validate(_ documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger) throws {
   let validationIssues = documentDescriptors.validate() + documentDescriptors
     .map { $0.identifier }
@@ -29,12 +22,6 @@ func validate(_ documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logg
   }
 }
 
-/// Builds a `NSManagedObjectModel` based on a list of `DocumentDescriptor`s.
-///
-/// - Parameters:
-///   - documentDescriptors: The list of `DocumentDescriptor`s that are registered with the store
-///   - logger: Logger to use
-/// - Returns: Fully configured `NSManagedObjectModel`
 func managedObjectModel(from documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger) -> NSManagedObjectModel {
   logger.log(level: .trace, message: "Creating shared attribute `_DocumentData`...")
   let documentDataAttribute = NSAttributeDescription()

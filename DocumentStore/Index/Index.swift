@@ -10,10 +10,7 @@ import Foundation
 
 /// Index for a `Document` used to filter and order a `Collection` in an efficient way.
 public struct Index<DocumentType: Document, ValueType: IndexValueType> {
-  /// Unique unchangable (within one document) identifier.
   let identifier: String
-
-  /// Resolver to get the value for this `Index`.
   let resolver: (DocumentType) -> ValueType
 
   /// Create an `Index`.
@@ -40,19 +37,10 @@ public struct Index<DocumentType: Document, ValueType: IndexValueType> {
 
 /// Type erased version of an `Index`.
 public struct AnyIndex<DocumentType: Document> {
-  /// Unique unchangable (within one document) identifier.
   let identifier: String
-
-  /// Type of storage to use for this `Index` column.
   let storageType: IndexStorageType
-
-  /// Resolver to get the value for this `Index`.
   let resolver: (DocumentType) -> Any
 
-  /// Type erase an existing `Index`
-  ///
-  /// - Parameters:
-  ///   - index: The `Index` to type erase
   init<ValueType: IndexValueType>(index: Index<DocumentType, ValueType>) {
     self.identifier = index.identifier
     self.storageType = ValueType.indexStorageType
@@ -60,26 +48,15 @@ public struct AnyIndex<DocumentType: Document> {
   }
 }
 
-/// Type erased version of an `AnyIndex`.
 struct UntypedAnyIndex: Validatable, Equatable {
-  /// Unique unchangable (within one document) identifier.
   let identifier: String
-
-  /// Type of storage to use for this `Index` column.
   let storageType: IndexStorageType
 
-  /// Type erase an existing `AnyIndex`
-  ///
-  /// - Parameters:
-  ///   - index: The `AnyIndex` to type erase
   init<DocumentType: Document>(index: AnyIndex<DocumentType>) {
     self.identifier = index.identifier
     self.storageType = index.storageType
   }
 
-  /// Perform validation of the identifier.
-  ///
-  /// - Returns: All issues found during validation
   func validate() -> [ValidationIssue] {
     var issues: [ValidationIssue] = []
 

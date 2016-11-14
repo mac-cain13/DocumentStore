@@ -11,18 +11,11 @@ import Foundation
 /// Alias solely for testing
 typealias DocumentStoreCollection = Collection
 
-/// A `Collection` of a single type of `Document`s that can be filtered and ordered.
 protocol Collection {
-  /// The type of `Document` that is represented.
   associatedtype DocumentType: Document
 
-  /// The `Predicate` that should be used to filter the `Collection`.
   var predicate: Predicate<DocumentType>? { get set }
-
-  /// The number of matching items to skip.
   var skip: UInt { get set }
-
-  /// The maximum number of items that may be returned.
   var limit: UInt? { get set }
 }
 

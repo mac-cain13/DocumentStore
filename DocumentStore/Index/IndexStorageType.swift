@@ -26,7 +26,6 @@ public enum IndexStorageType {
   /// String storage
   case string
 
-  /// The appropiate `NSAttributeType` for this `IndexStorageType`
   var attributeType: NSAttributeType {
     switch self {
     case .bool:

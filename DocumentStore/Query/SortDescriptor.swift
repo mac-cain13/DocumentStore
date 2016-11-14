@@ -10,12 +10,8 @@ import Foundation
 
 /// Description of how to sort a `Collection`.
 public struct SortDescriptor<DocumentType: Document> {
-  /// The actual sort descriptor.
   let sortDescriptor: NSSortDescriptor
 
-  /// Create a `SortDescriptor`.
-  ///
-  /// - Parameter sortDescriptor: The actual sort descriptor
   init(sortDescriptor: NSSortDescriptor) {
     self.sortDescriptor = sortDescriptor
   }

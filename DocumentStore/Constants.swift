@@ -8,5 +8,4 @@
 
 import Foundation
 
-/// Attribute name to use for document data storage.
 let DocumentDataAttributeName = "_DocumentData"

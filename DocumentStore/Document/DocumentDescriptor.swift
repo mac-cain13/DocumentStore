@@ -10,10 +10,7 @@ import Foundation
 
 /// Description of a `Document` that among other things identifies it.
 public struct DocumentDescriptor<DocumentType: Document> {
-  /// Unique unchangable (within one store) identifier of the described `Document`.
   let identifier: String
-
-  /// List of all indices that should be created for the described `Document`.
   let indices: [AnyIndex<DocumentType>]
 
   /// Create a description of a `Document`
@@ -40,24 +37,14 @@ public struct DocumentDescriptor<DocumentType: Document> {
 
 /// Type erased version of a `DocumentDescriptor`.
 public struct AnyDocumentDescriptor: Validatable, Equatable {
-  /// Unique unchangable (within one store) identifier of the described `Document`.
   let identifier: String
-
-  /// List of all indices that should be created for the described `Document`.
   let indices: [UntypedAnyIndex]
 
-  /// Type erase an existing `DocumentDescriptor`
-  ///
-  /// - Parameters:
-  ///   - descriptor: The `DocumentDescriptor` to type erase
   init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
     self.identifier = descriptor.identifier
     self.indices = descriptor.indices.map(UntypedAnyIndex.init)
   }
 
-  /// Validates the identifier and it's indices.
-  ///
-  /// - Returns: All validation issues
   func validate() -> [ValidationIssue] {
     var issues: [ValidationIssue] = []
 

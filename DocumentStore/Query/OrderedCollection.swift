@@ -14,23 +14,11 @@ public struct OrderedCollection<Type: Document>: Collection {
   /// The type of `Document` that is represented.
   public typealias DocumentType = Type
 
-  /// The `SortDescriptor`s that should be used to order the `Collection`
   internal(set) public var sortDescriptors: [SortDescriptor<DocumentType>]
-
-  /// The `Predicate` that should be used to filter the `Collection`.
   internal(set) public var predicate: Predicate<DocumentType>?
-
-  /// The number of matching items to skip.
   internal(set) public var skip: UInt
-
-  /// The maximum number of items that may be returned.
   internal(set) public var limit: UInt?
 
-  /// Create `OrderedCollection` from another `Collection` and order it.
-  ///
-  /// - Parameters:
-  ///   - collection: The `Collection` that should be ordered
-  ///   - sortDescriptors: The `SortDescriptor`s to apply
   init<CollectionType: Collection>(collection: CollectionType, sortDescriptors: [SortDescriptor<DocumentType>]) where CollectionType.DocumentType == DocumentType {
     self.sortDescriptors = sortDescriptors
     self.predicate = collection.predicate
