@@ -106,49 +106,49 @@ extension Collection {
   ///
   /// - Parameter transaction: The `ReadTransaction` to perform the count in
   /// - Returns: Number of `Document`s
-  /// - Throws: `DocumentStoreError` on all failures
+  /// - Throws: `TransactionError` on all failures
   public func count(in transaction: ReadTransaction) throws -> Int {
     return try transaction.count(self)
   }
 
   /// Array of the `Document`s represented by this `Collection`.
   ///
-  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are counting must be
+  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are fetching must be
   ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated
   ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
   ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
   ///
   /// - Parameter transaction: The `ReadTransaction` to perform the fetch in
   /// - Returns: Array of the `Document`s represented
-  /// - Throws: `DocumentStoreError` on all failures
+  /// - Throws: `TransactionError` on all failures
   public func array(in transaction: ReadTransaction) throws -> [DocumentType] {
     return try transaction.fetch(self)
   }
 
   /// First `Document` represented by this `Collection`.
   ///
-  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are counting must be
+  /// - Precondition: The `DocumentDescriptor` of the `Document` you are fetching must be
   ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated
   ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
   ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
   ///
   /// - Parameter transaction: The `ReadTransaction` to perform the fetch in
   /// - Returns: First `Document` represented by the collection if any
-  /// - Throws: `DocumentStoreError` on all failures
+  /// - Throws: `TransactionError` on all failures
   public func first(in transaction: ReadTransaction) throws -> DocumentType? {
     return try limiting(upTo: 1).array(in: transaction).first
   }
 
   /// Delete all `Document`s represented by this `Collection`.
   ///
-  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are counting must be
+  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are deleting must be
   ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated
   ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
   ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
   ///
   /// - Parameter transaction: The `ReadWriteTransaction` to perform the fetch in
   /// - Returns: Number of deleted `Document`s
-  /// - Throws: `DocumentStoreError` on all failures
+  /// - Throws: `TransactionError` on all failures
   @discardableResult
   public func delete(in transaction: ReadWriteTransaction) throws -> Int {
     return try transaction.delete(self)
