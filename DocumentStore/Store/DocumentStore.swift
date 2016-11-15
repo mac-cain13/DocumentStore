@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-/// <#Description#>
+/// The store where `Document`s are stored and can retrieved using `Collection`s in transactions.
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
   private let documentDescriptors: [AnyDocumentDescriptor]
@@ -50,6 +50,17 @@ public final class DocumentStore {
 
   // MARK: Transaction initialization
 
+  /// Perform a read transaction on the store and get the result back in a handler.
+  ///
+  /// - Warning: Do not use the `ReadTransaction` outside of the actions block, this will result in 
+  ///            undefined behaviour.
+  ///
+  /// - Note: Actions block will be executed on a arbitrary background thread managed by the store.
+  ///
+  /// - Parameters:
+  ///   - queue: Queue to perform the handler on
+  ///   - handler: Handler that will be called with the result of the transaction
+  ///   - actions: Actions to perform in this transaction, returned result is passed to the handler
   public func read<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadTransaction) throws -> T) {
     readWrite(queue: queue, handler: handler) { transaction in
       let result = try actions(transaction)
@@ -57,6 +68,17 @@ public final class DocumentStore {
     }
   }
 
+  /// Perform a write transaction on the store and get the result back in a handler.
+  ///
+  /// - Warning: Do not use the `ReadWriteTransaction` outside of the actions block, this will
+  ///            result in undefined behaviour.
+  ///
+  /// - Note: Actions block will be executed on a arbitrary background thread managed by the store.
+  ///
+  /// - Parameters:
+  ///   - queue: Queue to perform the handler on
+  ///   - handler: Handler that will be called with the result of the transaction
+  ///   - actions: Actions to perform in this transaction, returned commit action will be executed
   public func write(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<Void>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> CommitAction) {
     readWrite(queue: queue, handler: handler) { transaction in
       let commitAction = try actions(transaction)
@@ -64,6 +86,17 @@ public final class DocumentStore {
     }
   }
 
+  /// Perform a read/write transaction on the store and get the result back in a handler.
+  ///
+  /// - Warning: Do not use the `ReadWriteTransaction` outside of the actions block, this will
+  ///            result in undefined behaviour.
+  ///
+  /// - Note: Actions block will be executed on a arbitrary background thread managed by the store.
+  ///
+  /// - Parameters:
+  ///   - queue: Queue to perform the handler on
+  ///   - handler: Handler that will be called with the result of the transaction
+  ///   - actions: Actions to perform in this transaction, returned result is passed to the handler, commit action will be executed
   public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> (CommitAction, T)) {
     persistentContainer.performBackgroundTask { [logger, documentDescriptors] context in
       context.mergePolicy = NSMergePolicy.overwrite
