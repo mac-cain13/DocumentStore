@@ -9,11 +9,22 @@
 import Foundation
 import CoreData
 
+/// <#Description#>
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
   private let documentDescriptors: [AnyDocumentDescriptor]
   private let logger: Logger
 
+  /// Create a `DocumentStore`.
+  ///
+  /// - Note: The identifier is basically the filename of the `DocumentStore` changing the 
+  ///         identifier will result in the creation of a new empty store.
+  ///
+  /// - Parameters:
+  ///   - identifier: The unique unchangable identifier of this `DocumentStore`
+  ///   - documentDescriptors: All `DocumentDescriptor`s of `Document`s that will be used at any point in time
+  ///   - logger: Optional logger to use
+  /// - Throws: `DocumentStoreError`s if initializations fails due invalid `DocumentDescriptor`s
   public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger = NoLogger()) throws {
     self.documentDescriptors = documentDescriptors
     self.logger = logger
@@ -72,7 +83,8 @@ public final class DocumentStore {
           do {
             try transaction.saveChanges()
           } catch let error {
-            return queue.async { handler(.failure(.saveFailed(error))) }
+            let documentStoreError = DocumentStoreError(kind: .operationFailed, message: "Failed to save changes from a transaction to the store.", underlyingError: error)
+            return queue.async { handler(.failure(.documentStoreError(documentStoreError))) }
           }
         }
 

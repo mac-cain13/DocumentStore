@@ -11,22 +11,37 @@ import Foundation
 /// Indicates a failure while deserializing a `Document` with the prefered `Resolution`.
 public struct DocumentDeserializationError: Error {
   /// The prefered resolution for the `DocumentDeserializationError`.
+  ///
+  /// - Note: `deleteDocument` will only persist the deletion if you commit the transaction with
+  ///         `CommitAction.saveChanges`.
+  ///
+  /// - Warning: `abortOperation` will make every `Collection` containing this particular document
+  ///            to fail with an error. Use `skipDocument` to not remove the data, but continue 
+  ///            gracefully.
+  ///
+  /// - skipDocument: Skips the `Document` leaving it untouched in the store
+  /// - deleteDocument: Removes the `Document` from the store
+  /// - abortOperation: Abort the current operation
   public enum Resolution {
-    /// Skips the `Document` leaving it untouched in the store
+    /// Skips the `Document` leaving it untouched in the store.
     case skipDocument
 
-    /// Removes the `Document` from the store
+    /// Removes the `Document` from the store.
+    ///
+    /// - Note: `deleteDocument` will only persist the deletion if you commit the transaction with
+    ///         `CommitAction.saveChanges`.
     case deleteDocument
 
-    /// Abort the current operation
+    /// Abort the current operation.
+    ///
+    /// - Warning: `abortOperation` will make every `Collection` containing this particular document
+    ///            to fail with an error. Use `skipDocument` to not remove the data, but continue
+    ///            gracefully.
     case abortOperation
   }
 
-  /// The prefered resolution to take
-  public let resolution: Resolution
-
-  /// The error that caused the deserialization failure
-  public let underlyingError: Error
+  let resolution: Resolution
+  let underlyingError: Error
 
   /// Create the error.
   ///

@@ -18,33 +18,78 @@ public struct Predicate<DocumentType: Document> {
 
 // MARK: Basic predicate operators
 
+/// Equal operator.
+///
+/// - Parameters:
+///   - left: `Index` on the left side of the comparison
+///   - right: `IndexValueType` on the right side of the comparison
+/// - Returns: A `Predicate` representing the comparison
 public func == <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
   return Predicate(predicate: NSExpression(forKeyPath: left.identifier) == NSExpression(forConstantValue: right))
 }
 
+/// Not equal operator.
+///
+/// - Parameters:
+///   - left: `Index` on the left side of the comparison
+///   - right: `IndexValueType` on the right side of the comparison
+/// - Returns: A `Predicate` representing the comparison
 public func != <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
   return Predicate(predicate: NSExpression(forKeyPath: left.identifier) != NSExpression(forConstantValue: right))
 }
 
+/// Greater than operator.
+///
+/// - Note: Will work on all indices, even on for example strings.
+///
+/// - Parameters:
+///   - left: `Index` on the left side of the comparison
+///   - right: `IndexValueType` on the right side of the comparison
+/// - Returns: A `Predicate` representing the comparison
 public func > <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
   return Predicate(predicate: NSExpression(forKeyPath: left.identifier) > NSExpression(forConstantValue: right))
 }
 
+/// Greater than or equal operator.
+///
+/// - Note: Will work on all indices, even on for example strings.
+///
+/// - Parameters:
+///   - left: `Index` on the left side of the comparison
+///   - right: `IndexValueType` on the right side of the comparison
+/// - Returns: A `Predicate` representing the comparison
 public func >= <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
   return Predicate(predicate: NSExpression(forKeyPath: left.identifier) >= NSExpression(forConstantValue: right))
 }
 
+/// Less than operator.
+///
+/// - Note: Will work on all indices, even on for example strings.
+///
+/// - Parameters:
+///   - left: `Index` on the left side of the comparison
+///   - right: `IndexValueType` on the right side of the comparison
+/// - Returns: A `Predicate` representing the comparison
 public func < <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
   return Predicate(predicate: NSExpression(forKeyPath: left.identifier) < NSExpression(forConstantValue: right))
 }
 
+/// Less than or equal operator.
+///
+/// - Note: Will work on all indices, even on for example strings.
+///
+/// - Parameters:
+///   - left: `Index` on the left side of the comparison
+///   - right: `IndexValueType` on the right side of the comparison
+/// - Returns: A `Predicate` representing the comparison
 public func <= <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
   return Predicate(predicate: NSExpression(forKeyPath: left.identifier) <= NSExpression(forConstantValue: right))
 }
 
 /// Like operator, similar in behavior to SQL LIKE.
 ///
-/// Notes: ? and * are allowed as wildcard characters, where ? matches 1 character and * matches 0 or more characters.
+/// - Note: ? and * are allowed as wildcard characters, where ? matches 1 character and * matches 0 
+///         or more characters.
 ///
 /// - Parameters:
 ///   - left: `Index` on the left side of the comparison

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A transaction on a `DocumentStore` that only can perform reads, no writes are possible.
 public class ReadTransaction: ReadableTransaction {
   private let transaction: ReadableTransaction
 

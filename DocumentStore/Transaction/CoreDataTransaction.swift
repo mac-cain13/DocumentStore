@@ -40,7 +40,7 @@ class CoreDataTransaction: ReadWritableTransaction {
       return try context.count(for: request)
     } catch let underlyingError {
       let error = DocumentStoreError(
-        kind: .fetchRequestFailed,
+        kind: .operationFailed,
         message: "Failed to count '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
@@ -62,7 +62,7 @@ class CoreDataTransaction: ReadWritableTransaction {
       fetchResult = try context.fetch(request)
     } catch let underlyingError {
       let error = DocumentStoreError(
-        kind: .fetchRequestFailed,
+        kind: .operationFailed,
         message: "Failed to fetch '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
@@ -76,7 +76,7 @@ class CoreDataTransaction: ReadWritableTransaction {
         do {
           guard let documentData = $0.value(forKey: DocumentDataAttributeName) as? Data else {
             let error = DocumentStoreError(
-              kind: .documentDataAttributeCorruption,
+              kind: .documentDataCorruption,
               message: "Failed to retrieve '\(DocumentDataAttributeName)' attribute contents and cast it to `Data` for a '\(CollectionType.DocumentType.documentDescriptor.identifier)' document. This is an error in the DocumentStore library, please report this issue.",
               underlyingError: nil
             )
@@ -116,7 +116,7 @@ class CoreDataTransaction: ReadWritableTransaction {
       return fetchResult.count
     } catch let underlyingError {
       let error = DocumentStoreError(
-        kind: .fetchRequestFailed,
+        kind: .operationFailed,
         message: "Failed to fetch '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )

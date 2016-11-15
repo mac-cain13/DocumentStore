@@ -15,11 +15,11 @@ public protocol Document {
 
   /// Deserializes a stored document back into its original state.
   ///
-  /// Note: You should be able to deserialize any `Data` that is outputted by the 
-  ///       `serializeDocument` method. Not being able to do so will result in data loss. Throw an 
-  ///       `DocumentDeserializationError` with the appropiate `Resolution` if you do fail to 
-  ///       deserialize the `Data` and want to continue silently or throw any other `Error` to stop 
-  ///       the whole operation and let the error be rethrown.
+  /// - Note: You should be able to deserialize any `Data` that is outputted by the
+  ///         `serializeDocument` method. Not being able to do so will result in data loss. Throw an
+  ///         `DocumentDeserializationError` with the appropiate `Resolution` if you do fail to
+  ///         deserialize the `Data` and want to continue silently or throw any other `Error` to stop
+  ///         the whole operation and let the error be rethrown.
   ///
   /// - Parameter data: The data exactly as it was serialized
   /// - Returns: The deserialized document from the data
@@ -28,9 +28,9 @@ public protocol Document {
 
   /// Serializes the document to `Data` for storage.
   ///
-  /// Note: You should make sure every document is serializable and only throw an `Error` in extreme 
-  ///       edge cases where the serializer in use fails on you. Because throwing will make the 
-  ///       whole operation in progress fail.
+  /// - Note: You should make sure every document is serializable and only throw an `Error` in extreme
+  ///         edge cases where the serializer in use fails on you. Because throwing will make the
+  ///         whole operation in progress fail.
   ///
   /// - Returns: Data representing the document that can be handled by `deserializeDocument`
   /// - Throws: Any `Error` to indicate that deserialization failed

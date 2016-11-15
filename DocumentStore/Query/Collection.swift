@@ -25,9 +25,9 @@ extension Collection {
 
   /// Skip a number of `Document`s in the `Collection`.
   ///
-  /// Example: Given the `Document`s [a, b, c, d] `skipping(upTo: 2)` will result in a `Collection`
-  ///          of [c, d]. Then again performing an `skipping(upTo: 1)` on this `Collection` will 
-  ///          return [d].
+  /// - Note: Given the `Document`s [a, b, c, d] `skipping(upTo: 2)` will result in a `Collection`
+  ///         of [c, d]. Then again performing an `skipping(upTo: 1)` on this `Collection` will
+  ///         return [d].
   ///
   /// - Parameter numberOfItems: Number of items to skip.
   /// - Returns: A collection skipping the given number of items.
@@ -39,8 +39,8 @@ extension Collection {
 
   /// Limits the number of `Document`s in the `Collection`.
   ///
-  /// Example: Given the `Document`s [a, b, c, d] `limiting(upTo: 2)` will result in a `Collection`
-  ///          of [a, b].
+  /// - Note: Given the `Document`s [a, b, c, d] `limiting(upTo: 2)` will result in a `Collection`
+  ///         of [a, b].
   ///
   /// - Parameter numberOfItems: Maximum number of items that this collection may contain
   /// - Returns: A collection with not more then the given number of items
@@ -56,9 +56,9 @@ extension Collection {
 
   /// Filters the `Collection` by the returned `Predicate`.
   ///
-  /// Example: Given the `Document`s with an age `Index` of [16, 21, 23, 31]
-  ///          `filtering { $0.age > 18 }` will result in a collection of [21, 23, 31]. Then again
-  ///          performing `filtering { $0.age < 30 }` will return [21, 23].
+  /// - Note: Given the `Document`s with an age `Index` of [16, 21, 23, 31]
+  ///         `filtering { $0.age > 18 }` will result in a collection of [21, 23, 31]. Then again
+  ///         performing `filtering { $0.age < 30 }` will return [21, 23].
   ///
   /// - Parameter isIncluded: Closure that returns the `Predicate` to filter by
   /// - Returns: A collection filtered by the predicate
@@ -70,7 +70,7 @@ extension Collection {
 
   /// Excludes items from the `Collection` that match the returned `Predicate`.
   ///
-  /// Note: Works exactly like `filtering()`, but will negate the `Predicate`.
+  /// - Note: Works exactly like `filtering()`, but will negate the `Predicate`.
   ///
   /// - SeeAlso: `filtering()`
   /// - Parameter closure: Closure that returns the `Predicate` to exclude by
@@ -83,11 +83,11 @@ extension Collection {
 
   /// Orders the `Collection` by the returned `SortDescriptor`.
   ///
-  /// Example: Given the `Document`s with a name `Index` of [d, c, a, b]
-  ///          `ordered { $0.name.ascending() }` will result in a collection of [a, b, c, d].
+  /// - Note: Given the `Document`s with a name `Index` of [d, c, a, b]
+  ///         `ordered { $0.name.ascending() }` will result in a collection of [a, b, c, d].
   ///
-  /// Note: A second call to `ordered(by:)` will remove the first ordering, to apply multiple 
-  ///       `SortDescriptor`s use `thenOrder(by:)`.
+  /// - Important: A second call to `ordered(by:)` will remove the first ordering, to apply multiple
+  ///              `SortDescriptor`s use `thenOrder(by:)`.
   ///
   /// - Parameter sortDescriptor: Closure that returns the `SortDescriptor` to order by
   /// - Returns: An `OrderedCollection` ordered by the `SortDescriptor`
@@ -99,9 +99,10 @@ extension Collection {
 
   /// Count the number of `Document`s in this `Collection`
   ///
-  /// Note: A `DocumentStoreError` of kind `documentDescriptionNotRegistered` is thrown if you forgot
-  ///       to register the `DocumentDescriptor` while initializing the `DocumentStore`. Other
-  ///       errors are most likely edge cases like I/O errors for example that you can't recover from.
+  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are counting must be 
+  ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated 
+  ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
+  ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
   ///
   /// - Parameter transaction: The `ReadTransaction` to perform the count in
   /// - Returns: Number of `Document`s
@@ -112,9 +113,10 @@ extension Collection {
 
   /// Array of the `Document`s represented by this `Collection`.
   ///
-  /// Note: A `DocumentStoreError` of kind `documentDescriptionNotRegistered` is thrown if you forgot
-  ///       to register the `DocumentDescriptor` while initializing the `DocumentStore`. Other
-  ///       errors are most likely edge cases like I/O errors for example that you can't recover from.
+  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are counting must be
+  ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated
+  ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
+  ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
   ///
   /// - Parameter transaction: The `ReadTransaction` to perform the fetch in
   /// - Returns: Array of the `Document`s represented
@@ -125,9 +127,10 @@ extension Collection {
 
   /// First `Document` represented by this `Collection`.
   ///
-  /// Note: A `DocumentStoreError` of kind `documentDescriptionNotRegistered` is thrown if you forgot
-  ///       to register the `DocumentDescriptor` while initializing the `DocumentStore`. Other
-  ///       errors are most likely edge cases like I/O errors for example that you can't recover from.
+  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are counting must be
+  ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated
+  ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
+  ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
   ///
   /// - Parameter transaction: The `ReadTransaction` to perform the fetch in
   /// - Returns: First `Document` represented by the collection if any
@@ -138,9 +141,10 @@ extension Collection {
 
   /// Delete all `Document`s represented by this `Collection`.
   ///
-  /// Note: A `DocumentStoreError` of kind `documentDescriptionNotRegistered` is thrown if you forgot
-  ///       to register the `DocumentDescriptor` while initializing the `DocumentStore`. Other
-  ///       errors are most likely edge cases like I/O errors for example that you can't recover from.
+  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are counting must be
+  ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated
+  ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
+  ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
   ///
   /// - Parameter transaction: The `ReadWriteTransaction` to perform the fetch in
   /// - Returns: Number of deleted `Document`s

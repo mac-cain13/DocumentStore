@@ -10,20 +10,17 @@ import Foundation
 import CoreData
 
 /// Type that describes the possible storage formats.
+///
+/// - bool: Boolean storage
+/// - date: Date storage
+/// - double: Double storage
+/// - int: Integer (64 bit) storage
+/// - string: String storage
 public enum IndexStorageType {
-  /// Boolean storage
   case bool
-
-  /// Date storage
   case date
-
-  /// Double storage
   case double
-
-  /// Int64 storage
   case int
-
-  /// String storage
   case string
 
   var attributeType: NSAttributeType {

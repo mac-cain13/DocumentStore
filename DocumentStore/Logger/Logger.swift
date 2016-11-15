@@ -8,7 +8,14 @@
 
 import Foundation
 
+/// Logger that can be used to gather information to debug the `DocumentStore` and operations 
+/// performed on it.
 public protocol Logger {
+  /// Logs a message.
+  ///
+  /// - Parameters:
+  ///   - level: Level that is applicable to the message
+  ///   - message: Message to log
   func log(level: LogLevel, message: String)
 }
 

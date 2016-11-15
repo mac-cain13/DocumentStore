@@ -15,9 +15,9 @@ public struct Index<DocumentType: Document, ValueType: IndexValueType> {
 
   /// Create an `Index`.
   ///
-  /// Warning: Do never change the identifier, this is the only unique reference there is for the
-  ///          storage system to know what `Index` you are describing. Doing so will trigger a
-  ///          repopulation of this index for all documents in the collection.
+  /// - Warning: Do never change the identifier, this is the only unique reference there is for the
+  ///            storage system to know what `Index` you are describing. Doing so will trigger a
+  ///            repopulation of this index for all documents in the collection.
   ///
   /// - Parameters:
   ///   - identifier: Unique unchangable (within one document) identifier
@@ -27,7 +27,13 @@ public struct Index<DocumentType: Document, ValueType: IndexValueType> {
     self.resolver = resolver
   }
 
-  /// Type erasure for use of an `Index` in a list.
+  /// Type erasure for `Index` by hiding the `IndexValueType`.
+  ///
+  /// - Note: This is useful since you can't put a `Index<Document, String>` and a 
+  ///         `Index<Document, Bool>` together in a sequence. The returned `AnyIndex` will contain 
+  ///         all information of this `Index`, but since both indices will become 
+  ///         `AnyIndex<Document>` you also will be possible to put them both in for example an 
+  ///         array.
   ///
   /// - Returns: `AnyIndex` wrapping this `Index`
   public func eraseType() -> AnyIndex<DocumentType> {
