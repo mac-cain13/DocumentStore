@@ -92,19 +92,15 @@ class DocumentStoreTestsOld: XCTestCase {
 //        return .SaveChanges
 //      }
 //
-//      documentStore!.read(handler: { _ in }) {
-//        return try Developer.all()
-//          .filter { $0.name == "Mathijs" }
-//          .first(in: $0)
-//      }
+      documentStore!.read(handler: { developers in
+        print(developers)
+      }) { transaction in
+        return try Developer.all()
+          .filtering { $0.age > 18 }
+          .ordered { $0.age.ascending() }
+          .array(in: transaction)
+      }
 
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
     }
 
 }

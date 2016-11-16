@@ -8,4 +8,6 @@
 
 import Foundation
 
+let dependencyContainer = DependencyContainer()
+
 let DocumentDataAttributeName = "_DocumentData"

@@ -1,8 +1,8 @@
 //
-//  DocumentDescriptor+UtilTests.swift
+//  ManagedObjectModelServiceTests.swift
 //  DocumentStore
 //
-//  Created by Mathijs Kadijk on 07-11-16.
+//  Created by Mathijs Kadijk on 16-11-16.
 //  Copyright © 2016 Mathijs Kadijk. All rights reserved.
 //
 
@@ -10,13 +10,17 @@ import XCTest
 @testable import DocumentStore
 import CoreData
 
-class DocumentDescriptorUtilTests: XCTestCase {
+class ManagedObjectModelServiceTests: XCTestCase {
+
+  let managedObjectModelService =  ManagedObjectModelServiceImpl()
 
   // MARK: Validate
 
   func testValidateEmpty() {
     do {
-      try validate([], logTo: NoLogger())
+      let descriptors: [AnyDocumentDescriptor] = []
+      let validated = try managedObjectModelService.validate(descriptors, logTo: NoLogger())
+      XCTAssertEqual(validated.documentDescriptors, descriptors)
     } catch {
       XCTFail("Expected no error")
     }
@@ -24,7 +28,9 @@ class DocumentDescriptorUtilTests: XCTestCase {
 
   func testValidateValid() {
     do {
-      try validate([TestDocument.documentDescriptor.eraseType()], logTo: NoLogger())
+      let descriptors = [TestDocument.documentDescriptor.eraseType()]
+      let validated = try managedObjectModelService.validate(descriptors, logTo: NoLogger())
+      XCTAssertEqual(validated.documentDescriptors, descriptors)
     } catch {
       XCTFail("Expected no error")
     }
@@ -36,7 +42,7 @@ class DocumentDescriptorUtilTests: XCTestCase {
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
     do {
-      try validate([invalidDescriptor], logTo: NoLogger())
+      let _ = try managedObjectModelService.validate([invalidDescriptor], logTo: NoLogger())
       XCTFail("Error was expected")
     } catch let error as DocumentStoreError {
       XCTAssertEqual(error.kind, DocumentStoreError.ErrorKind.documentDescriptionInvalid)
@@ -51,7 +57,9 @@ class DocumentDescriptorUtilTests: XCTestCase {
     let issues = ["Multiple DocumentDescriptors have `\(TestDocument.documentDescriptor.identifier)` as identifier, every document descriptor must have an unique identifier."]
 
     do {
-      try validate([TestDocument.documentDescriptor.eraseType(), TestDocument.documentDescriptor.eraseType()], logTo: NoLogger())
+      let descriptors = [TestDocument.documentDescriptor.eraseType(), TestDocument.documentDescriptor.eraseType()]
+      let validated = try managedObjectModelService.validate(descriptors, logTo: NoLogger())
+      XCTAssertEqual(validated.documentDescriptors, descriptors)
     } catch let error as DocumentStoreError {
       XCTAssertEqual(error.kind, DocumentStoreError.ErrorKind.documentDescriptionInvalid)
       XCTAssertNil(error.underlyingError)
@@ -69,7 +77,7 @@ class DocumentDescriptorUtilTests: XCTestCase {
     let logger = MockLogger()
 
     do {
-      try validate([invalidDescriptor], logTo: logger)
+      let _ = try managedObjectModelService.validate([invalidDescriptor], logTo: logger)
       XCTFail("Error was expected")
     } catch let error as DocumentStoreError {
       XCTAssertEqual(logger.loggedMessages.count, 1)
@@ -83,12 +91,14 @@ class DocumentDescriptorUtilTests: XCTestCase {
   // MARK: ManagedObjectModel
 
   func testModelEmpty() {
-    let model = managedObjectModel(from: [], logTo: NoLogger())
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [])
+    let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
     XCTAssertTrue(model.entities.isEmpty)
   }
 
   func testModelDocumentDataProperty() {
-    let model = managedObjectModel(from: [TestDocument.documentDescriptor.eraseType()], logTo: NoLogger())
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [TestDocument.documentDescriptor.eraseType()])
+    let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
     XCTAssertEqual(model.entities.count, 1)
 
     let entity = model.entities.first
@@ -108,7 +118,8 @@ class DocumentDescriptorUtilTests: XCTestCase {
     let index = Index<TestDocument, Bool>(identifier: "TestIndex", resolver: { _ in false }).eraseType()
     let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [index])
 
-    let model = managedObjectModel(from: [documentDescriptor.eraseType()], logTo: NoLogger())
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [documentDescriptor.eraseType()])
+    let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
     XCTAssertEqual(model.entities.count, 1)
 
     let entity = model.entities.first
@@ -128,8 +139,9 @@ class DocumentDescriptorUtilTests: XCTestCase {
     let index = Index<TestDocument, Bool>(identifier: "TestIndex", resolver: { _ in false }).eraseType()
     let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [index])
 
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [documentDescriptor.eraseType()])
     let logger = MockLogger()
-    _ = managedObjectModel(from: [documentDescriptor.eraseType()], logTo: logger)
+    _ = managedObjectModelService.generateModel(from: descriptors, logTo: logger)
 
     let expectedLogs: [MockLogger.LogMessage] = [
       MockLogger.LogMessage(level: .trace, message: "Creating shared attribute `_DocumentData`..."),

@@ -12,7 +12,7 @@ import CoreData
 /// The store where `Document`s are stored and can retrieved using `Collection`s in transactions.
 public final class DocumentStore {
   private let persistentContainer: NSPersistentContainer
-  private let documentDescriptors: [AnyDocumentDescriptor]
+  private let documentDescriptors: ValidatedDocumentDescriptors
   private let logger: Logger
 
   /// Create a `DocumentStore`.
@@ -26,20 +26,20 @@ public final class DocumentStore {
   ///   - logger: Optional logger to use
   /// - Throws: `DocumentStoreError`s if initializations fails due invalid `DocumentDescriptor`s
   public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger = NoLogger()) throws {
-    self.documentDescriptors = documentDescriptors
     self.logger = logger
+
+    let managedObjectModelService = dependencyContainer.managedObjectModelService
 
     // Validate document descriptors
     logger.log(level: .debug, message: "Validating document descriptors...")
-    try validate(documentDescriptors, logTo: logger)
+    self.documentDescriptors = try managedObjectModelService.validate(documentDescriptors, logTo: logger)
 
     // Generate data model
     logger.log(level: .debug, message: "Generating data model...")
-    let model = managedObjectModel(from: documentDescriptors, logTo: logger)
+    let model = managedObjectModelService.generateModel(from: self.documentDescriptors, logTo: logger)
 
     // Setup persistent stack
     logger.log(level: .debug, message: "Setting up persistent store...")
-
     persistentContainer = NSPersistentContainer(name: identifier, managedObjectModel: model)
     persistentContainer.loadPersistentStores { _, error in
       if let error = error {
@@ -107,8 +107,9 @@ public final class DocumentStore {
         logger.log(level: .warn, message: "Failed to pin transaction, this could lead to inconsistent read operations.", error: error)
       }
 
-      let coreDataTransaction = CoreDataTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
-      let transaction = ReadWriteTransaction(transaction: coreDataTransaction)
+      let readWritableTransaction = dependencyContainer.transactionFactory
+        .createTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
+      let transaction = ReadWriteTransaction(transaction: readWritableTransaction)
       do {
         let (commitAction, result) = try actions(transaction)
 
