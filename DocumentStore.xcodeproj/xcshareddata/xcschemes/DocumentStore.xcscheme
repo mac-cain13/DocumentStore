@@ -38,14 +38,6 @@
                BlueprintName = "DocumentStoreTests"
                ReferencedContainer = "container:DocumentStore.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "CoreDataTransactionTests/testNeeded()">
-               </Test>
-               <Test
-                  Identifier = "DocumentStoreTests/testNeeded()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

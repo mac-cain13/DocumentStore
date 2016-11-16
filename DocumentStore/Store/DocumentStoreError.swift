@@ -12,13 +12,17 @@ import Foundation
 public struct DocumentStoreError: Error, CustomStringConvertible {
   /// Kind of error the `DocumentStore` encountered
   ///
+  /// - storeIdentifierInvalid: Given `DocumentStore` identifier is invalid
   /// - documentDescriptionInvalid: One or more `DocumentDescriptor`s are invalid
   /// - documentDescriptionNotRegistered: Tried to perform an operation with a `Document` which `DocumentDescriptor` was not registered with this store
   /// - operationFailed: The operation failed due errors with the system or issues in the library
   /// - documentDataCorruption: Couldn't read the serialized data of a `Document` from disk
   public enum ErrorKind: Int {
+    /// Given `DocumentStore` identifier is invalid
+    case storeIdentifierInvalid = 1
+
     /// One or more `DocumentDescriptor`s are invalid
-    case documentDescriptionInvalid = 1
+    case documentDescriptionInvalid
 
     /// Tried to perform an operation with a `Document` which `DocumentDescriptor` was not registered with this store
     case documentDescriptionNotRegistered

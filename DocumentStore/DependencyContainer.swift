@@ -16,4 +16,10 @@ final class DependencyContainer {
     managedObjectModelService = ManagedObjectModelServiceImpl()
     transactionFactory = CoreDataTransactionFactory()
   }
+
+  func restoreDefaults() {
+    let container = DependencyContainer()
+    managedObjectModelService = container.managedObjectModelService
+    transactionFactory = container.transactionFactory
+  }
 }
