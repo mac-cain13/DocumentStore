@@ -55,10 +55,12 @@ public struct AnyIndex<DocumentType: Document> {
 }
 
 struct UntypedAnyIndex: Validatable, Equatable {
+  fileprivate let documentIdentifier: String
   let identifier: String
   let storageType: IndexStorageType
 
   init<DocumentType: Document>(index: AnyIndex<DocumentType>) {
+    self.documentIdentifier = DocumentType.documentDescriptor.identifier
     self.identifier = index.identifier
     self.storageType = index.storageType
   }
@@ -80,6 +82,8 @@ struct UntypedAnyIndex: Validatable, Equatable {
   }
 
   static func == (lhs: UntypedAnyIndex, rhs: UntypedAnyIndex) -> Bool {
-    return lhs.identifier == rhs.identifier && lhs.storageType == rhs.storageType
+    return lhs.identifier == rhs.identifier &&
+      lhs.documentIdentifier == rhs.documentIdentifier &&
+      lhs.storageType == rhs.storageType
   }
 }

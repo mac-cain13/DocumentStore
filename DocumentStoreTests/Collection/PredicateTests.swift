@@ -54,7 +54,7 @@ class PredicateTests: XCTestCase {
 
   func testLike() {
     let predicate = (TestDocument.isTestString ~= "").predicate
-    XCTAssertEqual(predicate, left ~= right)
+    XCTAssertEqual(predicate, left ~= NSExpression(forConstantValue: ""))
   }
 
   // MARK: Predicate modifiers

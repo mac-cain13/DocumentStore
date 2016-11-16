@@ -87,10 +87,26 @@ class DocumentDescriptorTests: XCTestCase {
       ] + indexIssues
     )
   }
+
+  func testEquatable() {
+    let descriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: []).eraseType()
+    XCTAssertEqual(descriptor, descriptor)
+
+    // Note; The DocumentType in de descriptor is just to validate the indices are for this document, it cannot be checked in the equasion
+    let otherDocumentDescriptor = DocumentDescriptor<OtherTestDocument>(identifier: "TestDocument", indices: []).eraseType()
+    XCTAssertEqual(descriptor, otherDocumentDescriptor)
+
+    let otherIdentifierDescriptor = DocumentDescriptor<TestDocument>(identifier: "OtherTestDocument", indices: []).eraseType()
+    XCTAssertNotEqual(descriptor, otherIdentifierDescriptor)
+
+    let index = Index<TestDocument, Bool>(identifier: "") { _ in false }.eraseType()
+    let otherIndexDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [index]).eraseType()
+    XCTAssertNotEqual(descriptor, otherIndexDescriptor)
+  }
 }
 
 private struct TestDocument: Document {
-  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()
@@ -98,5 +114,17 @@ private struct TestDocument: Document {
 
   static func deserializeDocument(from data: Data) throws -> TestDocument {
     return TestDocument()
+  }
+}
+
+private struct OtherTestDocument: Document {
+  static var documentDescriptor = DocumentDescriptor<OtherTestDocument>(identifier: "OtherTestDocument", indices: [])
+
+  func serializeDocument() throws -> Data {
+    return Data()
+  }
+
+  static func deserializeDocument(from data: Data) throws -> OtherTestDocument {
+    return OtherTestDocument()
   }
 }

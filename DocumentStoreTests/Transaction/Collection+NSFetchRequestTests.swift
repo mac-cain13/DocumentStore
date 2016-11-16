@@ -42,7 +42,7 @@ class CollectionNSFetchRequestTests: XCTestCase {
   }
 
   func testFetchRequestFetchLimit() {
-    let limit = 42
+    let limit = 24
     var collection = self.collection
     collection.limit = UInt(limit)
     let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
@@ -51,9 +51,9 @@ class CollectionNSFetchRequestTests: XCTestCase {
 
   func testFetchRequestFetchLimitMaxUInt() {
     var collection = self.collection
-    collection.skip = UInt.max
+    collection.limit = UInt.max
     let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
-    XCTAssertEqual(request.fetchOffset, Int.max)
+    XCTAssertEqual(request.fetchLimit, Int(UInt32.max))
   }
 
   func testFetchRequestSortDescriptorsWhenUnordered() {

@@ -16,7 +16,8 @@ extension Collection {
     request.fetchOffset = Int(exactly: skip) ?? Int.max
 
     if let limit = limit {
-      request.fetchLimit = Int(exactly: limit) ?? Int.max
+      // fetchLimit is typed as `Int`, but actually is and acts like a UInt32
+      request.fetchLimit = UInt32(exactly: limit).map(Int.init) ?? Int(UInt32.max)
     }
 
     if let orderedCollection = self as? OrderedCollection<DocumentType> {

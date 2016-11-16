@@ -14,8 +14,8 @@ class DocumentStoreErrorTests: XCTestCase {
   func testErrorKindCodes() {
     XCTAssertEqual(DocumentStoreError.ErrorKind.documentDescriptionInvalid.rawValue, 1, "Changing errornumbers can confuse users")
     XCTAssertEqual(DocumentStoreError.ErrorKind.documentDescriptionNotRegistered.rawValue, 2, "Changing errornumbers can confuse users")
-    XCTAssertEqual(DocumentStoreError.ErrorKind.fetchRequestFailed.rawValue, 3, "Changing errornumbers can confuse users")
-    XCTAssertEqual(DocumentStoreError.ErrorKind.documentDataAttributeCorruption.rawValue, 4, "Changing errornumbers can confuse users")
+    XCTAssertEqual(DocumentStoreError.ErrorKind.operationFailed.rawValue, 3, "Changing errornumbers can confuse users")
+    XCTAssertEqual(DocumentStoreError.ErrorKind.documentDataCorruption.rawValue, 4, "Changing errornumbers can confuse users")
   }
 
   func testErrorKind() {
@@ -26,16 +26,16 @@ class DocumentStoreErrorTests: XCTestCase {
       break
     case .documentDescriptionNotRegistered:
       break
-    case .fetchRequestFailed:
+    case .operationFailed:
       break
-    case .documentDataAttributeCorruption:
+    case .documentDataCorruption:
       break
     }
   }
 
   func testDescription() {
     let innerError = NSError(domain: "TestDomain", code: 42, userInfo: [NSLocalizedDescriptionKey: "InnerDescription"])
-    let error = DocumentStoreError(kind: .documentDataAttributeCorruption, message: "Message", underlyingError: innerError)
+    let error = DocumentStoreError(kind: .documentDataCorruption, message: "Message", underlyingError: innerError)
     XCTAssertEqual(error.description, "DocumentStoreError #4: Message - \(innerError)")
   }
 }
