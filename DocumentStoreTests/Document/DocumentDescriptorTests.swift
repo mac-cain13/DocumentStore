@@ -31,7 +31,7 @@ class DocumentDescriptorTests: XCTestCase {
       XCTAssertEqual(issues.count, 1)
       XCTAssertEqual(
         issues.first,
-        "`\(identifier)` is an invalid identifier DocumentDescriptor, identifiers may not start with an `_`."
+        "`\(identifier)` is an invalid DocumentDescriptor identifier, identifiers may not start with an `_`."
       )
     }
   }
@@ -82,7 +82,7 @@ class DocumentDescriptorTests: XCTestCase {
     XCTAssertEqual(
       issues,
       [
-        "`\(identifier)` is an invalid identifier DocumentDescriptor, identifiers may not start with an `_`.",
+        "`\(identifier)` is an invalid DocumentDescriptor identifier, identifiers may not start with an `_`.",
         "DocumentDescriptor `\(identifier)` has multiple indices with `\(duplicateIndex)` as identifier, every index identifier must be unique."
       ] + indexIssues
     )

@@ -55,7 +55,7 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
 
     // Identifiers may not start with `_`
     if identifier.characters.first == "_" {
-      issues.append("`\(identifier)` is an invalid identifier DocumentDescriptor, identifiers may not start with an `_`.")
+      issues.append("`\(identifier)` is an invalid DocumentDescriptor identifier, identifiers may not start with an `_`.")
     }
 
     // Two indices may not have the same identifier

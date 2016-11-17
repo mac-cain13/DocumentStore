@@ -11,6 +11,8 @@ import CoreData
 
 /// The store where `Document`s are stored and can retrieved using `Collection`s in transactions.
 public final class DocumentStore {
+  private let transactionFactory = dependencyContainer.transactionFactory
+
   private let persistentContainer: NSPersistentContainer
   private let documentDescriptors: ValidatedDocumentDescriptors
   private let logger: Logger
@@ -28,10 +30,18 @@ public final class DocumentStore {
   public init(identifier: String, documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger = NoLogger()) throws {
     self.logger = logger
 
-    let managedObjectModelService = dependencyContainer.managedObjectModelService
+    // Validate identifier
+    if identifier.isEmpty {
+      throw DocumentStoreError(kind: .storeIdentifierInvalid, message: "The DocumentStore identifier may not be empty.", underlyingError: nil)
+    }
+
+    if identifier.characters.first == "_" {
+      throw DocumentStoreError(kind: .storeIdentifierInvalid, message: "`\(identifier)` is an invalid DocumentStore identifier, identifiers may not start with an `_`.", underlyingError: nil)
+    }
 
     // Validate document descriptors
     logger.log(level: .debug, message: "Validating document descriptors...")
+    let managedObjectModelService = dependencyContainer.managedObjectModelService
     self.documentDescriptors = try managedObjectModelService.validate(documentDescriptors, logTo: logger)
 
     // Generate data model
@@ -40,7 +50,8 @@ public final class DocumentStore {
 
     // Setup persistent stack
     logger.log(level: .debug, message: "Setting up persistent store...")
-    persistentContainer = NSPersistentContainer(name: identifier, managedObjectModel: model)
+    let persistentContainerFactory = dependencyContainer.persistentContainerFactory
+    persistentContainer = persistentContainerFactory.createPersistentContainer(name: identifier, managedObjectModel: model)
     persistentContainer.loadPersistentStores { _, error in
       if let error = error {
         logger.log(level: .error, message: "Failed to load persistent store, this will result in an unusable DocumentStore.", error: error)
@@ -98,7 +109,7 @@ public final class DocumentStore {
   ///   - handler: Handler that will be called with the result of the transaction
   ///   - actions: Actions to perform in this transaction, returned result is passed to the handler, commit action will be executed
   public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> (CommitAction, T)) {
-    persistentContainer.performBackgroundTask { [logger, documentDescriptors] context in
+    persistentContainer.performBackgroundTask { [logger, transactionFactory, documentDescriptors] context in
       context.mergePolicy = NSMergePolicy.overwrite
 
       do {
@@ -107,8 +118,7 @@ public final class DocumentStore {
         logger.log(level: .warn, message: "Failed to pin transaction, this could lead to inconsistent read operations.", error: error)
       }
 
-      let readWritableTransaction = dependencyContainer.transactionFactory
-        .createTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
+      let readWritableTransaction = transactionFactory.createTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
       let transaction = ReadWriteTransaction(transaction: readWritableTransaction)
       do {
         let (commitAction, result) = try actions(transaction)

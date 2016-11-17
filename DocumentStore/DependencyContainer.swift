@@ -10,16 +10,19 @@ import Foundation
 
 final class DependencyContainer {
   var managedObjectModelService: ManagedObjectModelService
+  var persistentContainerFactory: PersistentContainerFactory
   var transactionFactory: TransactionFactory
 
   init() {
     managedObjectModelService = ManagedObjectModelServiceImpl()
+    persistentContainerFactory = NSPersistentContainerFactory()
     transactionFactory = CoreDataTransactionFactory()
   }
 
   func restoreDefaults() {
     let container = DependencyContainer()
     managedObjectModelService = container.managedObjectModelService
+    persistentContainerFactory = container.persistentContainerFactory
     transactionFactory = container.transactionFactory
   }
 }
