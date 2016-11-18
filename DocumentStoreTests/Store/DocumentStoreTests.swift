@@ -13,12 +13,16 @@ import CoreData
 class DocumentStoreTests: XCTestCase {
 
   private var mockManagedObjectModelService = MockManagedObjectModelService()
+  private var mockPersistentContainerFactory = MockPersistentContainerFactory()
   private var mockTransactionFactory = MockTransactionFactory()
 
   override func setUp() {
     super.setUp()
     mockManagedObjectModelService = MockManagedObjectModelService()
     dependencyContainer.managedObjectModelService = mockManagedObjectModelService
+
+    mockPersistentContainerFactory = MockPersistentContainerFactory()
+    dependencyContainer.persistentContainerFactory = mockPersistentContainerFactory
 
     mockTransactionFactory = MockTransactionFactory()
     dependencyContainer.transactionFactory = mockTransactionFactory
@@ -111,16 +115,36 @@ class DocumentStoreTests: XCTestCase {
     }
   }
 
+  func testFailedPersistentStoreLoadingLogs() {
+    do {
+      let logger = MockLogger()
+      mockPersistentContainerFactory.createdContainersLoadingShouldSucceed = false
+      let _ = try DocumentStore(identifier: "TestDocument", documentDescriptors: [], logTo: logger)
+
+      let errorLogExpectation = expectation(description: "Error log")
+      logger.logCallback = { logMessage in
+        XCTAssertEqual(logMessage.level, .error)
+        XCTAssertEqual(logMessage.message, "Failed to load persistent store, this will result in an unusable DocumentStore. (\(MockPersistentContainer.loadError))")
+        errorLogExpectation.fulfill()
+      }
+
+      waitForExpectations(timeout: 2)
+    } catch {
+      XCTFail("Unexpected error")
+    }
+  }
+
   // MARK: Transactions
 
   func testReadWriteTransactionConfiguresContext() {
-    let actionExpectation = expectation(description: "Action callback")
-
     let documentStore = createDocumentStore()
+    let actionExpectation = expectation(description: "Action callback")
     let handler: (TransactionResult<Bool>) -> Void = { _ in }
+
     documentStore.readWrite(handler: handler) { _ in
       XCTAssertEqual(self.mockTransactionFactory.transactions.count, 1)
       guard let mockTransaction = self.mockTransactionFactory.transactions.last else {
+        XCTFail("No mock transaction")
         actionExpectation.fulfill()
         return (.discardChanges, false)
       }
@@ -138,35 +162,146 @@ class DocumentStoreTests: XCTestCase {
       return (.discardChanges, true)
     }
 
-    waitForExpectations(timeout: 2, handler: nil)
-  }
-
-  func testReadWriteTransactionLogsQueryGenerationError() {
-    XCTFail("Check for log when setQueryGenerationFrom call fails")
+    waitForExpectations(timeout: 2)
   }
 
   func testReadWriteTransactionPassesResultToHandler() {
-    XCTFail("Check if handler gets success result")
+    let handlerExpectation = expectation(description: "Handler callback")
+    let handler: (TransactionResult<Bool>) -> Void = { result in
+      guard case TransactionResult.success(true) = result else {
+        XCTFail("Expected true result")
+        handlerExpectation.fulfill()
+        return
+      }
+      handlerExpectation.fulfill()
+    }
+
+    let documentStore = createDocumentStore()
+    documentStore.readWrite(handler: handler) { _ in (.discardChanges, true) }
+
+    waitForExpectations(timeout: 2)
   }
 
   func testReadWriteTransactionPassesFailureToHandler() {
-    XCTFail("Check if handler gets failure error")
+    let error = NSError(domain: "TestDomain", code: 42, userInfo: nil)
+
+    let handlerExpectation = expectation(description: "Handler callback")
+    let handler: (TransactionResult<Bool>) -> Void = { result in
+      guard case let TransactionResult.failure(.actionThrewError(receivedError)) = result else {
+        XCTFail("Expected true result")
+        handlerExpectation.fulfill()
+        return
+      }
+
+      XCTAssertEqual(receivedError as NSError, error)
+      handlerExpectation.fulfill()
+    }
+
+    let documentStore = createDocumentStore()
+    documentStore.readWrite(handler: handler) { _ in throw error }
+
+    waitForExpectations(timeout: 2)
   }
 
   func testReadWriteTransactionHandlesSaveChangesCommitAction() {
-    XCTFail("Check if save changes is called")
+    let handlerExpectation = expectation(description: "Handler callback")
+    let handler: (TransactionResult<Bool>) -> Void = { _ in
+      XCTAssertEqual(self.mockTransactionFactory.transactions.count, 1)
+      guard let mockTransaction = self.mockTransactionFactory.transactions.last else {
+        XCTFail("No mock transaction")
+        handlerExpectation.fulfill()
+        return
+      }
+
+      XCTAssertEqual(mockTransaction.saveChangesCount, 1)
+      handlerExpectation.fulfill()
+    }
+
+    let documentStore = createDocumentStore()
+    documentStore.readWrite(handler: handler) { _ in (.saveChanges, false) }
+    waitForExpectations(timeout: 2)
   }
 
   func testReadWriteTransactionPassesSaveChangesFailureToHandler() {
-    XCTFail("Check if save changes failure is logged")
-  }
+    let handlerExpectation = expectation(description: "Handler callback")
+    let handler: (TransactionResult<Bool>) -> Void = { result in
+      guard case let .failure(.documentStoreError(error)) = result else {
+        XCTFail("Unexpected transaction result")
+        handlerExpectation.fulfill()
+        return
+      }
 
-  func testReadWriteTransactionLogsSaveChangesFailure() {
-    XCTFail("Check if save changes failure is logged")
+      XCTAssertEqual(error.kind, .operationFailed)
+      XCTAssertEqual(error.message, "Failed to save changes from a transaction to the store.")
+      XCTAssertEqual(error.underlyingError as? NSError, MockTransaction.saveError)
+      handlerExpectation.fulfill()
+    }
+
+    let documentStore = createDocumentStore()
+    documentStore.readWrite(handler: handler) { _ in
+      XCTAssertEqual(self.mockTransactionFactory.transactions.count, 1)
+      guard let mockTransaction = self.mockTransactionFactory.transactions.last else {
+        XCTFail("No mock transaction")
+        handlerExpectation.fulfill()
+        return (.discardChanges, false)
+      }
+
+      mockTransaction.savingShouldSucceed = false
+      return (.saveChanges, false)
+    }
+
+    waitForExpectations(timeout: 2)
   }
 
   func testHandlerCalledOnRequestedQueue() {
-    XCTFail("Check if handler called on correct thread")
+    let queueKey = DispatchSpecificKey<Void>()
+    let queue = DispatchQueue(label: "TestQueue")
+    queue.setSpecific(key: queueKey, value: ())
+
+    let handlerExpectation = expectation(description: "Action callback")
+    let handler: (TransactionResult<Bool>) -> Void = { _ in
+      XCTAssertNotNil(DispatchQueue.getSpecific(key: queueKey), "Handler not called on expected queue")
+      handlerExpectation.fulfill()
+    }
+
+    let documentStore = createDocumentStore()
+    documentStore.readWrite(queue: queue, handler: handler, actions: { _ in (.discardChanges, false) })
+
+    waitForExpectations(timeout: 2)
+  }
+
+  func testReadCallsHandler() {
+    let handlerExpectation = expectation(description: "Handler callback")
+    let handler: (TransactionResult<Bool>) -> Void = { result in
+      guard case TransactionResult.success(true) = result else {
+        XCTFail("Expected true result")
+        handlerExpectation.fulfill()
+        return
+      }
+      handlerExpectation.fulfill()
+    }
+
+    let documentStore = createDocumentStore()
+    documentStore.read(handler: handler) { _ in true }
+
+    waitForExpectations(timeout: 2)
+  }
+
+  func testWriteCallsHandler() {
+    let handlerExpectation = expectation(description: "Handler callback")
+    let handler: (TransactionResult<Void>) -> Void = { result in
+      guard case TransactionResult.success(()) = result else {
+        XCTFail("Expected void result")
+        handlerExpectation.fulfill()
+        return
+      }
+      handlerExpectation.fulfill()
+    }
+
+    let documentStore = createDocumentStore()
+    documentStore.write(handler: handler) { _ in .discardChanges }
+
+    waitForExpectations(timeout: 2)
   }
 }
 
@@ -193,7 +328,7 @@ private class MockManagedObjectModelService: ManagedObjectModelService {
 }
 
 private class MockTransactionFactory: TransactionFactory {
-  var transactions: [MockTransaction] = []
+  private(set) var transactions: [MockTransaction] = []
 
   func createTransaction(context: NSManagedObjectContext, documentDescriptors: ValidatedDocumentDescriptors, logTo logger: Logger) -> ReadWritableTransaction {
     let transaction = MockTransaction(context: context)
@@ -203,8 +338,12 @@ private class MockTransactionFactory: TransactionFactory {
 }
 
 private class MockTransaction: ReadWritableTransaction {
+  static let saveError = NSError(domain: "TestDomain", code: 42, userInfo: nil)
+
   let context: NSManagedObjectContext
-  var saveChangesCount = 0
+  private(set) var saveChangesCount = 0
+
+  var savingShouldSucceed = true
 
   init(context: NSManagedObjectContext) {
     self.context = context
@@ -227,5 +366,36 @@ private class MockTransaction: ReadWritableTransaction {
 
   func saveChanges() throws {
     saveChangesCount += 1
+
+    if !savingShouldSucceed {
+      throw MockTransaction.saveError
+    }
+  }
+}
+
+private class MockPersistentContainerFactory: PersistentContainerFactory {
+  var createdContainersLoadingShouldSucceed = true
+
+  private(set) var containers: [MockPersistentContainer] = []
+
+  func createPersistentContainer(name: String, managedObjectModel: NSManagedObjectModel) -> NSPersistentContainer {
+    let container = MockPersistentContainer(name: name, managedObjectModel: managedObjectModel)
+    container.loadingShouldSucceed = createdContainersLoadingShouldSucceed
+    containers.append(container)
+    return container
+  }
+}
+
+private class MockPersistentContainer: NSPersistentContainer {
+  static let loadError = NSError(domain: "TestDomain", code: 42, userInfo: nil)
+  var loadingShouldSucceed = true
+
+  override func loadPersistentStores(completionHandler block: @escaping (NSPersistentStoreDescription, Error?) -> Void) {
+    if loadingShouldSucceed {
+      super.loadPersistentStores(completionHandler: block)
+    } else {
+      guard let description = persistentStoreDescriptions.first else { fatalError("No description for mock persistent container.") }
+      DispatchQueue.main.async { block(description, MockPersistentContainer.loadError) }
+    }
   }
 }

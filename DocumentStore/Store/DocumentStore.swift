@@ -120,22 +120,28 @@ public final class DocumentStore {
 
       let readWritableTransaction = transactionFactory.createTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
       let transaction = ReadWriteTransaction(transaction: readWritableTransaction)
+
+      let transactionResult: TransactionResult<T>
       do {
         let (commitAction, result) = try actions(transaction)
 
-        if case .saveChanges = commitAction {
+        switch commitAction {
+        case .discardChanges:
+          transactionResult = .success(result)
+        case .saveChanges:
           do {
             try transaction.saveChanges()
+            transactionResult = .success(result)
           } catch let error {
             let documentStoreError = DocumentStoreError(kind: .operationFailed, message: "Failed to save changes from a transaction to the store.", underlyingError: error)
-            return queue.async { handler(.failure(.documentStoreError(documentStoreError))) }
+            transactionResult = .failure(.documentStoreError(documentStoreError))
           }
         }
-
-        return queue.async { handler(.success(result)) }
       } catch let error {
-        return queue.async { handler(.failure(.actionThrewError(error))) }
+        transactionResult = .failure(.actionThrewError(error))
       }
+
+      return queue.async { handler(transactionResult) }
     }
   }
 }
