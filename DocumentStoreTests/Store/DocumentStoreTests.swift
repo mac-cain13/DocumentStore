@@ -127,7 +127,6 @@ class DocumentStoreTests: XCTestCase {
         XCTAssertEqual(logMessage.message, "Failed to load persistent store, this will result in an unusable DocumentStore. (\(MockPersistentContainer.loadError))")
         errorLogExpectation.fulfill()
       }
-
       waitForExpectations(timeout: 2)
     } catch {
       XCTFail("Unexpected error")

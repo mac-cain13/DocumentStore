@@ -39,6 +39,8 @@
 		D565A1211DD74350000FB0C8 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565A1201DD74350000FB0C8 /* Collection.swift */; };
 		D565A1231DD74593000FB0C8 /* CollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565A1221DD74593000FB0C8 /* CollectionTests.swift */; };
 		D565A12B1DD75B8D000FB0C8 /* ReadTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565A12A1DD75B8D000FB0C8 /* ReadTransaction.swift */; };
+		D5796CA01DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */; };
+		D5796CA31DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5796CA21DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift */; };
 		D59047FB1DCBA44E000F2517 /* DocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047FA1DCBA44E000F2517 /* DocumentStore.swift */; };
 		D59047FF1DCBD139000F2517 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047FE1DCBD139000F2517 /* Document.swift */; };
 		D59048011DCBD9F8000F2517 /* Index.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59048001DCBD9F8000F2517 /* Index.swift */; };
@@ -115,6 +117,8 @@
 		D565A1201DD74350000FB0C8 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		D565A1221DD74593000FB0C8 /* CollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTests.swift; sourceTree = "<group>"; };
 		D565A12A1DD75B8D000FB0C8 /* ReadTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadTransaction.swift; sourceTree = "<group>"; };
+		D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerFactoryTests.swift; sourceTree = "<group>"; };
+		D5796CA21DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTransactionFactoryTests.swift; sourceTree = "<group>"; };
 		D59047FA1DCBA44E000F2517 /* DocumentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
 		D59047FE1DCBD139000F2517 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		D59048001DCBD9F8000F2517 /* Index.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Index.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 		D51711D61DD8B18F002B676A /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				D5796C9E1DDF8E1A007BCFC2 /* Factory */,
 				D51711D71DD8B1C1002B676A /* DocumentStoreTests.swift */,
 				D51711D91DD8B55B002B676A /* DocumentStoreErrorTests.swift */,
 				D5F790511DDCCC2B005D8A70 /* ManagedObjectModelServiceTests.swift */,
@@ -183,6 +188,7 @@
 		D51711DB1DD8F7B9002B676A /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				D5796CA11DDF8F0F007BCFC2 /* Factory */,
 				D51711DC1DD8F7DB002B676A /* Collection+NSFetchRequestTests.swift */,
 				D51711E21DD990D7002B676A /* ReadTransactionTests.swift */,
 				D51711E41DD9934D002B676A /* ReadWriteTransactionTests.swift */,
@@ -270,6 +276,22 @@
 				D51711D41DD8AD23002B676A /* SortDescriptorTests.swift */,
 			);
 			path = Collection;
+			sourceTree = "<group>";
+		};
+		D5796C9E1DDF8E1A007BCFC2 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		D5796CA11DDF8F0F007BCFC2 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				D5796CA21DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		D5DE293A1DDDB4AB00F764A4 /* Factory */ = {
@@ -589,6 +611,7 @@
 				D54B9CC11DD1064700F7DA25 /* DocumentDescriptorTests.swift in Sources */,
 				D51711D11DD888B4002B676A /* ExpressionTests.swift in Sources */,
 				D54B9CD31DD1270000F7DA25 /* IndexStorageTypeTests.swift in Sources */,
+				D5796CA01DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift in Sources */,
 				D54B9CCC1DD118C500F7DA25 /* MockLogger.swift in Sources */,
 				D51711DD1DD8F7DB002B676A /* Collection+NSFetchRequestTests.swift in Sources */,
 				D54B9CD61DD128BD00F7DA25 /* UnorderedCollectionTests.swift in Sources */,
@@ -602,6 +625,7 @@
 				D5F790471DDC3ACC005D8A70 /* DocumentDeserializationErrorTests.swift in Sources */,
 				D565A1231DD74593000FB0C8 /* CollectionTests.swift in Sources */,
 				D51711CF1DD88488002B676A /* OrderedCollectionTests.swift in Sources */,
+				D5796CA31DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

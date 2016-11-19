@@ -137,17 +137,16 @@ class CoreDataTransaction: ReadWritableTransaction {
   public func add<DocumentType: Document>(document: DocumentType) throws {
     try validateUseOfDocumentType(DocumentType.self)
 
-    let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
-
     do {
       let documentData = try document.serializeDocument()
+
+      let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
       entity.setValue(documentData, forKey: DocumentDataAttributeName)
+      DocumentType.documentDescriptor.indices.forEach {
+        entity.setValue($0.resolver(document), forKey: $0.identifier)
+      }
     } catch let error {
       throw TransactionError.serializationFailed(error)
-    }
-
-    DocumentType.documentDescriptor.indices.forEach {
-      entity.setValue($0.resolver(document), forKey: $0.identifier)
     }
   }
 

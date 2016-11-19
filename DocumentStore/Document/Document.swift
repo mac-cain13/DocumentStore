@@ -18,8 +18,8 @@ public protocol Document {
   /// - Note: You should be able to deserialize any `Data` that is outputted by the
   ///         `serializeDocument` method. Not being able to do so will result in data loss. Throw an
   ///         `DocumentDeserializationError` with the appropiate `Resolution` if you do fail to
-  ///         deserialize the `Data` and want to continue silently or throw any other `Error` to stop
-  ///         the whole operation and let the error be rethrown.
+  ///         deserialize the `Data`. Throwing any other `Error` will behave the same as an
+  ///         `DocumentDeserializationError` with the `.abortOperation` resolution.
   ///
   /// - Parameter data: The data exactly as it was serialized
   /// - Returns: The deserialized document from the data
