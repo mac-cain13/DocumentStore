@@ -131,6 +131,19 @@ class CoreDataTransactionTests: XCTestCase {
 
   // MARK: Happy flow tests
 
+  func testCount() {
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    entity.setValue(Data(), forKey: DocumentDataAttributeName)
+    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+
+    do {
+      let count = try transaction.count(TestDocument.all())
+      XCTAssertEqual(count, 1)
+    } catch {
+      XCTFail("Unexpected error")
+    }
+  }
+
   func testFetch() {
     let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
     entity.setValue(Data(), forKey: DocumentDataAttributeName)
@@ -287,18 +300,6 @@ class CoreDataTransactionTests: XCTestCase {
     } catch {
       XCTFail("Unexpected error type")
     }
-  }
-
-  func testCountContextFailure() {
-    XCTFail("To be implemented")
-  }
-
-  func testFetchContextFailure() {
-    XCTFail("To be implemented")
-  }
-
-  func testDeleteContextFailure() {
-    XCTFail("To be implemented")
   }
 
   func testAddThrowsOnSerializationError() {
