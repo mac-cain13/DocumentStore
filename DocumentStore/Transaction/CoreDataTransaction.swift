@@ -37,7 +37,9 @@ class CoreDataTransaction: ReadWritableTransaction {
     let request: NSFetchRequest<NSNumber> = collection.fetchRequest()
 
     do {
-      return try context.count(for: request)
+      return try convertExceptionToError {
+        try context.count(for: request)
+      }
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
@@ -59,7 +61,9 @@ class CoreDataTransaction: ReadWritableTransaction {
     // Perform the fetch
     let fetchResult: [NSManagedObject]
     do {
-      fetchResult = try context.fetch(request)
+      fetchResult = try convertExceptionToError {
+        try context.fetch(request)
+      }
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
@@ -111,7 +115,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     request.includesPropertyValues = false
 
     do {
-      let fetchResult = try context.fetch(request)
+      let fetchResult = try convertExceptionToError { try context.fetch(request) }
       fetchResult.forEach(context.delete)
       return fetchResult.count
     } catch let underlyingError {
@@ -140,10 +144,12 @@ class CoreDataTransaction: ReadWritableTransaction {
     do {
       let documentData = try document.serializeDocument()
 
-      let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
-      entity.setValue(documentData, forKey: DocumentDataAttributeName)
-      DocumentType.documentDescriptor.indices.forEach {
-        entity.setValue($0.resolver(document), forKey: $0.identifier)
+      try convertExceptionToError {
+        let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
+        entity.setValue(documentData, forKey: DocumentDataAttributeName)
+        DocumentType.documentDescriptor.indices.forEach {
+          entity.setValue($0.resolver(document), forKey: $0.identifier)
+        }
       }
     } catch let error {
       throw TransactionError.serializationFailed(error)

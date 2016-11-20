@@ -1,0 +1,4 @@
+module ObjCExceptionHandler {
+  header "Exception.h"
+  export *
+}

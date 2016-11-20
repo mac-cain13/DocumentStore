@@ -39,6 +39,11 @@
 		D565A1211DD74350000FB0C8 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565A1201DD74350000FB0C8 /* Collection.swift */; };
 		D565A1231DD74593000FB0C8 /* CollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565A1221DD74593000FB0C8 /* CollectionTests.swift */; };
 		D565A12B1DD75B8D000FB0C8 /* ReadTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D565A12A1DD75B8D000FB0C8 /* ReadTransaction.swift */; };
+		D57200041DE1BD8400C5E585 /* Exception.h in Headers */ = {isa = PBXBuildFile; fileRef = D57200021DE1BD8400C5E585 /* Exception.h */; };
+		D57200051DE1BD8400C5E585 /* Exception.m in Sources */ = {isa = PBXBuildFile; fileRef = D57200031DE1BD8400C5E585 /* Exception.m */; };
+		D57200071DE1BDF500C5E585 /* ExceptionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57200061DE1BDF500C5E585 /* ExceptionHandler.swift */; };
+		D572000E1DE2251A00C5E585 /* ExceptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572000D1DE2251A00C5E585 /* ExceptionTests.swift */; };
+		D57200101DE2264200C5E585 /* ExceptionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572000F1DE2264200C5E585 /* ExceptionHandlerTests.swift */; };
 		D5796CA01DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */; };
 		D5796CA31DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5796CA21DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift */; };
 		D59047FB1DCBA44E000F2517 /* DocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047FA1DCBA44E000F2517 /* DocumentStore.swift */; };
@@ -117,6 +122,13 @@
 		D565A1201DD74350000FB0C8 /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		D565A1221DD74593000FB0C8 /* CollectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTests.swift; sourceTree = "<group>"; };
 		D565A12A1DD75B8D000FB0C8 /* ReadTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadTransaction.swift; sourceTree = "<group>"; };
+		D57200021DE1BD8400C5E585 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		D57200031DE1BD8400C5E585 /* Exception.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exception.m; sourceTree = "<group>"; };
+		D57200061DE1BDF500C5E585 /* ExceptionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionHandler.swift; sourceTree = "<group>"; };
+		D57200081DE1BE4000C5E585 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		D572000B1DE1C3C700C5E585 /* DocumentStore.private.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = DocumentStore.private.modulemap; sourceTree = "<group>"; };
+		D572000D1DE2251A00C5E585 /* ExceptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionTests.swift; sourceTree = "<group>"; };
+		D572000F1DE2264200C5E585 /* ExceptionHandlerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionHandlerTests.swift; sourceTree = "<group>"; };
 		D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerFactoryTests.swift; sourceTree = "<group>"; };
 		D5796CA21DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTransactionFactoryTests.swift; sourceTree = "<group>"; };
 		D59047FA1DCBA44E000F2517 /* DocumentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
@@ -242,6 +254,7 @@
 		D54B9CC31DD10CFE00F7DA25 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				D572000F1DE2264200C5E585 /* ExceptionHandlerTests.swift */,
 				D54B9CC41DD10D6700F7DA25 /* Sequence+DuplicatesTests.swift */,
 			);
 			path = Util;
@@ -276,6 +289,24 @@
 				D51711D41DD8AD23002B676A /* SortDescriptorTests.swift */,
 			);
 			path = Collection;
+			sourceTree = "<group>";
+		};
+		D572000A1DE1C35D00C5E585 /* ObjCExceptionHandler */ = {
+			isa = PBXGroup;
+			children = (
+				D57200081DE1BE4000C5E585 /* module.modulemap */,
+				D57200021DE1BD8400C5E585 /* Exception.h */,
+				D57200031DE1BD8400C5E585 /* Exception.m */,
+			);
+			path = ObjCExceptionHandler;
+			sourceTree = "<group>";
+		};
+		D572000C1DE224FF00C5E585 /* ObjCExceptionHandler */ = {
+			isa = PBXGroup;
+			children = (
+				D572000D1DE2251A00C5E585 /* ExceptionTests.swift */,
+			);
+			path = ObjCExceptionHandler;
 			sourceTree = "<group>";
 		};
 		D5796C9E1DDF8E1A007BCFC2 /* Factory */ = {
@@ -334,7 +365,9 @@
 				D5FCEF4B1DD064B90028364C /* Transaction */,
 				D54B9CB41DD0EA3A00F7DA25 /* Logger */,
 				D5FCEF351DCF4E290028364C /* Util */,
+				D572000A1DE1C35D00C5E585 /* ObjCExceptionHandler */,
 				D5F593BD1DC9C6F2005B214D /* DocumentStore.h */,
+				D572000B1DE1C3C700C5E585 /* DocumentStore.private.modulemap */,
 				D5F593BE1DC9C6F2005B214D /* Info.plist */,
 			);
 			path = DocumentStore;
@@ -352,6 +385,7 @@
 				D51711DB1DD8F7B9002B676A /* Transaction */,
 				D51711E81DD99C67002B676A /* Logger */,
 				D54B9CC31DD10CFE00F7DA25 /* Util */,
+				D572000C1DE224FF00C5E585 /* ObjCExceptionHandler */,
 				D5F593C81DC9C6F2005B214D /* DocumentStoreTestsOld.swift */,
 				D54B9CCA1DD118AE00F7DA25 /* Mocks */,
 				D5F593CA1DC9C6F2005B214D /* Info.plist */,
@@ -371,6 +405,7 @@
 		D5FCEF351DCF4E290028364C /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				D57200061DE1BDF500C5E585 /* ExceptionHandler.swift */,
 				D5FCEF411DCFC7C20028364C /* Sequence+Duplicates.swift */,
 			);
 			path = Util;
@@ -432,6 +467,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D57200041DE1BD8400C5E585 /* Exception.h in Headers */,
 				D5F593CB1DC9C6F2005B214D /* DocumentStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,6 +608,7 @@
 				D5FCEF441DD05E4D0028364C /* Constants.swift in Sources */,
 				D5FCEF401DCFC21A0028364C /* Validatable.swift in Sources */,
 				D5F7904A1DDCC906005D8A70 /* TransactionFactory.swift in Sources */,
+				D57200071DE1BDF500C5E585 /* ExceptionHandler.swift in Sources */,
 				D5F790541DDCE1ED005D8A70 /* ValidatedDocumentDescriptors.swift in Sources */,
 				D5F7904E1DDCC979005D8A70 /* DependencyContainer.swift in Sources */,
 				D59048011DCBD9F8000F2517 /* Index.swift in Sources */,
@@ -583,6 +620,7 @@
 				D54B9CB81DD0EA8700F7DA25 /* LogLevel.swift in Sources */,
 				D5FCEF521DD065770028364C /* TransactionError.swift in Sources */,
 				D50219531DCD3A1D00408ADC /* IndexValueType.swift in Sources */,
+				D57200051DE1BD8400C5E585 /* Exception.m in Sources */,
 				D5F7904C1DDCC916005D8A70 /* CoreDataTransactionFactory.swift in Sources */,
 				D5FCEF501DD065560028364C /* CommitAction.swift in Sources */,
 				D5FCEF301DCDF9230028364C /* Predicate.swift in Sources */,
@@ -600,10 +638,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54B9CBD1DD0EDB500F7DA25 /* DocumentTests.swift in Sources */,
+				D57200101DE2264200C5E585 /* ExceptionHandlerTests.swift in Sources */,
 				D54B9CC51DD10D6700F7DA25 /* Sequence+DuplicatesTests.swift in Sources */,
 				D51711E71DD99BB9002B676A /* CoreDataTransactionTests.swift in Sources */,
 				D51711D31DD8A67E002B676A /* PredicateTests.swift in Sources */,
 				D54B9CBA1DD0EB5100F7DA25 /* ValidatableTests.swift in Sources */,
+				D572000E1DE2251A00C5E585 /* ExceptionTests.swift in Sources */,
 				D51711E31DD990D7002B676A /* ReadTransactionTests.swift in Sources */,
 				D51711EA1DD99C8B002B676A /* LoggerTests.swift in Sources */,
 				D5F790521DDCCC2B005D8A70 /* ManagedObjectModelServiceTests.swift in Sources */,
@@ -753,9 +793,11 @@
 				INFOPLIST_FILE = DocumentStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_PRIVATE_FILE = "$(SRCROOT)/DocumentStore/DocumentStore.private.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.mathijskadijk.DocumentStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/DocumentStore";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -775,9 +817,11 @@
 				INFOPLIST_FILE = DocumentStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_PRIVATE_FILE = "$(SRCROOT)/DocumentStore/DocumentStore.private.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.mathijskadijk.DocumentStore;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/DocumentStore";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
