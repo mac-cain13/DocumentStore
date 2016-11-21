@@ -15,21 +15,26 @@ public protocol IndexValueType {
 }
 
 extension Bool: IndexValueType {
+  /// Conforms `Bool` to `IndexValueType`
   public static var indexStorageType: IndexStorageType { return .bool }
 }
 
 extension Date: IndexValueType {
+  /// Conforms `Date` to `IndexValueType`
   public static var indexStorageType: IndexStorageType { return .date }
 }
 
 extension Double: IndexValueType {
+  /// Conforms `Double` to `IndexValueType`
   public static var indexStorageType: IndexStorageType { return .double }
 }
 
 extension Int: IndexValueType {
+  /// Conforms `Int` to `IndexValueType`
   public static var indexStorageType: IndexStorageType { return .int }
 }
 
 extension String: IndexValueType {
+  /// Conforms `String` to `IndexValueType`
   public static var indexStorageType: IndexStorageType { return .string }
 }
