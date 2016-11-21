@@ -1,0 +1,12 @@
+objc: false
+clean: true
+author: Mathijs Kadijk
+author_url: https://github.com/mac-cain13
+github_url: https://github.com/mac-cain13/DocumentStore
+github_file_prefix: https://github.com/mac-cain13/DocumentStore/tree/master
+framework_root: ./DocumentStore
+module: DocumentStore
+skip_undocumented: false
+hide_documentation_coverage: true
+theme: fullwidth
+sdk: iphonesimulator
