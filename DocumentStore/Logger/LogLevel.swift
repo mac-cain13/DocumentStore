@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Level to log messages at, can be used to filter on.
+/// Level to indicate severity of messages logged by a `Logger`.
 ///
 /// - trace: Status messages at a very detailed level for debugging, may be very high volume
 /// - debug: Status messages for debugging, entry/exit of non-trivial routines will be logged

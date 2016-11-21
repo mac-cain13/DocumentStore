@@ -9,8 +9,9 @@
 import Foundation
 
 /// Alias solely for testing
-typealias DocumentStoreCollection = Collection
+internal typealias DocumentStoreCollection = Collection
 
+/// A `Collection` of a single type of `Document`s that can be filtered and ordered.
 protocol Collection {
   associatedtype DocumentType: Document
 

@@ -9,13 +9,11 @@
 import Foundation
 
 /// An `UnorderedCollection` of a single type of `Document`s that can be filtered and ordered.
-public struct UnorderedCollection<Type: Document>: Collection {
-  /// The type of `Document` that is represented.
-  public typealias DocumentType = Type
+public struct UnorderedCollection<DocumentType: Document>: Collection {
 
-  internal(set) public var predicate: Predicate<DocumentType>?
-  internal(set) public var skip: UInt
-  internal(set) public var limit: UInt?
+  var predicate: Predicate<DocumentType>?
+  var skip: UInt
+  var limit: UInt?
 
   init() {
     self.predicate = nil

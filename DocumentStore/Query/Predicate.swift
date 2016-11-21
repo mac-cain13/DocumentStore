@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// `Predicate` that can be used to filter a `Collection` based on the `Index`es a `Document` has.
 public struct Predicate<DocumentType: Document> {
   let predicate: NSPredicate
 
@@ -16,7 +17,7 @@ public struct Predicate<DocumentType: Document> {
   }
 }
 
-// MARK: Basic predicate operators
+// MARK: Basic `Index` operators
 
 /// Equal operator.
 ///
@@ -92,8 +93,8 @@ public func <= <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, r
 ///         or more characters.
 ///
 /// - Parameters:
-///   - left: `Index` on the left side of the comparison
-///   - right: `IndexValueType` on the right side of the comparison
+///   - left: `Index<String>` on the left side of the comparison
+///   - right: `String` on the right side of the comparison
 /// - Returns: A `Predicate` representing the comparison
 public func ~= <DocumentType>(left: Index<DocumentType, String>, right: String) -> Predicate<DocumentType> {
   return Predicate(predicate: NSExpression(forKeyPath: left.identifier) ~= NSExpression(forConstantValue: right))
@@ -101,6 +102,10 @@ public func ~= <DocumentType>(left: Index<DocumentType, String>, right: String) 
 
 // MARK: Predicate modifiers
 
+/// Negates the `Predicate`.
+///
+/// - Parameter predicate: `Predicate` to negate.
+/// - Returns: A `Predicate` that is negated.
 prefix public func ! <DocumentType>(predicate: Predicate<DocumentType>) -> Predicate<DocumentType> {
   let predicate = NSCompoundPredicate(type: .not, subpredicates: [predicate.predicate])
   return Predicate(predicate: predicate)
@@ -108,6 +113,12 @@ prefix public func ! <DocumentType>(predicate: Predicate<DocumentType>) -> Predi
 
 // MARK: Predicate combinators
 
+/// Combine two `Predicate`s using a logical 'and' operator
+///
+/// - Parameters:
+///   - left: Optional `Predicate` on the left side, if none given will act like it's always `true`
+///   - right: `Predicate` on the right side
+/// - Returns: New `Predicate` that requires both predicates to be true
 public func && <DocumentType>(left: Predicate<DocumentType>?, right: Predicate<DocumentType>) -> Predicate<DocumentType> {
   guard let left = left else {
     return right
@@ -117,6 +128,12 @@ public func && <DocumentType>(left: Predicate<DocumentType>?, right: Predicate<D
   return Predicate(predicate: predicate)
 }
 
+/// Combine two `Predicate`s using a logical 'or' operator
+///
+/// - Parameters:
+///   - left: `Predicate` on the left side
+///   - right: `Predicate` on the right side
+/// - Returns: New `Predicate` that requires one of the predicates to be true
 public func || <DocumentType>(left: Predicate<DocumentType>, right: Predicate<DocumentType>) -> Predicate<DocumentType> {
   let predicate = NSCompoundPredicate(type: .or, subpredicates: [left.predicate, right.predicate])
   return Predicate(predicate: predicate)

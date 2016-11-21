@@ -10,14 +10,12 @@ import Foundation
 import CoreData
 
 /// An `OrderedCollection` of a single type of `Document`s that can be filtered and ordered.
-public struct OrderedCollection<Type: Document>: Collection {
-  /// The type of `Document` that is represented.
-  public typealias DocumentType = Type
+public struct OrderedCollection<DocumentType: Document>: Collection {
 
-  internal(set) public var sortDescriptors: [SortDescriptor<DocumentType>]
-  internal(set) public var predicate: Predicate<DocumentType>?
-  internal(set) public var skip: UInt
-  internal(set) public var limit: UInt?
+  var sortDescriptors: [SortDescriptor<DocumentType>]
+  var predicate: Predicate<DocumentType>?
+  var skip: UInt
+  var limit: UInt?
 
   init<CollectionType: Collection>(collection: CollectionType, sortDescriptors: [SortDescriptor<DocumentType>]) where CollectionType.DocumentType == DocumentType {
     self.sortDescriptors = sortDescriptors
