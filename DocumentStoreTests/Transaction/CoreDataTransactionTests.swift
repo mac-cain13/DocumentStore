@@ -320,6 +320,83 @@ class CoreDataTransactionTests: XCTestCase {
       XCTFail("Unexpected error type")
     }
   }
+
+  // MARK: Exception scenarios
+
+  func testCountContextFailure() {
+    var collection = MockCollection<TestDocument>()
+    collection.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+
+    do {
+      _ = try transaction.count(collection)
+      XCTFail("Expected error")
+    } catch let error as TransactionError {
+      guard case let .documentStoreError(documentStoreError) = error else {
+        XCTFail("Unexpected error type")
+        return
+      }
+
+      XCTAssertEqual(documentStoreError.kind, .operationFailed)
+
+      guard let exceptionError = documentStoreError.underlyingError as? ExceptionError else {
+        XCTFail("Unexpected error type")
+        return
+      }
+      XCTAssertEqual(exceptionError.exception.name.rawValue, "NSInvalidArgumentException")
+    } catch {
+      XCTFail("Unexpected error type")
+    }
+  }
+
+  func testFetchContextFailure() {
+    var collection = MockCollection<TestDocument>()
+    collection.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+
+    do {
+      _ = try transaction.fetch(collection)
+      XCTFail("Expected error")
+    } catch let error as TransactionError {
+      guard case let .documentStoreError(documentStoreError) = error else {
+        XCTFail("Unexpected error type")
+        return
+      }
+
+      XCTAssertEqual(documentStoreError.kind, .operationFailed)
+
+      guard let exceptionError = documentStoreError.underlyingError as? ExceptionError else {
+        XCTFail("Unexpected error type")
+        return
+      }
+      XCTAssertEqual(exceptionError.exception.name.rawValue, "NSInvalidArgumentException")
+    } catch {
+      XCTFail("Unexpected error type")
+    }
+  }
+
+  func testDeleteContextFailure() {
+    var collection = MockCollection<TestDocument>()
+    collection.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+
+    do {
+      _ = try transaction.delete(collection)
+      XCTFail("Expected error")
+    } catch let error as TransactionError {
+      guard case let .documentStoreError(documentStoreError) = error else {
+        XCTFail("Unexpected error type")
+        return
+      }
+
+      XCTAssertEqual(documentStoreError.kind, .operationFailed)
+
+      guard let exceptionError = documentStoreError.underlyingError as? ExceptionError else {
+        XCTFail("Unexpected error type")
+        return
+      }
+      XCTAssertEqual(exceptionError.exception.name.rawValue, "NSInvalidArgumentException")
+    } catch {
+      XCTFail("Unexpected error type")
+    }
+  }
 }
 
 private struct MockCollection<Type: Document>: DocumentStoreCollection {
