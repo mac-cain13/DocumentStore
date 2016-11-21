@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Functions  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+
+
+    <a title="Functions  Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="index.html">
+          DocumentStore Docs
+        </a>
+        
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/mac-cain13/DocumentStore">
+            <img class="header-icon" src="img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">DocumentStore Reference</a>
+      <img class="carat" src="img/carat.png" />
+      Functions  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/DocumentStore.html">DocumentStore</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:C13DocumentStore15ReadTransaction">ReadTransaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:C13DocumentStore20ReadWriteTransaction">ReadWriteTransaction</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/CommitAction.html">CommitAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/IndexStorageType.html">IndexStorageType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/LogLevel.html">LogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/TransactionError.html">TransactionError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/TransactionResult.html">TransactionResult</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Collection.html">Collection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions/String.html">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:F13DocumentStoreop1nuRxS_8DocumentrFGVS_9Predicatex_GS1_x_">!(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions/!=(_:_:).html">!=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:F13DocumentStoreoi2aauRxS_8DocumentrFTGSqGVS_9Predicatex__GS1_x__GS1_x_">&amp;&amp;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions/&lt;(_:_:).html">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions/&lt;=(_:_:).html">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions/==(_:_:).html">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions/&gt;(_:_:).html">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions/&gt;=(_:_:).html">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:F13DocumentStoreoi2oouRxS_8DocumentrFTGVS_9Predicatex_GS1_x__GS1_x_">||(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions/~=(_:_:).html">~=(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Document.html">Document</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/IndexValueType.html">IndexValueType</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/Logger.html">Logger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore8AnyIndex">AnyIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/DocumentDescriptor.html">DocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/DocumentDeserializationError.html">DocumentDeserializationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/DocumentDeserializationError/Resolution.html">– Resolution</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/DocumentStoreError.html">DocumentStoreError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/DocumentStoreError/ErrorKind.html">– ErrorKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Index.html">Index</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/OrderedCollection.html">OrderedCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/UnorderedCollection.html">UnorderedCollection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Typealiases.html#/s:13DocumentStore23DocumentStoreCollection">DocumentStoreCollection</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>Functions</h1>
+            <p>The following functions are available globally.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Basic%20predicate%20operators"></a>
+                <a name="//apple_ref/swift/Section/Basic predicate operators" class="dashAnchor"></a>
+                <a href="#/Basic%20predicate%20operators">
+                  <h3 class="section-name">Basic predicate operators</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi2eeu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_"></a>
+                    <a name="//apple_ref/swift/Function/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi2eeu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Equal operator.</p>
+
+<p><li>Parameters:</p>
+
+<p><ul>
+<li>left: <code><a href="Structs/Index.html">Index</a></code> on the left side of the comparison</li>
+<li>right: <code><a href="Protocols/IndexValueType.html">IndexValueType</a></code> on the right side of the comparison</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+<p></div></p>
+
+                        <a href="Functions/==(_:_:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">==</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="Structs/Index.html">Index</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>left</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Index</code> on the left side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>right</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>IndexValueType</code> on the right side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L27-L29">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi2neu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_"></a>
+                    <a name="//apple_ref/swift/Function/!=(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi2neu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_">!=(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Not equal operator.</p>
+
+<p><li>Parameters:</p>
+
+<p><ul>
+<li>left: <code><a href="Structs/Index.html">Index</a></code> on the left side of the comparison</li>
+<li>right: <code><a href="Protocols/IndexValueType.html">IndexValueType</a></code> on the right side of the comparison</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+<p></div></p>
+
+                        <a href="Functions/!=(_:_:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">!=</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="Structs/Index.html">Index</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>left</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Index</code> on the left side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>right</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>IndexValueType</code> on the right side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L37-L39">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi1gu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_"></a>
+                    <a name="//apple_ref/swift/Function/&gt;(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi1gu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_">&gt;(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Greater than operator.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Will work on all indices, even on for example strings.</p>
+
+</div>
+
+<p><li><p>Parameters:</p></p>
+
+<p><ul>
+<li>left: <code><a href="Structs/Index.html">Index</a></code> on the left side of the comparison</li>
+<li>right: <code><a href="Protocols/IndexValueType.html">IndexValueType</a></code> on the right side of the comparison</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p></p>
+
+<p></div></p>
+
+                        <a href="Functions/>(_:_:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">&gt;</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="Structs/Index.html">Index</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>left</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Index</code> on the left side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>right</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>IndexValueType</code> on the right side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L49-L51">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi2geu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_"></a>
+                    <a name="//apple_ref/swift/Function/&gt;=(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi2geu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_">&gt;=(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Greater than or equal operator.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Will work on all indices, even on for example strings.</p>
+
+</div>
+
+<p><li><p>Parameters:</p></p>
+
+<p><ul>
+<li>left: <code><a href="Structs/Index.html">Index</a></code> on the left side of the comparison</li>
+<li>right: <code><a href="Protocols/IndexValueType.html">IndexValueType</a></code> on the right side of the comparison</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p></p>
+
+<p></div></p>
+
+                        <a href="Functions/>=(_:_:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">&gt;=</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="Structs/Index.html">Index</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>left</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Index</code> on the left side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>right</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>IndexValueType</code> on the right side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L61-L63">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi1lu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_"></a>
+                    <a name="//apple_ref/swift/Function/&lt;(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi1lu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_">&lt;(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Less than operator.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Will work on all indices, even on for example strings.</p>
+
+</div>
+
+<p><li><p>Parameters:</p></p>
+
+<p><ul>
+<li>left: <code><a href="Structs/Index.html">Index</a></code> on the left side of the comparison</li>
+<li>right: <code><a href="Protocols/IndexValueType.html">IndexValueType</a></code> on the right side of the comparison</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p></p>
+
+<p></div></p>
+
+                        <a href="Functions/<(_:_:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">&lt;</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="Structs/Index.html">Index</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>left</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Index</code> on the left side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>right</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>IndexValueType</code> on the right side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L73-L75">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi2leu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_"></a>
+                    <a name="//apple_ref/swift/Function/&lt;=(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi2leu0_RxS_8Document_S_14IndexValueTyperFTGVS_5Indexxq__q__GVS_9Predicatex_">&lt;=(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Less than or equal operator.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Will work on all indices, even on for example strings.</p>
+
+</div>
+
+<p><li><p>Parameters:</p></p>
+
+<p><ul>
+<li>left: <code><a href="Structs/Index.html">Index</a></code> on the left side of the comparison</li>
+<li>right: <code><a href="Protocols/IndexValueType.html">IndexValueType</a></code> on the right side of the comparison</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p></p>
+
+<p></div></p>
+
+                        <a href="Functions/<=(_:_:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">&lt;=</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="Structs/Index.html">Index</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">ValueType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>left</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Index</code> on the left side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>right</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>IndexValueType</code> on the right side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L85-L87">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi2teuRxS_8DocumentrFTGVS_5IndexxSS_SS_GVS_9Predicatex_"></a>
+                    <a name="//apple_ref/swift/Function/~=(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi2teuRxS_8DocumentrFTGVS_5IndexxSS_SS_GVS_9Predicatex_">~=(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Like operator, similar in behavior to SQL LIKE.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>? and * are allowed as wildcard characters, where ? matches 1 character and * matches 0 
+    or more characters.</p>
+
+</div>
+
+<p><li><p>Parameters:</p></p>
+
+<p><ul>
+<li>left: <code><a href="Structs/Index.html">Index</a></code> on the left side of the comparison</li>
+<li>right: <code><a href="Protocols/IndexValueType.html">IndexValueType</a></code> on the right side of the comparison</li>
+</ul></li>
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p></p>
+
+<p></div></p>
+
+                        <a href="Functions/~=(_:_:).html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">~=</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="Structs/Index.html">Index</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>left</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Index</code> on the left side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>right</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>IndexValueType</code> on the right side of the comparison</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code><a href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> representing the comparison</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L98-L100">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Predicate%20modifiers"></a>
+                <a name="//apple_ref/swift/Section/Predicate modifiers" class="dashAnchor"></a>
+                <a href="#/Predicate%20modifiers">
+                  <h3 class="section-name">Predicate modifiers</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreop1nuRxS_8DocumentrFGVS_9Predicatex_GS1_x_"></a>
+                    <a name="//apple_ref/swift/Function/!(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreop1nuRxS_8DocumentrFGVS_9Predicatex_GS1_x_">!(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L104-L107">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Predicate%20combinators"></a>
+                <a name="//apple_ref/swift/Section/Predicate combinators" class="dashAnchor"></a>
+                <a href="#/Predicate%20combinators">
+                  <h3 class="section-name">Predicate combinators</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi2aauRxS_8DocumentrFTGSqGVS_9Predicatex__GS1_x__GS1_x_"></a>
+                    <a name="//apple_ref/swift/Function/&amp;&amp;(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi2aauRxS_8DocumentrFTGSqGVS_9Predicatex__GS1_x__GS1_x_">&amp;&amp;(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L111-L118">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F13DocumentStoreoi2oouRxS_8DocumentrFTGVS_9Predicatex_GS1_x__GS1_x_"></a>
+                    <a name="//apple_ref/swift/Function/||(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F13DocumentStoreoi2oouRxS_8DocumentrFTGVS_9Predicatex_GS1_x__GS1_x_">||(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L120-L123">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-21)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
