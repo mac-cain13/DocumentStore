@@ -66,7 +66,7 @@ public final class DocumentStore {
   /// - Warning: Do not use the `ReadTransaction` outside of the actions block, this will result in 
   ///            undefined behaviour.
   ///
-  /// - Note: Actions block will be executed on a arbitrary background thread managed by the store.
+  /// - Note: Actions block will be executed on an arbitrary background thread managed by the store.
   ///
   /// - Parameters:
   ///   - queue: Queue to perform the handler on
@@ -84,7 +84,7 @@ public final class DocumentStore {
   /// - Warning: Do not use the `ReadWriteTransaction` outside of the actions block, this will
   ///            result in undefined behaviour.
   ///
-  /// - Note: Actions block will be executed on a arbitrary background thread managed by the store.
+  /// - Note: Actions block will be executed on an arbitrary background thread managed by the store.
   ///
   /// - Parameters:
   ///   - queue: Queue to perform the handler on
@@ -102,7 +102,7 @@ public final class DocumentStore {
   /// - Warning: Do not use the `ReadWriteTransaction` outside of the actions block, this will
   ///            result in undefined behaviour.
   ///
-  /// - Note: Actions block will be executed on a arbitrary background thread managed by the store.
+  /// - Note: Actions block will be executed on an arbitrary background thread managed by the store.
   ///
   /// - Parameters:
   ///   - queue: Queue to perform the handler on
