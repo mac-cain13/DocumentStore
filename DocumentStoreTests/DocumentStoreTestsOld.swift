@@ -99,6 +99,13 @@ class DocumentStoreTestsOld: XCTestCase {
 //        collection.limit = 6
 //        collection.predicate = Developer.age > 18
 //
+//        let query = Query<Developer>()
+//          .filtered { $0.age > 18 }
+//          .sorted { $0.age.ascending() }
+//          .limit(10)
+//
+//        return transaction.fetchAll(matching: query)
+//
 //        let query = try Developer
 //          .query()
 //          .skipping(3)

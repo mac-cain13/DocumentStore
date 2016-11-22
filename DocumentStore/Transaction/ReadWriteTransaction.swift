@@ -30,9 +30,10 @@ public final class ReadWriteTransaction: ReadTransaction, ReadWritableTransactio
     try transaction.add(document: document)
   }
 
+  // TODO
   @discardableResult
-  func delete<CollectionType: Collection>(_ collection: CollectionType) throws -> Int {
-    return try transaction.delete(collection)
+  public func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+    return try transaction.delete(matching: query)
   }
 
   func saveChanges() throws {

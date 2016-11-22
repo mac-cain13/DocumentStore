@@ -232,7 +232,7 @@ class DocumentStoreTests: XCTestCase {
 
       XCTAssertEqual(error.kind, .operationFailed)
       XCTAssertEqual(error.message, "Failed to save changes from a transaction to the store.")
-      XCTAssertEqual(error.underlyingError as? NSError, MockTransaction.saveError)
+      XCTAssertEqual(error.underlyingError as? NSError, MockSaveErrorTransaction.saveError)
       handlerExpectation.fulfill()
     }
 
@@ -327,16 +327,16 @@ private class MockManagedObjectModelService: ManagedObjectModelService {
 }
 
 private class MockTransactionFactory: TransactionFactory {
-  private(set) var transactions: [MockTransaction] = []
+  private(set) var transactions: [MockSaveErrorTransaction] = []
 
   func createTransaction(context: NSManagedObjectContext, documentDescriptors: ValidatedDocumentDescriptors, logTo logger: Logger) -> ReadWritableTransaction {
-    let transaction = MockTransaction(context: context)
+    let transaction = MockSaveErrorTransaction(context: context)
     transactions.append(transaction)
     return transaction
   }
 }
 
-private class MockTransaction: ReadWritableTransaction {
+private class MockSaveErrorTransaction: ReadWritableTransaction {
   static let saveError = NSError(domain: "TestDomain", code: 42, userInfo: nil)
 
   let context: NSManagedObjectContext
@@ -348,18 +348,18 @@ private class MockTransaction: ReadWritableTransaction {
     self.context = context
   }
 
-  func count<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> Int {
+  func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     return 0
   }
 
-  func fetch<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> [CollectionType.DocumentType] {
+  func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType] {
     return []
   }
 
   func add<DocumentType: Document>(document: DocumentType) throws {}
 
   @discardableResult
-  func delete<CollectionType: DocumentStoreCollection>(_ collection: CollectionType) throws -> Int {
+  func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     return 0
   }
 
@@ -367,7 +367,7 @@ private class MockTransaction: ReadWritableTransaction {
     saveChangesCount += 1
 
     if !savingShouldSucceed {
-      throw MockTransaction.saveError
+      throw MockSaveErrorTransaction.saveError
     }
   }
 }

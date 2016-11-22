@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ReadableTransaction {
-  func count<CollectionType: Collection>(_ collection: CollectionType) throws -> Int
+  func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int
 
-  func fetch<CollectionType: Collection>(_ collection: CollectionType) throws -> [CollectionType.DocumentType]
+  func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType]
 }

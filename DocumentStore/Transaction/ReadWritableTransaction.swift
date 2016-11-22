@@ -10,7 +10,7 @@ import Foundation
 
 protocol ReadWritableTransaction: ReadableTransaction {
   @discardableResult
-  func delete<CollectionType: Collection>(_ collection: CollectionType) throws -> Int
+  func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int
 
   func add<DocumentType: Document>(document: DocumentType) throws
 

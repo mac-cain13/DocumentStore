@@ -52,9 +52,9 @@ class CoreDataTransactionTests: XCTestCase {
   func testCountWithUnregisteredDocumentType() {
     let transaction = CoreDataTransaction(context: context, documentDescriptors: ValidatedDocumentDescriptors(documentDescriptors: []), logTo: logger)
 
-    let collection = MockCollection<TestDocument>()
+    let query = Query<TestDocument>()
     do {
-      _ = try transaction.count(collection)
+      _ = try transaction.count(matching: query)
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .documentStoreError(documentStoreError) = error else {
@@ -72,9 +72,9 @@ class CoreDataTransactionTests: XCTestCase {
   func testFetchWithUnregisteredDocumentType() {
     let transaction = CoreDataTransaction(context: context, documentDescriptors: ValidatedDocumentDescriptors(documentDescriptors: []), logTo: logger)
 
-    let collection = MockCollection<TestDocument>()
+    let query = Query<TestDocument>()
     do {
-      _ = try transaction.fetch(collection)
+      _ = try transaction.fetch(matching: query)
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .documentStoreError(documentStoreError) = error else {
@@ -92,9 +92,9 @@ class CoreDataTransactionTests: XCTestCase {
   func testDeletetWithUnregisteredDocumentType() {
     let transaction = CoreDataTransaction(context: context, documentDescriptors: ValidatedDocumentDescriptors(documentDescriptors: []), logTo: logger)
 
-    let collection = MockCollection<TestDocument>()
+    let query = Query<TestDocument>()
     do {
-      _ = try transaction.delete(collection)
+      _ = try transaction.delete(matching: query)
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .documentStoreError(documentStoreError) = error else {
@@ -137,7 +137,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.identifier)
 
     do {
-      let count = try transaction.count(TestDocument.all())
+      let count = try transaction.count(matching: Query<TestDocument>())
       XCTAssertEqual(count, 1)
     } catch {
       XCTFail("Unexpected error")
@@ -150,7 +150,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.identifier)
 
     do {
-      let items = try transaction.fetch(TestDocument.all())
+      let items = try transaction.fetch(matching: Query<TestDocument>())
       XCTAssertEqual(items.count, 1)
     } catch {
       XCTFail("Unexpected error")
@@ -161,7 +161,7 @@ class CoreDataTransactionTests: XCTestCase {
     NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
 
     do {
-      let deletions = try transaction.delete(TestDocument.all())
+      let deletions = try transaction.delete(matching: Query<TestDocument>())
       XCTAssertEqual(deletions, 1)
       XCTAssertEqual(context.deletedObjects.count, 1)
     } catch {
@@ -217,7 +217,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.identifier)
 
     do {
-      let _ = try transaction.fetch(TestDocument.all())
+      let _ = try transaction.fetch(matching: Query<TestDocument>())
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .serializationFailed(underlyingError) = error else {
@@ -238,7 +238,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.identifier)
 
     do {
-      let _ = try transaction.fetch(TestDocument.all())
+      let _ = try transaction.fetch(matching: Query<TestDocument>())
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .serializationFailed(underlyingError) = error else {
@@ -259,7 +259,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.identifier)
 
     do {
-      let items = try transaction.fetch(TestDocument.all())
+      let items = try transaction.fetch(matching: Query<TestDocument>())
       XCTAssertEqual(items.count, 0)
       XCTAssertEqual(context.deletedObjects.count, 1)
     } catch {
@@ -275,7 +275,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.identifier)
 
     do {
-      let items = try transaction.fetch(TestDocument.all())
+      let items = try transaction.fetch(matching: Query<TestDocument>())
       XCTAssertEqual(items.count, 0)
       XCTAssertEqual(context.deletedObjects.count, 0)
     } catch {
@@ -289,7 +289,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.identifier)
 
     do {
-      let items = try transaction.fetch(TestDocument.all())
+      let items = try transaction.fetch(matching: Query<TestDocument>())
       XCTAssertEqual(items.count, 0)
       XCTAssertEqual(context.deletedObjects.count, 0)
       XCTAssertEqual(logger.loggedMessages.count, 2)
@@ -324,11 +324,11 @@ class CoreDataTransactionTests: XCTestCase {
   // MARK: Exception scenarios
 
   func testCountContextFailure() {
-    var collection = MockCollection<TestDocument>()
-    collection.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+    var query = Query<TestDocument>()
+    query.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
 
     do {
-      _ = try transaction.count(collection)
+      _ = try transaction.count(matching: query)
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .documentStoreError(documentStoreError) = error else {
@@ -349,11 +349,11 @@ class CoreDataTransactionTests: XCTestCase {
   }
 
   func testFetchContextFailure() {
-    var collection = MockCollection<TestDocument>()
-    collection.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+    var query = Query<TestDocument>()
+    query.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
 
     do {
-      _ = try transaction.fetch(collection)
+      _ = try transaction.fetch(matching: query)
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .documentStoreError(documentStoreError) = error else {
@@ -374,11 +374,11 @@ class CoreDataTransactionTests: XCTestCase {
   }
 
   func testDeleteContextFailure() {
-    var collection = MockCollection<TestDocument>()
-    collection.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+    var query = Query<TestDocument>()
+    query.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
 
     do {
-      _ = try transaction.delete(collection)
+      _ = try transaction.delete(matching: query)
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .documentStoreError(documentStoreError) = error else {
@@ -396,20 +396,6 @@ class CoreDataTransactionTests: XCTestCase {
     } catch {
       XCTFail("Unexpected error type")
     }
-  }
-}
-
-private struct MockCollection<Type: Document>: DocumentStoreCollection {
-  public typealias DocumentType = Type
-
-  var predicate: Predicate<DocumentType>?
-  var skip: UInt
-  var limit: UInt?
-
-  init() {
-    self.predicate = nil
-    self.skip = 0
-    self.limit = nil
   }
 }
 

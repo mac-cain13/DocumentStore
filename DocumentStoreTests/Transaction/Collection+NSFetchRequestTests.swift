@@ -12,59 +12,67 @@ import CoreData
 
 class CollectionNSFetchRequestTests: XCTestCase {
 
-  private let collection = TestCollection()
+  private var query = Query<TestDocument>()
+
+  override func setUp() {
+    super.setUp()
+
+    query = Query<TestDocument>()
+    query.predicate = Predicate<TestDocument>(predicate: NSPredicate(value: false))
+    query.skip = 42
+  }
 
   func testFetchRequestEntityName() {
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
-    XCTAssertEqual(request.entityName, TestCollection.DocumentType.documentDescriptor.identifier)
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
+    XCTAssertEqual(request.entityName, TestDocument.documentDescriptor.identifier)
   }
 
   func testFetchRequestPredicate() {
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
-    XCTAssertEqual(request.predicate, collection.predicate?.predicate)
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
+    XCTAssertEqual(request.predicate, query.predicate?.predicate)
   }
 
   func testFetchRequestFetchOffset() {
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
-    XCTAssertEqual(request.fetchOffset, Int(collection.skip))
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
+    XCTAssertEqual(request.fetchOffset, Int(query.skip))
   }
 
   func testFetchRequestFetchOffsetMaxUInt() {
-    var collection = self.collection
-    collection.skip = UInt.max
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    var query = self.query
+    query.skip = UInt.max
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     XCTAssertEqual(request.fetchOffset, Int.max)
   }
 
   func testFetchRequestFetchLimitNil() {
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     XCTAssertEqual(request.fetchLimit, 0)
   }
 
   func testFetchRequestFetchLimit() {
     let limit = 24
-    var collection = self.collection
-    collection.limit = UInt(limit)
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    var query = self.query
+    query.limit = UInt(limit)
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     XCTAssertEqual(request.fetchLimit, limit)
   }
 
   func testFetchRequestFetchLimitMaxUInt() {
-    var collection = self.collection
-    collection.limit = UInt.max
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    var query = self.query
+    query.limit = UInt.max
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     XCTAssertEqual(request.fetchLimit, Int(UInt32.max))
   }
 
   func testFetchRequestSortDescriptorsWhenUnordered() {
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     XCTAssertNil(request.sortDescriptors)
   }
 
   func testFetchRequestSortDescriptors() {
     let sortDescriptor = TestDocument.isTest.ascending()
-    let orderedCollection = collection.sorted { _ in sortDescriptor }
-    let request: NSFetchRequest<NSManagedObject> = orderedCollection.fetchRequest()
+    let sortedQuery = query.sorted { _ in sortDescriptor }
+    let request: NSFetchRequest<NSManagedObject> = sortedQuery.fetchRequest()
 
     guard let sortDescriptors = request.sortDescriptors else {
       XCTFail("Sort descriptors empty.")
@@ -75,31 +83,17 @@ class CollectionNSFetchRequestTests: XCTestCase {
   }
 
   func testFetchRequestResultType() {
-    let requestObject: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    let requestObject: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     XCTAssertEqual(requestObject.resultType, .managedObjectResultType)
 
-    let requestId: NSFetchRequest<NSManagedObjectID> = collection.fetchRequest()
+    let requestId: NSFetchRequest<NSManagedObjectID> = query.fetchRequest()
     XCTAssertEqual(requestId.resultType, .managedObjectIDResultType)
 
-    let requestDict: NSFetchRequest<NSDictionary> = collection.fetchRequest()
+    let requestDict: NSFetchRequest<NSDictionary> = query.fetchRequest()
     XCTAssertEqual(requestDict.resultType, .dictionaryResultType)
 
-    let requestCount: NSFetchRequest<NSNumber> = collection.fetchRequest()
+    let requestCount: NSFetchRequest<NSNumber> = query.fetchRequest()
     XCTAssertEqual(requestCount.resultType, .countResultType)
-  }
-}
-
-private struct TestCollection: DocumentStoreCollection {
-  typealias DocumentType = TestDocument
-
-  var predicate: Predicate<DocumentType>?
-  var skip: UInt
-  var limit: UInt?
-
-  init() {
-    self.predicate = Predicate<TestDocument>(predicate: NSPredicate(value: false))
-    self.skip = 42
-    self.limit = nil
   }
 }
 

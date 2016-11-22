@@ -36,12 +36,3 @@ public protocol Document {
   /// - Throws: Any `Error` to indicate that deserialization failed
   func serializeDocument() throws -> Data
 }
-
-public extension Document {
-  /// Returns an unordered collection containing all documents of this type.
-  ///
-  /// - Returns: A collection containing all documents
-  public static func all() -> UnorderedCollection<Self> {
-    return UnorderedCollection()
-  }
-}

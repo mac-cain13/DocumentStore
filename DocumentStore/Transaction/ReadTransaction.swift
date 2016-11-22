@@ -16,11 +16,13 @@ public class ReadTransaction: ReadableTransaction {
     self.transaction = transaction
   }
 
-  func count<CollectionType: Collection>(_ collection: CollectionType) throws -> Int {
-    return try transaction.count(collection)
+  // TODO
+  public func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+    return try transaction.count(matching: query)
   }
 
-  func fetch<CollectionType: Collection>(_ collection: CollectionType) throws -> [CollectionType.DocumentType] {
-    return try transaction.fetch(collection)
+  // TODO
+  public func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType] {
+    return try transaction.fetch(matching: query)
   }
 }

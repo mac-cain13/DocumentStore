@@ -31,10 +31,10 @@ class CoreDataTransaction: ReadWritableTransaction {
     }
   }
 
-  func count<CollectionType: Collection>(_ collection: CollectionType) throws -> Int {
-    try validateUseOfDocumentType(CollectionType.DocumentType.self.self)
+  func count<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+    try validateUseOfDocumentType(DocumentType.self)
 
-    let request: NSFetchRequest<NSNumber> = collection.fetchRequest()
+    let request: NSFetchRequest<NSNumber> = query.fetchRequest()
 
     do {
       return try convertExceptionToError {
@@ -43,7 +43,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
-        message: "Failed to count '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to count '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing count.", error: error)
@@ -51,11 +51,11 @@ class CoreDataTransaction: ReadWritableTransaction {
     }
   }
 
-  func fetch<CollectionType: Collection>(_ collection: CollectionType) throws -> [CollectionType.DocumentType] {
-    try validateUseOfDocumentType(CollectionType.DocumentType.self)
+  func fetch<DocumentType>(matching query: Query<DocumentType>) throws -> [DocumentType] {
+    try validateUseOfDocumentType(DocumentType.self)
 
     // Set up the fetch request
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     request.returnsObjectsAsFaults = false
 
     // Perform the fetch
@@ -67,7 +67,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
-        message: "Failed to fetch '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
@@ -81,16 +81,16 @@ class CoreDataTransaction: ReadWritableTransaction {
           guard let documentData = $0.value(forKey: DocumentDataAttributeName) as? Data else {
             let error = DocumentStoreError(
               kind: .documentDataCorruption,
-              message: "Failed to retrieve '\(DocumentDataAttributeName)' attribute contents and cast it to `Data` for a '\(CollectionType.DocumentType.documentDescriptor.identifier)' document. This is an error in the DocumentStore library, please report this issue.",
+              message: "Failed to retrieve '\(DocumentDataAttributeName)' attribute contents and cast it to `Data` for a '\(DocumentType.documentDescriptor.identifier)' document. This is an error in the DocumentStore library, please report this issue.",
               underlyingError: nil
             )
             logger.log(level: .error, message: "Encountered corrupt '\(DocumentDataAttributeName)' attribute.", error: error)
             throw DocumentDeserializationError(resolution: .skipDocument, underlyingError: error)
           }
 
-          return try CollectionType.DocumentType.deserializeDocument(from: documentData)
+          return try DocumentType.deserializeDocument(from: documentData)
         } catch let error as DocumentDeserializationError {
-          logger.log(level: .warn, message: "Deserializing '\(CollectionType.DocumentType.documentDescriptor.identifier)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
+          logger.log(level: .warn, message: "Deserializing '\(DocumentType.documentDescriptor.identifier)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
 
           switch error.resolution {
           case .deleteDocument:
@@ -108,10 +108,10 @@ class CoreDataTransaction: ReadWritableTransaction {
   }
 
   @discardableResult
-  func delete<CollectionType: Collection>(_ collection: CollectionType) throws -> Int {
-    try validateUseOfDocumentType(CollectionType.DocumentType.self)
+  func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
+    try validateUseOfDocumentType(DocumentType.self)
 
-    let request: NSFetchRequest<NSManagedObject> = collection.fetchRequest()
+    let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
     request.includesPropertyValues = false
 
     do {
@@ -121,7 +121,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
-        message: "Failed to fetch '\(CollectionType.DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
