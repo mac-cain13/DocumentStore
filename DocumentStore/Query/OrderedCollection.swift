@@ -24,16 +24,16 @@ public struct OrderedCollection<DocumentType: Document>: Collection {
     self.limit = collection.limit
   }
 
-  /// Apply an extra ordering to the collection leaving previous orderings intact.
+  /// Apply an extra sorting to the collection leaving previous sorting instructions intact.
   ///
   /// Example: A `Collection` of the `Document`s with the `Index`es 'age' and 'name' 
-  ///          [(2, c), (1, b), (2, a)] on `ordered { $0.age.ascending() }` will become 
-  ///          [(1, b), (2, c), (2, a)]. `thenOrdered { $0.name.ascending() }` will then become 
+  ///          [(2, c), (1, b), (2, a)] on `sorted { $0.age.ascending() }` will become
+  ///          [(1, b), (2, c), (2, a)]. `thenSorted { $0.name.ascending() }` will then become
   ///          [(1, b), (2, a), (2, c)].
   ///
   /// - Parameter closure: Closure that returns the `SortDescriptor` to order by
   /// - Returns: An `OrderedCollection` ordered by the `SortDescriptor`
-  public func thenOrdered(by closure: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> OrderedCollection<DocumentType> {
+  public func thenSorted(by closure: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> OrderedCollection<DocumentType> {
     var collection = self
     collection.sortDescriptors.append(closure(DocumentType.self))
     return collection

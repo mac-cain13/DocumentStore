@@ -45,9 +45,7 @@ extension Collection {
   ///
   /// - Parameter numberOfItems: Maximum number of items that this collection may contain
   /// - Returns: A collection with not more then the given number of items
-  public func limiting(upTo numberOfItems: UInt) -> Self {
-    assert(numberOfItems > 0, "Number of items to limit to must be greater than zero.")
-
+  public func limited(upTo numberOfItems: UInt) -> Self {
     var collection = self
     collection.limit = min(limit ?? UInt.max, numberOfItems)
     return collection
@@ -63,36 +61,25 @@ extension Collection {
   ///
   /// - Parameter isIncluded: Closure that returns the `Predicate` to filter by
   /// - Returns: A collection filtered by the predicate
-  public func filtering(_ isIncluded: (DocumentType.Type) -> Predicate<DocumentType>) -> Self {
+  public func filtered(using predicate: (DocumentType.Type) -> Predicate<DocumentType>) -> Self {
     var collection = self
-    collection.predicate = collection.predicate && isIncluded(DocumentType.self)
+    collection.predicate = collection.predicate && predicate(DocumentType.self)
     return collection
   }
 
-  /// Excludes items from the `Collection` that match the returned `Predicate`.
-  ///
-  /// - Note: Works exactly like `filtering()`, but will negate the `Predicate`.
-  ///
-  /// - SeeAlso: `filtering()`
-  /// - Parameter closure: Closure that returns the `Predicate` to exclude by
-  /// - Returns: A collection with items excluded by the predicate
-  public func excluding(_ closure: (DocumentType.Type) -> Predicate<DocumentType>) -> Self {
-    return filtering { !closure($0) }
-  }
+  // MARK: Sorting
 
-  // MARK: Ordering
-
-  /// Orders the `Collection` by the returned `SortDescriptor`.
+  /// Sort the `Collection` by the returned `SortDescriptor`.
   ///
   /// - Note: Given the `Document`s with a name `Index` of [d, c, a, b]
   ///         `ordered { $0.name.ascending() }` will result in a collection of [a, b, c, d].
   ///
-  /// - Important: A second call to `ordered(by:)` will remove the first ordering, to apply multiple
-  ///              `SortDescriptor`s use `thenOrder(by:)`.
+  /// - Important: A second call to `sorted(by:)` will remove the first sorting, to apply multiple
+  ///              `SortDescriptor`s use `thenSorted(by:)`.
   ///
   /// - Parameter sortDescriptor: Closure that returns the `SortDescriptor` to order by
   /// - Returns: An `OrderedCollection` ordered by the `SortDescriptor`
-  public func ordered(by sortDescriptor: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> OrderedCollection<DocumentType> {
+  public func sorted(by sortDescriptor: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> OrderedCollection<DocumentType> {
     return OrderedCollection(collection: self, sortDescriptors: [sortDescriptor(DocumentType.self)])
   }
 
@@ -137,7 +124,7 @@ extension Collection {
   /// - Returns: First `Document` represented by the collection if any
   /// - Throws: `TransactionError` on all failures
   public func first(in transaction: ReadTransaction) throws -> DocumentType? {
-    return try limiting(upTo: 1).array(in: transaction).first
+    return try limited(upTo: 1).array(in: transaction).first
   }
 
   /// Delete all `Document`s represented by this `Collection`.

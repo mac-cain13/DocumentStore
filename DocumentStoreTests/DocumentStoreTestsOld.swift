@@ -95,10 +95,20 @@ class DocumentStoreTestsOld: XCTestCase {
 //      documentStore!.read(handler: { developers in
 //        print(developers)
 //      }) { transaction in
-//        return try Developer.all()
-//          .filtering { $0.age > 18 }
-//          .ordered { $0.age.ascending() }
-//          .array(in: transaction)
+//        var collection = UnorderedCollection<Developer>()
+//        collection.limit = 6
+//        collection.predicate = Developer.age > 18
+//
+//        let query = try Developer
+//          .query()
+//          .skipping(3)
+//          .limitted(upTo: 1)
+//          .skipping(3)
+//          .limitted(upTo: 3)
+//          .filtered { $0.age > 18 }
+//          .filtered { $0.age < 30 }
+//          .sorted { $0.age.ascending() }
+//          .execute(in: transaction)
 //      }
 
     }

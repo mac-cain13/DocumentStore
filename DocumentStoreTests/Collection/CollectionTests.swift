@@ -33,53 +33,42 @@ class CollectionTests: XCTestCase {
     XCTAssertEqual(collection.skip, 4)
   }
 
-  func testLimiting() {
+  func testLimited() {
     XCTAssertNil(collection.limit)
 
-    collection = collection.limiting(upTo: 3)
+    collection = collection.limited(upTo: 3)
     XCTAssertEqual(collection.limit, 3)
 
-    collection = collection.limiting(upTo: 2)
+    collection = collection.limited(upTo: 2)
     XCTAssertEqual(collection.limit, 2)
 
-    collection = collection.limiting(upTo: 3)
+    collection = collection.limited(upTo: 3)
     XCTAssertEqual(collection.limit, 2)
   }
 
   // MARK: Filtering
 
-  func testFiltering() {
+  func testFiltered() {
     XCTAssertNil(collection.predicate)
 
     let predicate: Predicate<TestDocument> = TestDocument.isTest == false
-    collection = collection.filtering { _ in predicate }
+    collection = collection.filtered { _ in predicate }
     XCTAssertEqual(collection.predicate?.predicate, predicate.predicate)
 
-    collection = collection.filtering { _ in predicate }
+    collection = collection.filtered { _ in predicate }
     XCTAssertEqual(collection.predicate?.predicate, (predicate && predicate).predicate)
   }
 
-  func testExcluding() {
-    XCTAssertNil(collection.predicate)
+  // MARK: Sorting
 
-    let predicate: Predicate<TestDocument> = TestDocument.isTest == false
-    collection = collection.excluding { _ in predicate }
-    XCTAssertEqual(collection.predicate?.predicate, (!predicate).predicate)
-
-    collection = collection.excluding { _ in predicate }
-    XCTAssertEqual(collection.predicate?.predicate, (!predicate && !predicate).predicate)
-  }
-
-  // MARK: Ordering
-
-  func testOrdered() {
+  func testSorted() {
 
     let sortDescriptor = TestDocument.isTest.ascending()
-    var orderedCollection = collection.ordered { _ in sortDescriptor }
+    var orderedCollection = collection.sorted { _ in sortDescriptor }
     XCTAssertEqual(orderedCollection.sortDescriptors.map { $0.sortDescriptor }, [sortDescriptor.sortDescriptor])
 
     let otherSortDescriptor = TestDocument.isTest.descending()
-    orderedCollection = orderedCollection.ordered { _ in otherSortDescriptor }
+    orderedCollection = orderedCollection.sorted { _ in otherSortDescriptor }
     XCTAssertEqual(orderedCollection.sortDescriptors.map { $0.sortDescriptor }, [otherSortDescriptor.sortDescriptor])
   }
 

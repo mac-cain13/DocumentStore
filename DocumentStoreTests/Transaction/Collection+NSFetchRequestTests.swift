@@ -63,7 +63,7 @@ class CollectionNSFetchRequestTests: XCTestCase {
 
   func testFetchRequestSortDescriptors() {
     let sortDescriptor = TestDocument.isTest.ascending()
-    let orderedCollection = collection.ordered { _ in sortDescriptor }
+    let orderedCollection = collection.sorted { _ in sortDescriptor }
     let request: NSFetchRequest<NSManagedObject> = orderedCollection.fetchRequest()
 
     guard let sortDescriptors = request.sortDescriptors else {
