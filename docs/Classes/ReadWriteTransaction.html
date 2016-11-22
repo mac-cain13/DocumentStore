@@ -48,7 +48,7 @@
                 <a class="nav-group-task-link" href="../Classes/DocumentStore.html">DocumentStore</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes.html#/s:C13DocumentStore15ReadTransaction">ReadTransaction</a>
+                <a class="nav-group-task-link" href="../Classes/ReadTransaction.html">ReadTransaction</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a>
@@ -80,9 +80,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Bool.html">Bool</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Extensions/Collection.html">Collection</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Extensions/Date.html">Date</a>
@@ -175,16 +172,13 @@
                 <a class="nav-group-task-link" href="../Structs/Index.html">Index</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/OrderedCollection.html">OrderedCollection</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
+                <a class="nav-group-task-link" href="../Structs/Query.html">Query</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/s:V13DocumentStore19UnorderedCollection">UnorderedCollection</a>
+                <a class="nav-group-task-link" href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
               </li>
             </ul>
           </li>
@@ -197,7 +191,7 @@
             <h1>ReadWriteTransaction</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReadWriteTransaction</span><span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:C13DocumentStore15ReadTransaction">ReadTransaction</a></span><span class="p">,</span> <span class="kt">ReadWritableTransaction</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReadWriteTransaction</span><span class="p">:</span> <span class="kt"><a href="../Classes/ReadTransaction.html">ReadTransaction</a></span><span class="p">,</span> <span class="kt">ReadWritableTransaction</span></code></pre>
 
                 </div>
               </div>
@@ -228,7 +222,7 @@
 <div class="aside aside-precondition">
     <p class="aside-title">Precondition</p>
     <p>The <code><a href="../Structs/DocumentDescriptor.html">DocumentDescriptor</a></code> of the <code><a href="../Protocols/Document.html">Document</a></code> you are adding must be registered
-            with the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code> the given <code><a href="../Classes.html#/s:C13DocumentStore15ReadTransaction">ReadTransaction</a></code> is associated with. If
+            with the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code> the given <code><a href="../Classes/ReadTransaction.html">ReadTransaction</a></code> is associated with. If
             this isn&rsquo;t the case a <code><a href="../Enums/TransactionError.html#/s:FO13DocumentStore16TransactionError18documentStoreErrorFMS0_FVS_18DocumentStoreErrorS0_">TransactionError.documentStoreError</a></code> is thrown the
             <code><a href="../Structs/DocumentStoreError.html">DocumentStoreError</a></code> will be of kind <code>documentDescriptionNotRegistered</code>.</p>
 
@@ -277,6 +271,36 @@
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/ReadWriteTransaction.swift#L29-L31">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC13DocumentStore20ReadWriteTransaction6deleteuRxS_8DocumentrFzT8matchingGVS_5Queryx__Si"></a>
+                    <a name="//apple_ref/swift/Method/delete(matching:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC13DocumentStore20ReadWriteTransaction6deleteuRxS_8DocumentrFzT8matchingGVS_5Queryx__Si">delete(matching:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReadWriteTransaction</span><span class="p">:</span> <span class="kt"><a href="../Classes/ReadTransaction.html">ReadTransaction</a></span><span class="p">,</span> <span class="kt">ReadWritableTransaction</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/ReadWriteTransaction.swift#L35-L37">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
