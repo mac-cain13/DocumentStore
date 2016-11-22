@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>&amp;&amp;(_:_:) Function Reference</title>
+    <title>ReadWriteTransaction Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -11,9 +11,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Function/&amp;&amp;(_:_:)" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/ReadWriteTransaction" class="dashAnchor"></a>
 
-    <a title="&amp;&amp;(_:_:) Function Reference"></a>
+    <a title="ReadWriteTransaction Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -35,7 +35,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">DocumentStore Reference</a>
       <img class="carat" src="../img/carat.png" />
-      &amp;&amp;(_:_:) Function Reference
+      ReadWriteTransaction Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -194,26 +194,14 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>&amp;&amp;(_:_:)</h1>
+            <h1>ReadWriteTransaction</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">?,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReadWriteTransaction</span><span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:C13DocumentStore15ReadTransaction">ReadTransaction</a></span><span class="p">,</span> <span class="kt">ReadWritableTransaction</span></code></pre>
 
                 </div>
               </div>
-            <p>Combine two <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code>s using a logical &lsquo;and&rsquo; operator</p>
-
-<p><li>Parameters:</p>
-
-<p><ul>
-<li>left: Optional <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> on the left side, if none given will act like it&rsquo;s always <code>true</code></li>
-<li>right: <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> on the right side</li>
-</ul></li>
-<div class="aside aside-returns">
-    <p class="aside-title">Returns</p>
-    New <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> that requires both predicates to be true</p>
-
-<p></div></p>
+            <p>A transaction on a <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code> that can perform reads and writes.</p>
 
           </div>
         </section>
@@ -225,9 +213,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:tF13DocumentStoreoi2aauRxS_8DocumentrFTGSqGVS_9Predicatex__GS1_x__GS1_x_L_12DocumentTypeMx"></a>
-                    <a name="//apple_ref/swift/Parameter/DocumentType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:tF13DocumentStoreoi2aauRxS_8DocumentrFTGSqGVS_9Predicatex__GS1_x__GS1_x_L_12DocumentTypeMx">DocumentType</a>
+                    <a name="/s:FC13DocumentStore20ReadWriteTransaction3adduRxS_8DocumentrFzT8documentx_T_"></a>
+                    <a name="//apple_ref/swift/Method/add(document:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC13DocumentStore20ReadWriteTransaction3adduRxS_8DocumentrFzT8documentx_T_">add(document:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -235,19 +223,60 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Add the given <code><a href="../Protocols/Document.html">Document</a></code> to the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code> this <code>ReadWriteTransaction</code> is associated with.</p>
+
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <p>The <code><a href="../Structs/DocumentDescriptor.html">DocumentDescriptor</a></code> of the <code><a href="../Protocols/Document.html">Document</a></code> you are adding must be registered
+            with the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code> the given <code><a href="../Classes.html#/s:C13DocumentStore15ReadTransaction">ReadTransaction</a></code> is associated with. If
+            this isn&rsquo;t the case a <code><a href="../Enums/TransactionError.html#/s:FO13DocumentStore16TransactionError18documentStoreErrorFMS0_FVS_18DocumentStoreErrorS0_">TransactionError.documentStoreError</a></code> is thrown the
+            <code><a href="../Structs/DocumentStoreError.html">DocumentStoreError</a></code> will be of kind <code>documentDescriptionNotRegistered</code>.</p>
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter document: <code><a href="../Protocols/Document.html">Document</a></code> to add to the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code></p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/TransactionError.html">TransactionError</a></code> on all failures</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">&amp;&amp;</span> <span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">?,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">add</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="o">&gt;</span><span class="p">(</span><span class="nv">document</span><span class="p">:</span> <span class="kt">DocumentType</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>Document</code> to add to the <code>DocumentStore</code></p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/ReadWriteTransaction.swift#L29-L31">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

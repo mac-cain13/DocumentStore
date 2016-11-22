@@ -51,7 +51,7 @@
                 <a class="nav-group-task-link" href="../Classes.html#/s:C13DocumentStore15ReadTransaction">ReadTransaction</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes.html#/s:C13DocumentStore20ReadWriteTransaction">ReadWriteTransaction</a>
+                <a class="nav-group-task-link" href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a>
               </li>
             </ul>
           </li>
@@ -431,7 +431,7 @@
 
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    <p>Do not use the <code><a href="../Classes.html#/s:C13DocumentStore20ReadWriteTransaction">ReadWriteTransaction</a></code> outside of the actions block, this will
+    <p>Do not use the <code><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></code> outside of the actions block, this will
        result in undefined behaviour.</p>
 
 </div>
@@ -455,7 +455,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes.html#/s:C13DocumentStore20ReadWriteTransaction">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CommitAction.html">CommitAction</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CommitAction.html">CommitAction</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -528,7 +528,7 @@
 
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
-    <p>Do not use the <code><a href="../Classes.html#/s:C13DocumentStore20ReadWriteTransaction">ReadWriteTransaction</a></code> outside of the actions block, this will
+    <p>Do not use the <code><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></code> outside of the actions block, this will
        result in undefined behaviour.</p>
 
 </div>
@@ -552,7 +552,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">readWrite</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes.html#/s:C13DocumentStore20ReadWriteTransaction">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Enums/CommitAction.html">CommitAction</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">))</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">readWrite</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Enums/CommitAction.html">CommitAction</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">))</span></code></pre>
 
                         </div>
                       </div>
@@ -616,7 +616,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-21)</p>
+      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-22)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
