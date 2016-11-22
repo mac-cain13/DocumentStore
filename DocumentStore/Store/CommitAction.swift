@@ -8,14 +8,16 @@
 
 import Foundation
 
-/// Action to take when the `ReadWriteTransaction` is completed.
-///
-/// - saveChanges: Save the changes made
-/// - discardChanges: Discard any changes that have been made
-public enum CommitAction {
-  /// Save the changes made
-  case saveChanges
+extension DocumentStore {
+  /// Action to take when the `ReadWriteTransaction` is completed.
+  ///
+  /// - saveChanges: Save the changes made
+  /// - discardChanges: Discard any changes that have been made
+  public enum CommitAction {
+    /// Save the changes made
+    case saveChanges
 
-  /// Discard any changes that have been made
-  case discardChanges
+    /// Discard any changes that have been made
+    case discardChanges
+  }
 }

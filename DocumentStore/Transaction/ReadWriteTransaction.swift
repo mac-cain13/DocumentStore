@@ -9,7 +9,7 @@
 import Foundation
 
 /// A transaction on a `DocumentStore` that can perform reads and writes.
-public final class ReadWriteTransaction: ReadTransaction, ReadWritableTransaction {
+public class ReadWriteTransaction: ReadTransaction, ReadWritableTransaction {
   private let transaction: ReadWritableTransaction
 
   init(transaction: ReadWritableTransaction) {

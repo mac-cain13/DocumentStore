@@ -431,8 +431,8 @@
 				D565A12A1DD75B8D000FB0C8 /* ReadTransaction.swift */,
 				D5FCEF551DD065B00028364C /* ReadWriteTransaction.swift */,
 				D5160E681DD78EB5006C8177 /* CoreDataTransaction.swift */,
-				D5FCEF511DD065770028364C /* TransactionError.swift */,
 				D5FCEF531DD065980028364C /* TransactionResult.swift */,
+				D5FCEF511DD065770028364C /* TransactionError.swift */,
 			);
 			path = Transaction;
 			sourceTree = "<group>";

@@ -11,11 +11,11 @@ import CoreData
 
 /// Type that describes the possible storage formats.
 ///
-/// - bool: Boolean storage
-/// - date: Date storage
-/// - double: Double storage
-/// - int: Integer (64 bit) storage
-/// - string: String storage
+/// -  bool: Boolean storage
+/// -  date: Date storage
+/// -  double: Double storage
+/// -  int: Integer (64 bit) storage
+/// -  string: String storage
 public enum IndexStorageType {
   case bool
   case date

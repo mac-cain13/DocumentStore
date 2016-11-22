@@ -59,7 +59,7 @@ public final class DocumentStore {
     }
   }
 
-  // MARK: Transaction initialization
+  // MARK: Performing transactions
 
   /// Perform a read transaction on the store and get the result back in a handler.
   ///
@@ -79,7 +79,7 @@ public final class DocumentStore {
     }
   }
 
-  /// Perform a write transaction on the store and get the result back in a handler.
+  /// Perform a write transaction on the store.
   ///
   /// - Warning: Do not use the `ReadWriteTransaction` outside of the actions block, this will
   ///            result in undefined behaviour.

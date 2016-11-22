@@ -48,6 +48,9 @@
                 <a class="nav-group-task-link" href="../Classes/DocumentStore.html">DocumentStore</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DocumentStore/CommitAction.html">– CommitAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ReadTransaction.html">ReadTransaction</a>
               </li>
               <li class="nav-group-task">
@@ -58,9 +61,6 @@
           <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Enums.html">Enums</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/CommitAction.html">CommitAction</a>
-              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/IndexStorageType.html">IndexStorageType</a>
               </li>
@@ -304,10 +304,10 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Transaction%20initialization"></a>
-                <a name="//apple_ref/swift/Section/Transaction initialization" class="dashAnchor"></a>
-                <a href="#/Transaction%20initialization">
-                  <h3 class="section-name">Transaction initialization</h3>
+                <a name="/Performing%20transactions"></a>
+                <a name="//apple_ref/swift/Section/Performing transactions" class="dashAnchor"></a>
+                <a href="#/Performing%20transactions">
+                  <h3 class="section-name">Performing transactions</h3>
                 </a>
               </div>
               <ul class="item-container">
@@ -411,9 +411,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC13DocumentStore13DocumentStore5writeFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultT__T_7actionsFzCS_20ReadWriteTransactionOS_12CommitAction_T_"></a>
+                    <a name="/s:FC13DocumentStore13DocumentStore5writeFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultT__T_7actionsFzCS_20ReadWriteTransactionOS0_12CommitAction_T_"></a>
                     <a name="//apple_ref/swift/Method/write(queue:handler:actions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC13DocumentStore13DocumentStore5writeFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultT__T_7actionsFzCS_20ReadWriteTransactionOS_12CommitAction_T_">write(queue:handler:actions:)</a>
+                    <a class="token" href="#/s:FC13DocumentStore13DocumentStore5writeFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultT__T_7actionsFzCS_20ReadWriteTransactionOS0_12CommitAction_T_">write(queue:handler:actions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -421,7 +421,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Perform a write transaction on the store and get the result back in a handler.</p>
+                        <p>Perform a write transaction on the store.</p>
 
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
@@ -449,7 +449,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CommitAction.html">CommitAction</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/DocumentStore/CommitAction.html">CommitAction</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -508,9 +508,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC13DocumentStore13DocumentStore9readWriteurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_20ReadWriteTransactionTOS_12CommitActionx__T_"></a>
+                    <a name="/s:FC13DocumentStore13DocumentStore9readWriteurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_20ReadWriteTransactionTOS0_12CommitActionx__T_"></a>
                     <a name="//apple_ref/swift/Method/readWrite(queue:handler:actions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC13DocumentStore13DocumentStore9readWriteurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_20ReadWriteTransactionTOS_12CommitActionx__T_">readWrite(queue:handler:actions:)</a>
+                    <a class="token" href="#/s:FC13DocumentStore13DocumentStore9readWriteurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_20ReadWriteTransactionTOS0_12CommitActionx__T_">readWrite(queue:handler:actions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -546,7 +546,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">readWrite</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Enums/CommitAction.html">CommitAction</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">))</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">readWrite</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Classes/DocumentStore/CommitAction.html">CommitAction</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">))</span></code></pre>
 
                         </div>
                       </div>
@@ -598,6 +598,46 @@
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L111-L146">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC13DocumentStore13DocumentStore12CommitAction"></a>
+                    <a name="//apple_ref/swift/Enum/CommitAction" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC13DocumentStore13DocumentStore12CommitAction">CommitAction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Action to take when the <code><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></code> is completed.</p>
+
+<ul>
+<li>saveChanges: Save the changes made</li>
+<li>discardChanges: Discard any changes that have been made</li>
+</ul>
+
+                        <a href="../Classes/DocumentStore/CommitAction.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CommitAction</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/CommitAction.swift#L16-L22">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
