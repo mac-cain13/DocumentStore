@@ -15,6 +15,8 @@ import Foundation
 ///         evaluated at once when you execute it in a transaction.
 public struct Query<DocumentType: Document> {
 
+  // MARK: Properties
+
   /// Optional `Predicate` used to filter the `Document`s
   public var predicate: Predicate<DocumentType>?
 
@@ -26,6 +28,8 @@ public struct Query<DocumentType: Document> {
 
   /// An optional maximum number of `Document`s that this `Query` will match
   public var limit: UInt?
+
+  // MARK: Initializers
 
   /// Initializes a `Query` with no filters, sortings or other limitations.
   public init() {
