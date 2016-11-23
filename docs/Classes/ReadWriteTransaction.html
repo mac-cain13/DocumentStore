@@ -288,19 +288,71 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delete all <code><a href="../Protocols/Document.html">Document</a></code>s matching the given <code><a href="../Structs/Query.html">Query</a></code>.</p>
+
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <p>The <code><a href="../Structs/DocumentDescriptor.html">DocumentDescriptor</a></code> of the <code><a href="../Protocols/Document.html">Document</a></code>s you are deleting must be
+            registered with the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code> the given <code><a href="../Classes/ReadTransaction.html">ReadTransaction</a></code> is associated
+            with. If this isn&rsquo;t the case a <code><a href="../Enums/TransactionError.html#/s:FO13DocumentStore16TransactionError18documentStoreErrorFMS0_FVS_18DocumentStoreErrorS0_">TransactionError.documentStoreError</a></code> is thrown
+            the <code><a href="../Structs/DocumentStoreError.html">DocumentStoreError</a></code> will be of kind <code>documentDescriptionNotRegistered</code>.</p>
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter query: The <code><a href="../Structs/Query.html">Query</a></code> to match the documents against</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>Number of deleted <code><a href="../Protocols/Document.html">Document</a></code>s</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p><code><a href="../Enums/TransactionError.html">TransactionError</a></code> on all failures</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ReadWriteTransaction</span><span class="p">:</span> <span class="kt"><a href="../Classes/ReadTransaction.html">ReadTransaction</a></span><span class="p">,</span> <span class="kt">ReadWritableTransaction</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">delete</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">matching</span> <span class="nv">query</span><span class="p">:</span> <span class="kt"><a href="../Structs/Query.html">Query</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>query</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>Query</code> to match the documents against</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Number of deleted <code><a href="../Protocols/Document.html">Document</a></code>s</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/ReadWriteTransaction.swift#L35-L37">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/ReadWriteTransaction.swift#L44-L46">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

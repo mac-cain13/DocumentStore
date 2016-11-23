@@ -447,6 +447,14 @@
                       <div class="abstract">
                         <p>A <code>Query</code> that can filter and order a single type of <code><a href="Protocols/Document.html">Document</a></code> in a certain transaction.</p>
 
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Sorting is always done before limiting the results. So the order of calling <code>sorted</code> and
+    <code>skipping</code>/<code>limited</code> does not matter, they only change the query object that is 
+    evaluated at once when you execute it in a transaction.
+
+</div>
+
                         <a href="Structs/Query.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
@@ -458,7 +466,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L12-L126">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L16-L144">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

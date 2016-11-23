@@ -197,6 +197,14 @@
               </div>
             <p>A <code>Query</code> that can filter and order a single type of <code><a href="../Protocols/Document.html">Document</a></code> in a certain transaction.</p>
 
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Sorting is always done before limiting the results. So the order of calling <code>sorted</code> and
+    <code>skipping</code>/<code>limited</code> does not matter, they only change the query object that is 
+    evaluated at once when you execute it in a transaction.
+
+</div>
+
           </div>
         </section>
 
@@ -229,7 +237,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L15">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L19">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -259,7 +267,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L18">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L22">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -289,7 +297,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L21">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L25">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -319,7 +327,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L24">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L28">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -349,7 +357,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L27-L32">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L31-L36">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -449,7 +457,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L41-L46">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L45-L50">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -535,7 +543,7 @@
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L58-L62">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L62-L66">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -609,7 +617,7 @@
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L71-L75">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L75-L79">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -695,7 +703,7 @@
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L87-L91">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L91-L95">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -787,7 +795,7 @@
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L105-L109">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L109-L113">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -860,7 +868,98 @@ instructions intact.</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L121-L125">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L125-L129">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Executing"></a>
+                <a name="//apple_ref/swift/Section/Executing" class="dashAnchor"></a>
+                <a href="#/Executing">
+                  <h3 class="section-name">Executing</h3>
+                </a>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV13DocumentStore5Query7executeurFzT9operationFzGS0_x_qd___qd__"></a>
+                    <a name="//apple_ref/swift/Method/execute(operation:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV13DocumentStore5Query7executeurFzT9operationFzGS0_x_qd___qd__">execute(operation:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Execute this <code>Query</code> by performing the given operation.</p>
+
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>This is just a convenience method so <code>query.execute(operation: transaction.fetch)</code> is
+    exactly the same as <code>transaction.fetch(matching: query)</code>.</p>
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter operation: The operation that takes this <code>Query</code> and returns a result</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>The result of the operation</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>Any error the operation throws will be rethrown</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">execute</span><span class="o">&lt;</span><span class="kt">Result</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">operation</span><span class="p">:</span> <span class="p">(</span><span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Result</span><span class="p">)</span> <span class="k">rethrows</span> <span class="o">-&gt;</span> <span class="kt">Result</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>operation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The operation that takes this <code>Query</code> and returns a result</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The result of the operation</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L141-L143">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
