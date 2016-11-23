@@ -1,16 +1,18 @@
 # DocumentStore
 _A document-oriented datastore for iOS._
 
-## Why?
+## When to use?
 
-- DocumentStore offers an simpel fool-proof way to store data
-- CoreData and Realm are powerful, but let you make threading mistakes which are extremely hard to debug
-- Often we don’t need all the power of CoreData or Realm
+_TODO:_ Talk about when this is the correct solution.
 
 ## How does it work?
 
-
+_TODO:_ Small example of a Document, storing/querying for it.
 
 ## Installation
 
+_TODO:_ Explain ways to use this in your project.
 
+## License
+
+[DocumentStore](https://github.com/mac-cain13/DocumentStore) is created by [Mathijs Kadijk](https://github.com/mac-cain13) and released under a [MIT License](License).
