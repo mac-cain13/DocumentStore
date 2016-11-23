@@ -30,7 +30,16 @@ public class ReadWriteTransaction: ReadTransaction, ReadWritableTransaction {
     try transaction.add(document: document)
   }
 
-  // TODO
+  /// Delete all `Document`s matching the given `Query`.
+  ///
+  /// - Precondition: The `DocumentDescriptor` of the `Document`s you are deleting must be
+  ///                 registered with the `DocumentStore` the given `ReadTransaction` is associated
+  ///                 with. If this isn't the case a `TransactionError.documentStoreError` is thrown
+  ///                 the `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
+  ///
+  /// - Parameter query: The `Query` to match the documents against
+  /// - Returns: Number of deleted `Document`s
+  /// - Throws: `TransactionError` on all failures
   @discardableResult
   public func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     return try transaction.delete(matching: query)

@@ -91,30 +91,26 @@ class DocumentStoreTestsOld: XCTestCase {
 //        try transaction.add(document: rswiftDeveloper)
 //        return .SaveChanges
 //      }
-//
-//      documentStore!.read(handler: { developers in
-//        print(developers)
-//      }) { transaction in
-//
-//        let query = Query<Developer>()
-//          .filtered { $0.age > 18 }
+
+//      documentStore!.read(handler: { result in fatalError() }) { (transaction) -> Developer? in
+//        return try Query<Developer>()
+//          .filtered { $0.age > 18 && $0.age < 30 }
 //          .sorted { $0.age.ascending() }
-//          .limit(10)
-//
-//        return transaction.fetchAll(matching: query)
-//
-//        let query = try Developer
-//          .query()
-//          .skipping(3)
-//          .limitted(upTo: 1)
-//          .skipping(3)
-//          .limitted(upTo: 3)
-//          .filtered { $0.age > 18 }
-//          .filtered { $0.age < 30 }
-//          .sorted { $0.age.ascending() }
-//          .execute(in: transaction)
+//          .skipping(upTo: 3)
+//          .limited(upTo: 1)
+//          .execute(operation: transaction.fetchFirst)
 //      }
 
+      // Promise example
+//      documentStore!.read { transaction in
+//        try Query<Developer>()
+//          .filtered { $0.age > 18 }
+//          .sorted { $0.age.ascending() }
+//          .execute(operation: transaction.fetchFirst)
+//      }
+//      .then { developer in
+//        youngestAdultDeveloper.text = developer?.name ?? "No adults found."
+//      }
     }
 
 }

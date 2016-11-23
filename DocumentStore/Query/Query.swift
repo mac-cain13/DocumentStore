@@ -9,6 +9,10 @@
 import Foundation
 
 /// A `Query` that can filter and order a single type of `Document` in a certain transaction.
+///
+/// - Note: Sorting is always done before limiting the results. So the order of calling `sorted` and
+///         `skipping`/`limited` does not matter, they only change the query object that is 
+///         evaluated at once when you execute it in a transaction.
 public struct Query<DocumentType: Document> {
 
   /// Optional `Predicate` used to filter the `Document`s
@@ -122,5 +126,19 @@ public struct Query<DocumentType: Document> {
     var query = self
     query.sortDescriptors.append(closure(DocumentType.self))
     return query
+  }
+
+  // MARK: Executing
+
+  /// Execute this `Query` by performing the given operation.
+  ///
+  /// - Note: This is just a convenience method so `query.execute(operation: transaction.fetch)` is
+  ///         exactly the same as `transaction.fetch(matching: query)`.
+  ///
+  /// - Parameter operation: The operation that takes this `Query` and returns a result
+  /// - Returns: The result of the operation
+  /// - Throws: Any error the operation throws will be rethrown
+  public func execute<Result>(operation: (Query<DocumentType>) throws -> Result) rethrows -> Result {
+    return try operation(self)
   }
 }
