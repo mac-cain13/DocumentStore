@@ -195,7 +195,7 @@
 
                 </div>
               </div>
-            <p>A <code>Collection</code> of a single type of <code><a href="../Protocols/Document.html">Document</a></code>s that can be filtered and ordered.</p>
+            <p>A <code>Query</code> that can filter and order a single type of <code><a href="../Protocols/Document.html">Document</a></code> in a certain transaction.</p>
 
           </div>
         </section>
@@ -217,19 +217,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Optional <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> used to filter the <code><a href="../Protocols/Document.html">Document</a></code>s</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">predicate</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L15">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -247,19 +247,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p><code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code>s used to sort the <code><a href="../Protocols/Document.html">Document</a></code>s</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sortDescriptors</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L18">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -277,19 +277,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Number of <code><a href="../Protocols/Document.html">Document</a></code>s that this <code>Query</code> will skip in the result</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">skip</span><span class="p">:</span> <span class="kt">UInt</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L21">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -307,19 +307,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>An optional maximum number of <code><a href="../Protocols/Document.html">Document</a></code>s that this <code>Query</code> will match</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L24">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -337,19 +337,119 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Initializes a <code>Query</code> with no filters, sortings or other limitations.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L28-L33">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L27-L32">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV13DocumentStore5QuerycFT9predicateGSqGVS_9Predicatex__15sortDescriptorsGSaGVS_14SortDescriptorx__4skipSu5limitGSqSu__GS0_x_"></a>
+                    <a name="//apple_ref/swift/Method/init(predicate:sortDescriptors:skip:limit:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV13DocumentStore5QuerycFT9predicateGSqGVS_9Predicatex__15sortDescriptorsGSaGVS_14SortDescriptorx__4skipSu5limitGSqSu__GS0_x_">init(predicate:sortDescriptors:skip:limit:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize a <code>Query</code> passing in the initial filter, sortings and limitations.</p>
+
+<ul>
+<li>Parameters:
+
+<ul>
+<li>predicate: Optional <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code> used to filter the <code><a href="../Protocols/Document.html">Document</a></code>s</li>
+<li>sortDescriptors: <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code>s used to sort the <code><a href="../Protocols/Document.html">Document</a></code>s</li>
+<li>skip: Number of <code><a href="../Protocols/Document.html">Document</a></code>s that this <code>Query</code> will skip in the result</li>
+<li>limit: An optional maximum number of <code><a href="../Protocols/Document.html">Document</a></code>s that this <code>Query</code> will match</li>
+</ul></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">predicate</span><span class="p">:</span> <span class="kt"><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">?,</span> <span class="nv">sortDescriptors</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span><span class="p">],</span> <span class="nv">skip</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">,</span> <span class="nv">limit</span><span class="p">:</span> <span class="kt">UInt</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional <code>Predicate</code> used to filter the <code>Document</code>s</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sortDescriptors</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>SortDescriptor</code>s used to sort the <code>Document</code>s</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>skip</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of <code>Document</code>s that this <code>Query</code> will skip in the result</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>limit</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional maximum number of <code>Document</code>s that this <code>Query</code> will match</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L41-L46">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -378,13 +478,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Skip a number of <code><a href="../Protocols/Document.html">Document</a></code>s in the <code>Collection</code>.</p>
+                        <p>Skip the first number of <code><a href="../Protocols/Document.html">Document</a></code>s that are matched by this <code>Query</code>.</p>
 
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>Given the <code><a href="../Protocols/Document.html">Document</a></code>s [a, b, c, d] <code>skipping(upTo: 2)</code> will result in a <code>Collection</code>
-    of [c, d]. Then again performing an <code>skipping(upTo: 1)</code> on this <code>Collection</code> will
-    return [d].</p>
+    <p>Given the <code><a href="../Protocols/Document.html">Document</a></code>s [a, b, c, d] <code>skipping(upTo: 2)</code> will result in a <code>Query</code> matching
+    of [c, d]. Then again performing an <code>skipping(upTo: 1)</code> on this <code>Query</code> will make it
+    match [d].</p>
 
 </div>
 
@@ -396,7 +496,7 @@
 
 <div class="aside aside-returns">
     <p class="aside-title">Returns</p>
-    <p>A collection skipping the given number of items.</p>
+    <p>A <code>Query</code> skipping the given number of items.</p>
 
 </div>
 
@@ -431,11 +531,11 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A collection skipping the given number of items.</p>
+                        <p>A <code>Query</code> skipping the given number of items.</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L45-L49">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L58-L62">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -453,24 +553,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Limits the number of <code><a href="../Protocols/Document.html">Document</a></code>s in the <code>Collection</code>.</p>
+                        <p>Limits the number of <code><a href="../Protocols/Document.html">Document</a></code>s the <code>Query</code> will match.</p>
 
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>Given the <code><a href="../Protocols/Document.html">Document</a></code>s [a, b, c, d] <code>limiting(upTo: 2)</code> will result in a <code>Collection</code>
-    of [a, b].</p>
+    <p>Given the <code><a href="../Protocols/Document.html">Document</a></code>s [a, b, c, d] <code>limiting(upTo: 2)</code> will result in a <code>Query</code>
+    matching [a, b]. Then <code>limiting(upTo: 3)</code> will still match only [a, b].</p>
 
 </div>
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    <p>Parameter numberOfItems: Maximum number of items that this collection may contain</p>
+    <p>Parameter numberOfItems: Maximum number of items that this <code>Query</code> will match</p>
 
 </div>
 
 <div class="aside aside-returns">
     <p class="aside-title">Returns</p>
-    <p>A collection with not more then the given number of items</p>
+    <p>A <code>Query</code> matching not more then the given number of items</p>
 
 </div>
 
@@ -495,7 +595,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Maximum number of items that this collection may contain</p>
+                                  <p>Maximum number of items that this <code>Query</code> will match</p>
 
                                 </div>
                               </td>
@@ -505,11 +605,11 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A collection with not more then the given number of items</p>
+                        <p>A <code>Query</code> matching not more then the given number of items</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L58-L62">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L71-L75">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -538,12 +638,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Filters the <code>Collection</code> by the returned <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code>.</p>
+                        <p>Filters the <code><a href="../Protocols/Document.html">Document</a></code>s matched by the <code>Query</code> using the returned <code><a href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a></code>.</p>
 
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Given the <code><a href="../Protocols/Document.html">Document</a></code>s with an age <code><a href="../Structs/Index.html">Index</a></code> of [16, 21, 23, 31]
-    <code>filtering { $0.age &gt; 18 }</code> will result in a collection of [21, 23, 31]. Then again
+    <code>filtering { $0.age &gt; 18 }</code> will result in a <code>Query</code> matching [21, 23, 31]. Then again
     performing <code>filtering { $0.age &lt; 30 }</code> will return [21, 23].</p>
 
 </div>
@@ -556,7 +656,7 @@
 
 <div class="aside aside-returns">
     <p class="aside-title">Returns</p>
-    <p>A collection filtered by the predicate</p>
+    <p>A <code>Query</code> that only matches <code><a href="../Protocols/Document.html">Document</a></code>s passing the predicate</p>
 
 </div>
 
@@ -591,11 +691,11 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A collection filtered by the predicate</p>
+                        <p>A <code>Query</code> that only matches <code><a href="../Protocols/Document.html">Document</a></code>s passing the predicate</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L74-L78">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L87-L91">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -624,12 +724,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Sort the <code>Collection</code> by the returned <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code>.</p>
+                        <p>Sort the <code>Query</code> by the returned <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code>.</p>
 
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Given the <code><a href="../Protocols/Document.html">Document</a></code>s with a name <code><a href="../Structs/Index.html">Index</a></code> of [d, c, a, b]
-    <code>ordered { $0.name.ascending() }</code> will result in a collection of [a, b, c, d].</p>
+    <code>ordered { $0.name.ascending() }</code> will result in a <code>Query</code> matching [a, b, c, d].</p>
 
 </div>
 
@@ -648,7 +748,7 @@
 
 <div class="aside aside-returns">
     <p class="aside-title">Returns</p>
-    <p>An <code>OrderedCollection</code> ordered by the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code></p>
+    <p>A <code>Query</code> where matching <code><a href="../Protocols/Document.html">Document</a></code>s are ordered by the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code></p>
 
 </div>
 
@@ -683,11 +783,11 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An <code>OrderedCollection</code> ordered by the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code></p>
+                        <p>A <code>Query</code> where matching <code><a href="../Protocols/Document.html">Document</a></code>s are ordered by the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code></p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L92-L96">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L105-L109">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -705,22 +805,23 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Apply an extra sorting to the collection leaving previous sorting instructions intact.</p>
+                        <p>Apply a subsequent sorting to the <code><a href="../Protocols/Document.html">Document</a></code>s matching this <code>Query</code> leaving previous sorting
+instructions intact.</p>
 
-<p>Example: A <code>Collection</code> of the <code><a href="../Protocols/Document.html">Document</a></code>s with the <code><a href="../Structs/Index.html">Index</a></code>es &lsquo;age&rsquo; and &lsquo;name&rsquo;
+<p>Example: A <code>Query</code> matching the <code><a href="../Protocols/Document.html">Document</a></code>s with the <code><a href="../Structs/Index.html">Index</a></code>es &lsquo;age&rsquo; and &lsquo;name&rsquo;
          [(2, c), (1, b), (2, a)] on <code>sorted { $0.age.ascending() }</code> will become
          [(1, b), (2, c), (2, a)]. <code>thenSorted { $0.name.ascending() }</code> will then become
          [(1, b), (2, a), (2, c)].</p>
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter closure: Closure that returns the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code> to order by
+    Parameter closure: Closure that returns the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code> to sort by
 
 </div>
 
 <div class="aside aside-returns">
     <p class="aside-title">Returns</p>
-    An <code>OrderedCollection</code> ordered by the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code>
+    A <code>Query</code> that sorts <code><a href="../Protocols/Document.html">Document</a></code>s subsequently by the given <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code>
 
 </div>
 
@@ -745,7 +846,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>Closure that returns the <code>SortDescriptor</code> to order by</p>
+                                  <p>Closure that returns the <code>SortDescriptor</code> to sort by</p>
 
                                 </div>
                               </td>
@@ -755,11 +856,11 @@
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>An <code>OrderedCollection</code> ordered by the <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code></p>
+                        <p>A <code>Query</code> that sorts <code><a href="../Protocols/Document.html">Document</a></code>s subsequently by the given <code><a href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a></code></p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L107-L111">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L121-L125">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -772,7 +873,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-22)</p>
+      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-23)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
