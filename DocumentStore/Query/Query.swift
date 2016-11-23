@@ -8,23 +8,22 @@
 
 import Foundation
 
-// TODO: Fix all comments containing `Collection`
-/// A `Collection` of a single type of `Document`s that can be filtered and ordered.
+/// A `Query` that can filter and order a single type of `Document` in a certain transaction.
 public struct Query<DocumentType: Document> {
 
-  // TODO
+  /// Optional `Predicate` used to filter the `Document`s
   public var predicate: Predicate<DocumentType>?
 
-  // TODO
+  /// `SortDescriptor`s used to sort the `Document`s
   public var sortDescriptors: [SortDescriptor<DocumentType>]
 
-  // TODO
+  /// Number of `Document`s that this `Query` will skip in the result
   public var skip: UInt
 
-  // TODO
+  /// An optional maximum number of `Document`s that this `Query` will match
   public var limit: UInt?
 
-  // TODO
+  /// Initializes a `Query` with no filters, sortings or other limitations.
   public init() {
     predicate = nil
     sortDescriptors = []
@@ -32,81 +31,96 @@ public struct Query<DocumentType: Document> {
     limit = nil
   }
 
-  // MARK: Limiting
-
-  /// Skip a number of `Document`s in the `Collection`.
+  /// Initialize a `Query` passing in the initial filter, sortings and limitations.
   ///
-  /// - Note: Given the `Document`s [a, b, c, d] `skipping(upTo: 2)` will result in a `Collection`
-  ///         of [c, d]. Then again performing an `skipping(upTo: 1)` on this `Collection` will
-  ///         return [d].
-  ///
-  /// - Parameter numberOfItems: Number of items to skip.
-  /// - Returns: A collection skipping the given number of items.
-  public func skipping(upTo numberOfItems: UInt) -> Query<DocumentType> {
-    var collection = self
-    collection.skip = skip + numberOfItems
-    return collection
+  /// - Parameters:
+  ///   - predicate: Optional `Predicate` used to filter the `Document`s
+  ///   - sortDescriptors: `SortDescriptor`s used to sort the `Document`s
+  ///   - skip: Number of `Document`s that this `Query` will skip in the result
+  ///   - limit: An optional maximum number of `Document`s that this `Query` will match
+  public init(predicate: Predicate<DocumentType>?, sortDescriptors: [SortDescriptor<DocumentType>], skip: UInt, limit: UInt?) {
+    self.predicate = predicate
+    self.sortDescriptors = sortDescriptors
+    self.skip = skip
+    self.limit = limit
   }
 
-  /// Limits the number of `Document`s in the `Collection`.
+  // MARK: Limiting
+
+  /// Skip the first number of `Document`s that are matched by this `Query`.
   ///
-  /// - Note: Given the `Document`s [a, b, c, d] `limiting(upTo: 2)` will result in a `Collection`
-  ///         of [a, b].
+  /// - Note: Given the `Document`s [a, b, c, d] `skipping(upTo: 2)` will result in a `Query` matching
+  ///         of [c, d]. Then again performing an `skipping(upTo: 1)` on this `Query` will make it
+  ///         match [d].
   ///
-  /// - Parameter numberOfItems: Maximum number of items that this collection may contain
-  /// - Returns: A collection with not more then the given number of items
+  /// - Parameter numberOfItems: Number of items to skip.
+  /// - Returns: A `Query` skipping the given number of items.
+  public func skipping(upTo numberOfItems: UInt) -> Query<DocumentType> {
+    var query = self
+    query.skip = skip + numberOfItems
+    return query
+  }
+
+  /// Limits the number of `Document`s the `Query` will match.
+  ///
+  /// - Note: Given the `Document`s [a, b, c, d] `limiting(upTo: 2)` will result in a `Query`
+  ///         matching [a, b]. Then `limiting(upTo: 3)` will still match only [a, b].
+  ///
+  /// - Parameter numberOfItems: Maximum number of items that this `Query` will match
+  /// - Returns: A `Query` matching not more then the given number of items
   public func limited(upTo numberOfItems: UInt) -> Query<DocumentType> {
-    var collection = self
-    collection.limit = min(limit ?? UInt.max, numberOfItems)
-    return collection
+    var query = self
+    query.limit = min(limit ?? UInt.max, numberOfItems)
+    return query
   }
 
   // MARK: Filtering
 
-  /// Filters the `Collection` by the returned `Predicate`.
+  /// Filters the `Document`s matched by the `Query` using the returned `Predicate`.
   ///
   /// - Note: Given the `Document`s with an age `Index` of [16, 21, 23, 31]
-  ///         `filtering { $0.age > 18 }` will result in a collection of [21, 23, 31]. Then again
+  ///         `filtering { $0.age > 18 }` will result in a `Query` matching [21, 23, 31]. Then again
   ///         performing `filtering { $0.age < 30 }` will return [21, 23].
   ///
   /// - Parameter isIncluded: Closure that returns the `Predicate` to filter by
-  /// - Returns: A collection filtered by the predicate
+  /// - Returns: A `Query` that only matches `Document`s passing the predicate
   public func filtered(using predicate: (DocumentType.Type) -> Predicate<DocumentType>) -> Query<DocumentType> {
-    var collection = self
-    collection.predicate = collection.predicate && predicate(DocumentType.self)
-    return collection
+    var query = self
+    query.predicate = query.predicate && predicate(DocumentType.self)
+    return query
   }
 
   // MARK: Sorting
 
-  /// Sort the `Collection` by the returned `SortDescriptor`.
+  /// Sort the `Query` by the returned `SortDescriptor`.
   ///
   /// - Note: Given the `Document`s with a name `Index` of [d, c, a, b]
-  ///         `ordered { $0.name.ascending() }` will result in a collection of [a, b, c, d].
+  ///         `ordered { $0.name.ascending() }` will result in a `Query` matching [a, b, c, d].
   ///
   /// - Important: A second call to `sorted(by:)` will remove the first sorting, to apply multiple
   ///              `SortDescriptor`s use `thenSorted(by:)`.
   ///
   /// - Parameter sortDescriptor: Closure that returns the `SortDescriptor` to order by
-  /// - Returns: An `OrderedCollection` ordered by the `SortDescriptor`
+  /// - Returns: A `Query` where matching `Document`s are ordered by the `SortDescriptor`
   public func sorted(by sortDescriptor: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> Query<DocumentType> {
-    var collection = self
-    collection.sortDescriptors = [sortDescriptor(DocumentType.self)]
-    return collection
+    var query = self
+    query.sortDescriptors = [sortDescriptor(DocumentType.self)]
+    return query
   }
 
-  /// Apply an extra sorting to the collection leaving previous sorting instructions intact.
+  /// Apply a subsequent sorting to the `Document`s matching this `Query` leaving previous sorting
+  /// instructions intact.
   ///
-  /// Example: A `Collection` of the `Document`s with the `Index`es 'age' and 'name'
+  /// Example: A `Query` matching the `Document`s with the `Index`es 'age' and 'name'
   ///          [(2, c), (1, b), (2, a)] on `sorted { $0.age.ascending() }` will become
   ///          [(1, b), (2, c), (2, a)]. `thenSorted { $0.name.ascending() }` will then become
   ///          [(1, b), (2, a), (2, c)].
   ///
-  /// - Parameter closure: Closure that returns the `SortDescriptor` to order by
-  /// - Returns: An `OrderedCollection` ordered by the `SortDescriptor`
+  /// - Parameter closure: Closure that returns the `SortDescriptor` to sort by
+  /// - Returns: A `Query` that sorts `Document`s subsequently by the given `SortDescriptor`
   public func thenSorted(by closure: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> Query<DocumentType> {
-    var collection = self
-    collection.sortDescriptors.append(closure(DocumentType.self))
-    return collection
+    var query = self
+    query.sortDescriptors.append(closure(DocumentType.self))
+    return query
   }
 }

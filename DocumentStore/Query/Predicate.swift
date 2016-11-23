@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// `Predicate` that can be used to filter a `Collection` based on the `Index`es a `Document` has.
+/// `Predicate` that can be used to filter `Document`s using a `Query`.
 public struct Predicate<DocumentType: Document> {
   let predicate: NSPredicate
 
@@ -17,7 +17,7 @@ public struct Predicate<DocumentType: Document> {
   }
 }
 
-// MARK: Basic `Index` operators
+// MARK: Compare `Index`es to constant values
 
 /// Equal operator.
 ///

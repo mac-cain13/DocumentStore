@@ -1,5 +1,5 @@
 //
-//  Collection+NSFetchRequest.swift
+//  Query+NSFetchRequest.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 07-11-16.

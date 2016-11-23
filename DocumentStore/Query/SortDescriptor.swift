@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Description of how to sort a `Collection`.
+/// Descriptor that can be used to sort `Document`s matched by a `Query`.
 public struct SortDescriptor<DocumentType: Document> {
   let sortDescriptor: NSSortDescriptor
 
@@ -17,10 +17,10 @@ public struct SortDescriptor<DocumentType: Document> {
   }
 }
 
-// MARK: Index sortdescriptors
-
 public extension Index {
-  /// `SortDescriptor` that orders the `Collection` on this `Index` ascending.
+  // MARK: Sorting
+
+  /// `SortDescriptor` that orders on this `Index` ascending.
   ///
   /// Example: Ascending sorting is [1, 2, 3]
   ///
@@ -30,7 +30,7 @@ public extension Index {
     return SortDescriptor(sortDescriptor: sortDescriptor)
   }
 
-  /// `SortDescriptor` that orders the `Collection` on this `Index` descending.
+  /// `SortDescriptor` that orders on this `Index` descending.
   ///
   /// Example: Descending sorting is [3, 2, 1]
   ///

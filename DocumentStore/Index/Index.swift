@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Index for a `Document` used to filter and order a `Collection` in an efficient way.
+/// Index for a `Document` used in a `Query` to filter and order `Document`s in an efficient way.
 public struct Index<DocumentType: Document, ValueType: IndexValueType> {
   let identifier: String
   let resolver: (DocumentType) -> ValueType
@@ -17,7 +17,7 @@ public struct Index<DocumentType: Document, ValueType: IndexValueType> {
   ///
   /// - Warning: Do never change the identifier, this is the only unique reference there is for the
   ///            storage system to know what `Index` you are describing. Doing so will trigger a
-  ///            repopulation of this index for all documents in the collection.
+  ///            repopulation of this index for all documents this `Index` is related to.
   ///
   /// - Parameters:
   ///   - identifier: Unique unchangable (within one document) identifier

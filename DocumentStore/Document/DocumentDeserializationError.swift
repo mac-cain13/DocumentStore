@@ -15,9 +15,8 @@ public struct DocumentDeserializationError: Error {
   /// - Note: `deleteDocument` will only persist the deletion if you commit the transaction with
   ///         `CommitAction.saveChanges`.
   ///
-  /// - Warning: `abortOperation` will make every `Collection` containing this particular document
-  ///            to fail with an error. Use `skipDocument` to not remove the data, but continue 
-  ///            gracefully.
+  /// - Warning: `abortOperation` will make every `Query` matching this particular document to fail
+  ///            with an error. Use `skipDocument` to not remove the data, but continue gracefully.
   ///
   /// - skipDocument: Skips the `Document` leaving it untouched in the store
   /// - deleteDocument: Removes the `Document` from the store
@@ -34,9 +33,8 @@ public struct DocumentDeserializationError: Error {
 
     /// Abort the current operation.
     ///
-    /// - Warning: `abortOperation` will make every `Collection` containing this particular document
-    ///            to fail with an error. Use `skipDocument` to not remove the data, but continue
-    ///            gracefully.
+    /// - Warning: `abortOperation` will make every `Query` matching this particular document to fail
+    ///            with an error. Use `skipDocument` to not remove the data, but continue gracefully.
     case abortOperation
   }
 

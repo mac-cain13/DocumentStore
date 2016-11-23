@@ -95,9 +95,6 @@ class DocumentStoreTestsOld: XCTestCase {
 //      documentStore!.read(handler: { developers in
 //        print(developers)
 //      }) { transaction in
-//        var collection = UnorderedCollection<Developer>()
-//        collection.limit = 6
-//        collection.predicate = Developer.age > 18
 //
 //        let query = Query<Developer>()
 //          .filtered { $0.age > 18 }

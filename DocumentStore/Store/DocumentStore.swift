@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-/// The store where `Document`s are stored and can retrieved using `Collection`s in transactions.
+/// The store is where `Document`s are stored and can be retrieved using a `Query` in a `ReadTransaction`.
 public final class DocumentStore {
   private let transactionFactory = dependencyContainer.transactionFactory
 

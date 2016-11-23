@@ -1,5 +1,5 @@
 //
-//  Collection+NSFetchRequestTests.swift
+//  Query+NSFetchRequestTests.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 13-11-16.
@@ -10,7 +10,7 @@ import XCTest
 @testable import DocumentStore
 import CoreData
 
-class CollectionNSFetchRequestTests: XCTestCase {
+class QueryNSFetchRequestTests: XCTestCase {
 
   private var query = Query<TestDocument>()
 
