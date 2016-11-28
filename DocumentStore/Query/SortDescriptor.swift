@@ -8,12 +8,26 @@
 
 import Foundation
 
+public enum Order {
+  case ascending
+  case descending
+
+  var isAscending: Bool {
+    switch self {
+    case .ascending:
+      return true
+    case .descending:
+      return false
+    }
+  }
+}
+
 /// Descriptor that can be used to sort `Document`s matched by a `Query`.
 public struct SortDescriptor<DocumentType: Document> {
-  let sortDescriptor: NSSortDescriptor
+  let foundationSortDescriptor: NSSortDescriptor
 
-  init(sortDescriptor: NSSortDescriptor) {
-    self.sortDescriptor = sortDescriptor
+  public init<StorableType: Storable>(forStorable storable: StorableType, order: Order) where StorableType.DocumentType == DocumentType {
+    self.foundationSortDescriptor = NSSortDescriptor(key: storable.storageInformation.propertyName.keyPath, ascending: order.isAscending)
   }
 }
 
@@ -26,8 +40,7 @@ public extension Index {
   ///
   /// - Returns: The `SortDescriptor` representing the ascending sorting
   public func ascending() -> SortDescriptor<DocumentType> {
-    let sortDescriptor = NSSortDescriptor(key: identifier, ascending: true)
-    return SortDescriptor(sortDescriptor: sortDescriptor)
+    return SortDescriptor(forStorable: self, order: .ascending)
   }
 
   /// `SortDescriptor` that orders on this `Index` descending.
@@ -36,7 +49,6 @@ public extension Index {
   ///
   /// - Returns: The `SortDescriptor` representing the descending sorting
   public func descending() -> SortDescriptor<DocumentType> {
-    let sortDescriptor = NSSortDescriptor(key: identifier, ascending: false)
-    return SortDescriptor(sortDescriptor: sortDescriptor)
+    return SortDescriptor(forStorable: self, order: .descending)
   }
 }

@@ -24,7 +24,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     guard documentDescriptors.documentDescriptors.contains(DocumentType.documentDescriptor.eraseType()) else {
       let error = DocumentStoreError(
         kind: .documentDescriptionNotRegistered,
-        message: "The document description with identifier '\(DocumentType.documentDescriptor.identifier)' is not registered with the DocumentStore this transaction is associated with, please pass all DocumentDescriptions that are used to the DocumentStore initializer.",
+        message: "The document description with identifier '\(DocumentType.documentDescriptor.name)' is not registered with the DocumentStore this transaction is associated with, please pass all DocumentDescriptions that are used to the DocumentStore initializer.",
         underlyingError: nil
       )
       throw TransactionError.documentStoreError(error)
@@ -43,7 +43,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
-        message: "Failed to count '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to count '\(DocumentType.documentDescriptor.name)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing count.", error: error)
@@ -67,7 +67,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
-        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to fetch '\(DocumentType.documentDescriptor.name)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
@@ -81,7 +81,7 @@ class CoreDataTransaction: ReadWritableTransaction {
           guard let documentData = $0.value(forKey: DocumentDataAttributeName) as? Data else {
             let error = DocumentStoreError(
               kind: .documentDataCorruption,
-              message: "Failed to retrieve '\(DocumentDataAttributeName)' attribute contents and cast it to `Data` for a '\(DocumentType.documentDescriptor.identifier)' document. This is an error in the DocumentStore library, please report this issue.",
+              message: "Failed to retrieve '\(DocumentDataAttributeName)' attribute contents and cast it to `Data` for a '\(DocumentType.documentDescriptor.name)' document. This is an error in the DocumentStore library, please report this issue.",
               underlyingError: nil
             )
             logger.log(level: .error, message: "Encountered corrupt '\(DocumentDataAttributeName)' attribute.", error: error)
@@ -90,7 +90,7 @@ class CoreDataTransaction: ReadWritableTransaction {
 
           return try DocumentType.deserializeDocument(from: documentData)
         } catch let error as DocumentDeserializationError {
-          logger.log(level: .warn, message: "Deserializing '\(DocumentType.documentDescriptor.identifier)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
+          logger.log(level: .warn, message: "Deserializing '\(DocumentType.documentDescriptor.name)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
 
           switch error.resolution {
           case .deleteDocument:
@@ -121,7 +121,7 @@ class CoreDataTransaction: ReadWritableTransaction {
     } catch let underlyingError {
       let error = DocumentStoreError(
         kind: .operationFailed,
-        message: "Failed to fetch '\(DocumentType.documentDescriptor.identifier)' documents. This is an error in the DocumentStore library, please report this issue.",
+        message: "Failed to fetch '\(DocumentType.documentDescriptor.name)' documents. This is an error in the DocumentStore library, please report this issue.",
         underlyingError: underlyingError
       )
       logger.log(level: .error, message: "Error while performing fetch.", error: error)
@@ -136,10 +136,10 @@ class CoreDataTransaction: ReadWritableTransaction {
       let documentData = try document.serializeDocument()
 
       try convertExceptionToError {
-        let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.identifier, into: context)
+        let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.name, into: context)
         entity.setValue(documentData, forKey: DocumentDataAttributeName)
         DocumentType.documentDescriptor.indices.forEach {
-          entity.setValue($0.resolver(document), forKey: $0.identifier)
+          entity.setValue($0.resolver(document), forKey: $0.storageInformation.propertyName.keyPath)
         }
       }
     } catch let error {

@@ -11,66 +11,66 @@ import DocumentStore
 
 ////////
 
-let documentStore = try? DocumentStore(
-  identifier: "TestDocumentStore",
-  documentDescriptors: [
-    Developer.documentDescriptor.eraseType(),
-    Shipment.documentDescriptor.eraseType()
-  ]
-)
-
-struct Developer {
-  let name: String
-  let age: Int
-}
-
-extension Developer: Document {
-  static let name: Index<Developer, String> = { Index(identifier: "name") { $0.name } }()
-  static let age: Index<Developer, Int> = { Index(identifier: "age") { $0.age } }()
-
-  static let documentDescriptor = DocumentDescriptor<Developer>(
-    identifier: "Developer",
-    indices: [
-      name.eraseType(),
-      age.eraseType()
-    ]
-  )
-
-  static func deserializeDocument(from data: Data) throws -> Developer {
-    fatalError()
-  }
-
-  func serializeDocument() throws -> Data {
-    fatalError()
-  }
-}
-
-struct Shipment {
-  let barcode: String
-  let status: Int
-}
-
-extension Shipment: Document {
-  static let barcode: Index<Shipment, String> = { Index(identifier: "barcode") { $0.barcode } }()
-  static let status: Index<Shipment, Int> = { Index(identifier: "status") { $0.status } }()
-
-  static let documentDescriptor = DocumentDescriptor<Shipment>(
-    identifier: "Shipment",
-    indices: [
-      barcode.eraseType(),
-      status.eraseType()
-    ]
-  )
-
-  static func deserializeDocument(from data: Data) throws -> Shipment {
-    fatalError()
-  }
-
-  func serializeDocument() throws -> Data {
-    fatalError()
-  }
-}
-
+//let documentStore = try? DocumentStore(
+//  identifier: "TestDocumentStore",
+//  documentDescriptors: DescriptorList()
+//    .add(Developer.documentDescriptor)
+//    .add(Shipment.documentDescriptor)
+//)
+//
+//struct Developer {
+//  let name: String
+//  let age: Int
+//}
+//
+//extension Developer: Document {
+//  static let name: Index<Developer, String> = { Index(name: "name") { $0.name } }()
+//  static let age: Index<Developer, Int> = { Index(name: "age") { $0.age } }()
+//
+//  static let documentDescriptor = DocumentDescriptor<Developer>(
+//    name: "Developer",
+//    indices: [
+//      name.eraseType(),
+//      age.eraseType()
+//    ]
+//  )
+//
+//  static func deserializeDocument(from data: Data) throws -> Developer {
+//    fatalError()
+//  }
+//
+//  func serializeDocument() throws -> Data {
+//    fatalError()
+//  }
+//}
+//
+//struct Shipment {
+//  let barcode: String
+//  let status: Int
+//  let weight: Double
+//}
+//
+//extension Shipment: Document {
+//  static let barcode: Index<Shipment, String> = { Index(name: "barcode") { $0.barcode } }()
+//  static let status: Index<Shipment, Int> = { Index(name: "status") { $0.status } }()
+//  static let weight: Index<Shipment, Double> = { Index(name: "weight") { $0.weight } }()
+//
+//  static let documentDescriptor = DocumentDescriptor<Shipment>(
+//    name: "Shipment",
+////    identifier: barcode,
+//    indices: IndexList()
+//      .add(status)
+//  )
+//
+//  static func deserializeDocument(from data: Data) throws -> Shipment {
+//    fatalError()
+//  }
+//
+//  func serializeDocument() throws -> Data {
+//    fatalError()
+//  }
+//}
+//
 ///////
 
 class DocumentStoreTestsOld: XCTestCase {

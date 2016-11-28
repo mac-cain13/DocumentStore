@@ -10,94 +10,36 @@ import Foundation
 
 /// `Predicate` that can be used to filter `Document`s using a `Query`.
 public struct Predicate<DocumentType: Document> {
-  let predicate: NSPredicate
+  let foundationPredicate: NSPredicate
 
-  init(predicate: NSPredicate) {
-    self.predicate = predicate
+  /// Create a `Predicate` by combining two `Expression`s.
+  ///
+  /// - Parameters:
+  ///   - left: `Expression` on the left hand side of the operator
+  ///   - right: `Expression` on the right hand side of the operator
+  ///   - comparisonOperator: Operator to use for the comparison
+  public init<ValueType: StorableValue>(left: Expression<DocumentType, ValueType>, right: Expression<DocumentType, ValueType>, comparisonOperator: ExpressionComparisonOperator) {
+    foundationPredicate = NSComparisonPredicate(leftExpression: left.foundationExpression, rightExpression: right.foundationExpression, modifier: .direct, type: comparisonOperator.foundationOperator)
   }
-}
 
-// MARK: Compare `Index`es to constant values
+  /// Combines the given `Predicate`s using the given `LogicalPredicateOperator`.
+  ///
+  /// - Note: The `and` operator will always be `true` if no subpredicates are given. The `or`
+  ///         `or` operator will always be `false` if no subpredicates are given.
+  ///
+  /// - Parameters:
+  ///   - logicalOperator: The `LogicalPredicateOperator` to use
+  ///   - subpredicates: `Predicate`s to combine
+  public init(logicalOperator: LogicalPredicateOperator, subpredicates: [Predicate<DocumentType>]) {
+    foundationPredicate = NSCompoundPredicate(type: logicalOperator.foundationLogicalType, subpredicates: subpredicates.map { $0.foundationPredicate })
+  }
 
-/// Equal operator.
-///
-/// - Parameters:
-///   - left: `Index` on the left side of the comparison
-///   - right: `IndexValueType` on the right side of the comparison
-/// - Returns: A `Predicate` representing the comparison
-public func == <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) == NSExpression(forConstantValue: right))
-}
-
-/// Not equal operator.
-///
-/// - Parameters:
-///   - left: `Index` on the left side of the comparison
-///   - right: `IndexValueType` on the right side of the comparison
-/// - Returns: A `Predicate` representing the comparison
-public func != <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) != NSExpression(forConstantValue: right))
-}
-
-/// Greater than operator.
-///
-/// - Note: Will work on all indices, even on for example strings.
-///
-/// - Parameters:
-///   - left: `Index` on the left side of the comparison
-///   - right: `IndexValueType` on the right side of the comparison
-/// - Returns: A `Predicate` representing the comparison
-public func > <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) > NSExpression(forConstantValue: right))
-}
-
-/// Greater than or equal operator.
-///
-/// - Note: Will work on all indices, even on for example strings.
-///
-/// - Parameters:
-///   - left: `Index` on the left side of the comparison
-///   - right: `IndexValueType` on the right side of the comparison
-/// - Returns: A `Predicate` representing the comparison
-public func >= <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) >= NSExpression(forConstantValue: right))
-}
-
-/// Less than operator.
-///
-/// - Note: Will work on all indices, even on for example strings.
-///
-/// - Parameters:
-///   - left: `Index` on the left side of the comparison
-///   - right: `IndexValueType` on the right side of the comparison
-/// - Returns: A `Predicate` representing the comparison
-public func < <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) < NSExpression(forConstantValue: right))
-}
-
-/// Less than or equal operator.
-///
-/// - Note: Will work on all indices, even on for example strings.
-///
-/// - Parameters:
-///   - left: `Index` on the left side of the comparison
-///   - right: `IndexValueType` on the right side of the comparison
-/// - Returns: A `Predicate` representing the comparison
-public func <= <DocumentType, ValueType>(left: Index<DocumentType, ValueType>, right: ValueType) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) <= NSExpression(forConstantValue: right))
-}
-
-/// Like operator, similar in behavior to SQL LIKE.
-///
-/// - Note: ? and * are allowed as wildcard characters, where ? matches 1 character and * matches 0 
-///         or more characters.
-///
-/// - Parameters:
-///   - left: `Index<String>` on the left side of the comparison
-///   - right: `String` on the right side of the comparison
-/// - Returns: A `Predicate` representing the comparison
-public func ~= <DocumentType>(left: Index<DocumentType, String>, right: String) -> Predicate<DocumentType> {
-  return Predicate(predicate: NSExpression(forKeyPath: left.identifier) ~= NSExpression(forConstantValue: right))
+  /// Negates the given `Predicate`.
+  ///
+  /// - Parameter predicate: `Predicate` to negate
+  public init(negate predicate: Predicate<DocumentType>) {
+    foundationPredicate = NSCompoundPredicate(type: .not, subpredicates: [predicate.foundationPredicate])
+  }
 }
 
 // MARK: Predicate modifiers
@@ -107,8 +49,7 @@ public func ~= <DocumentType>(left: Index<DocumentType, String>, right: String) 
 /// - Parameter predicate: `Predicate` to negate.
 /// - Returns: A `Predicate` that is negated.
 prefix public func ! <DocumentType>(predicate: Predicate<DocumentType>) -> Predicate<DocumentType> {
-  let predicate = NSCompoundPredicate(type: .not, subpredicates: [predicate.predicate])
-  return Predicate(predicate: predicate)
+  return Predicate(negate: predicate)
 }
 
 // MARK: Predicate combinators
@@ -124,8 +65,7 @@ public func && <DocumentType>(left: Predicate<DocumentType>?, right: Predicate<D
     return right
   }
 
-  let predicate = NSCompoundPredicate(type: .and, subpredicates: [left.predicate, right.predicate])
-  return Predicate(predicate: predicate)
+  return Predicate(logicalOperator: .and, subpredicates: [left, right])
 }
 
 /// Combine two `Predicate`s using a logical 'or' operator
@@ -135,6 +75,5 @@ public func && <DocumentType>(left: Predicate<DocumentType>?, right: Predicate<D
 ///   - right: `Predicate` on the right side
 /// - Returns: New `Predicate` that requires one of the predicates to be true
 public func || <DocumentType>(left: Predicate<DocumentType>, right: Predicate<DocumentType>) -> Predicate<DocumentType> {
-  let predicate = NSCompoundPredicate(type: .or, subpredicates: [left.predicate, right.predicate])
-  return Predicate(predicate: predicate)
+  return Predicate(logicalOperator: .or, subpredicates: [left, right])
 }

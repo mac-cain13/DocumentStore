@@ -8,22 +8,32 @@
 
 import Foundation
 
+public struct Identifier<DocumentType: Document, ValueType: StorableValue>: Storable {
+  public let storageInformation: StorageInformation<DocumentType, ValueType>
+  public let resolver: (DocumentType) -> ValueType
+
+  public init(resolver: @escaping (DocumentType) -> ValueType) {
+    self.storageInformation = StorageInformation(propertyName: .libraryDefined(DocumentIdentifierAttributeName))
+    self.resolver = resolver
+  }
+}
+
 /// Description of a `Document` that among other things identifies it.
 public struct DocumentDescriptor<DocumentType: Document> {
-  let identifier: String
+  let name: String
   let indices: [AnyIndex<DocumentType>]
 
   /// Create a description of a `Document`
   ///
-  /// - Warning: Do never change the identifier, this is the only unique reference there is for the
+  /// - Warning: Do never change the name, this is the only unique reference there is for the
   ///            storage system to know what `Document` you are describing. Changing it will result
   ///            in data loss!
   ///
   /// - Parameters:
-  ///   - identifier: Unique unchangable (within one store) identifier of the described `Document`
+  ///   - name: Unique unchangable (within one store) name of the described `Document`
   ///   - indices: List of all indices that should be created for the described `Document`
-  public init(identifier: String, indices: [AnyIndex<DocumentType>]) {
-    self.identifier = identifier
+  public init(name: String, indices: [AnyIndex<DocumentType>]) {
+    self.name = name
     self.indices = indices
   }
 
@@ -37,32 +47,32 @@ public struct DocumentDescriptor<DocumentType: Document> {
 
 /// Type erased version of a `DocumentDescriptor`.
 public struct AnyDocumentDescriptor: Validatable, Equatable {
-  let identifier: String
-  let indices: [UntypedAnyIndex]
+  let name: String
+  let indices: [UntypedAnyStorageInformation]
 
-  init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
-    self.identifier = descriptor.identifier
-    self.indices = descriptor.indices.map(UntypedAnyIndex.init)
+  public init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
+    self.name = descriptor.name
+    self.indices = descriptor.indices.map { UntypedAnyStorageInformation(storageInformation: $0.storageInformation) }
   }
 
   func validate() -> [ValidationIssue] {
     var issues: [ValidationIssue] = []
 
-    // Identifiers may not be empty
-    if identifier.isEmpty {
-      issues.append("DocumentDescriptor identifiers may not be empty.")
+    // Name may not be empty
+    if name.isEmpty {
+      issues.append("DocumentDescriptor names may not be empty.")
     }
 
-    // Identifiers may not start with `_`
-    if identifier.characters.first == "_" {
-      issues.append("`\(identifier)` is an invalid DocumentDescriptor identifier, identifiers may not start with an `_`.")
+    // Name may not start with `_`
+    if name.characters.first == "_" {
+      issues.append("`\(name)` is an invalid DocumentDescriptor name, names may not start with an `_`.")
     }
 
     // Two indices may not have the same identifier
     issues += indices
-      .map { $0.identifier }
+      .map { $0.propertyName.keyPath }
       .duplicates()
-      .map { "DocumentDescriptor `\(identifier)` has multiple indices with `\($0)` as identifier, every index identifier must be unique." }
+      .map { "DocumentDescriptor `\(name)` has multiple indices with `\($0)` as name, every index name must be unique." }
 
     // Indices also should be valid
     issues += indices.flatMap { $0.validate() }
@@ -71,6 +81,6 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
   }
 
   public static func == (lhs: AnyDocumentDescriptor, rhs: AnyDocumentDescriptor) -> Bool {
-    return lhs.identifier == rhs.identifier && lhs.indices == rhs.indices
+    return lhs.name == rhs.name && lhs.indices == rhs.indices
   }
 }

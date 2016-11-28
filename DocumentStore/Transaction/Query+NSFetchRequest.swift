@@ -11,17 +11,19 @@ import CoreData
 
 extension Query {
   func fetchRequest<ResultType>() -> NSFetchRequest<ResultType> {
-    let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.identifier)
-    request.predicate = predicate?.predicate
+    let request = NSFetchRequest<ResultType>(entityName: DocumentType.documentDescriptor.name)
+    request.predicate = predicate?.foundationPredicate
     request.fetchOffset = Int(exactly: skip) ?? Int.max
 
     if !sortDescriptors.isEmpty {
-      request.sortDescriptors = sortDescriptors.map { $0.sortDescriptor }
+      request.sortDescriptors = sortDescriptors.map { $0.foundationSortDescriptor }
     }
 
     if let limit = limit {
       // fetchLimit is typed as `Int`, but actually is and acts like a UInt32
-      request.fetchLimit = UInt32(exactly: limit).map(Int.init) ?? Int(UInt32.max)
+      let limitAsUint32 = UInt32(exactly: limit) ?? UInt32.max
+      let limitAsInt = Int(exactly: limitAsUint32) ?? Int.max
+      request.fetchLimit = limitAsInt
     }
 
     switch ResultType.self {

@@ -11,83 +11,13 @@ import XCTest
 
 class ExpressionTests: XCTestCase {
 
-  private let leftExpression = NSExpression(forKeyPath: "Left")
-  private let rightExpression = NSExpression(forKeyPath: "Right")
-
-  func testEqualTo() {
-    let predicate = NSComparisonPredicate(
-      leftExpression: leftExpression,
-      rightExpression: rightExpression,
-      modifier: .direct,
-      type: .equalTo,
-      options: .init(rawValue: 0)
-    )
-    XCTAssertEqual(leftExpression == rightExpression, predicate)
+  func testInitializationWithConstant() {
+    let expression = Expression<MockDocument, Bool>(forConstantValue: false)
+    XCTAssertEqual(expression.foundationExpression, NSExpression(forConstantValue: false))
   }
 
-  func testNotEqualTo() {
-    let predicate = NSComparisonPredicate(
-      leftExpression: leftExpression,
-      rightExpression: rightExpression,
-      modifier: .direct,
-      type: .notEqualTo,
-      options: .init(rawValue: 0)
-    )
-    XCTAssertEqual(leftExpression != rightExpression, predicate)
-  }
-
-  func testGreaterThan() {
-    let predicate = NSComparisonPredicate(
-      leftExpression: leftExpression,
-      rightExpression: rightExpression,
-      modifier: .direct,
-      type: .greaterThan,
-      options: .init(rawValue: 0)
-    )
-    XCTAssertEqual(leftExpression > rightExpression, predicate)
-  }
-
-  func testGreaterThanOrEqualTo() {
-    let predicate = NSComparisonPredicate(
-      leftExpression: leftExpression,
-      rightExpression: rightExpression,
-      modifier: .direct,
-      type: .greaterThanOrEqualTo,
-      options: .init(rawValue: 0)
-    )
-    XCTAssertEqual(leftExpression >= rightExpression, predicate)
-  }
-
-  func testLessThan() {
-    let predicate = NSComparisonPredicate(
-      leftExpression: leftExpression,
-      rightExpression: rightExpression,
-      modifier: .direct,
-      type: .lessThan,
-      options: .init(rawValue: 0)
-    )
-    XCTAssertEqual(leftExpression < rightExpression, predicate)
-  }
-
-  func testLessThanOrEqualTo() {
-    let predicate = NSComparisonPredicate(
-      leftExpression: leftExpression,
-      rightExpression: rightExpression,
-      modifier: .direct,
-      type: .lessThanOrEqualTo,
-      options: .init(rawValue: 0)
-    )
-    XCTAssertEqual(leftExpression <= rightExpression, predicate)
-  }
-
-  func testLike() {
-    let predicate = NSComparisonPredicate(
-      leftExpression: leftExpression,
-      rightExpression: rightExpression,
-      modifier: .direct,
-      type: .like,
-      options: .init(rawValue: 0)
-    )
-    XCTAssertEqual(leftExpression ~= rightExpression, predicate)
+  func testInitializationWithIndex() {
+    let expression = Expression(forStorageInformation: MockDocument.isTest.storageInformation)
+    XCTAssertEqual(expression.foundationExpression, NSExpression(forKeyPath: MockDocument.isTest.storageInformation.propertyName.keyPath))
   }
 }

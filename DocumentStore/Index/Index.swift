@@ -9,25 +9,25 @@
 import Foundation
 
 /// Index for a `Document` used in a `Query` to filter and order `Document`s in an efficient way.
-public struct Index<DocumentType: Document, ValueType: IndexValueType> {
-  let identifier: String
-  let resolver: (DocumentType) -> ValueType
+public struct Index<DocumentType: Document, ValueType: StorableValue>: Storable {
+  public let storageInformation: StorageInformation<DocumentType, ValueType>
+  public let resolver: (DocumentType) -> ValueType
 
   /// Create an `Index`.
   ///
-  /// - Warning: Do never change the identifier, this is the only unique reference there is for the
-  ///            storage system to know what `Index` you are describing. Doing so will trigger a
-  ///            repopulation of this index for all documents this `Index` is related to.
+  /// - Warning: Changing the name or ValueType of this `Index` will trigger a repopulation
+  ///            of this index for all documents this `Index` is related to. This can be time 
+  ///            consuming.
   ///
   /// - Parameters:
-  ///   - identifier: Unique unchangable (within one document) identifier
+  ///   - name: Unique unchangable (within one document) identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
-  public init(identifier: String, resolver: @escaping (DocumentType) -> ValueType) {
-    self.identifier = identifier
+  public init(name: String, resolver: @escaping (DocumentType) -> ValueType) {
+    self.storageInformation = StorageInformation(propertyName: .userDefined(name))
     self.resolver = resolver
   }
 
-  /// Type erasure for `Index` by hiding the `IndexValueType`.
+  /// Type erasure for `Index` by hiding the `StorableValue`.
   ///
   /// - Note: This is useful since you can't put a `Index<Document, String>` and a 
   ///         `Index<Document, Bool>` together in a sequence. The returned `AnyIndex` will contain 
@@ -43,47 +43,11 @@ public struct Index<DocumentType: Document, ValueType: IndexValueType> {
 
 /// Type erased version of an `Index`.
 public struct AnyIndex<DocumentType: Document> {
-  let identifier: String
-  let storageType: IndexStorageType
+  let storageInformation: AnyStorageInformation<DocumentType>
   let resolver: (DocumentType) -> Any
 
-  init<ValueType: IndexValueType>(index: Index<DocumentType, ValueType>) {
-    self.identifier = index.identifier
-    self.storageType = ValueType.indexStorageType
+  public init<ValueType: StorableValue>(index: Index<DocumentType, ValueType>) {
+    self.storageInformation = AnyStorageInformation(storageInformation: index.storageInformation)
     self.resolver = index.resolver
-  }
-}
-
-struct UntypedAnyIndex: Validatable, Equatable {
-  fileprivate let documentIdentifier: String
-  let identifier: String
-  let storageType: IndexStorageType
-
-  init<DocumentType: Document>(index: AnyIndex<DocumentType>) {
-    self.documentIdentifier = DocumentType.documentDescriptor.identifier
-    self.identifier = index.identifier
-    self.storageType = index.storageType
-  }
-
-  func validate() -> [ValidationIssue] {
-    var issues: [ValidationIssue] = []
-
-    // Identifiers may not be empty
-    if identifier.isEmpty {
-      issues.append("Index identifiers may not be empty.")
-    }
-
-    // Identifiers may not start with `_`
-    if identifier.characters.first == "_" {
-      issues.append("`\(identifier)` is an invalid Index identifier, identifiers may not start with an `_`.")
-    }
-
-    return issues
-  }
-
-  static func == (lhs: UntypedAnyIndex, rhs: UntypedAnyIndex) -> Bool {
-    return lhs.identifier == rhs.identifier &&
-      lhs.documentIdentifier == rhs.documentIdentifier &&
-      lhs.storageType == rhs.storageType
   }
 }

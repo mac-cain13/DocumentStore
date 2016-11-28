@@ -11,40 +11,45 @@ import XCTest
 
 class IndexTests: XCTestCase {
 
+  // TODO: Should move to storageInformation tests
   func testValid() {
-    let index = Index<TestDocument, Bool>(identifier: "TestIndex", resolver: { _ in false }).eraseType()
-    XCTAssertTrue(UntypedAnyIndex(index: index).validate().isEmpty)
+    let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }).eraseType()
+    XCTAssertTrue(UntypedAnyStorageInformation(storageInformation: index.storageInformation).validate().isEmpty)
   }
 
   func testEmptyIdentifier() {
-    let index = Index<TestDocument, Bool>(identifier: "", resolver: { _ in false }).eraseType()
-    XCTAssertEqual(UntypedAnyIndex(index: index).validate(), ["Index identifiers may not be empty."])
+    let index = Index<TestDocument, Bool>(name: "", resolver: { _ in false }).eraseType()
+    XCTAssertEqual(UntypedAnyStorageInformation(storageInformation: index.storageInformation).validate(), ["Name may not be empty."])
   }
 
   func testUnderscoreIdentifier() {
     for identifier in ["_", "_Index"] {
-      let index = Index<TestDocument, Bool>(identifier: identifier, resolver: { _ in false }).eraseType()
-      XCTAssertEqual(UntypedAnyIndex(index: index).validate(), ["`\(identifier)` is an invalid Index identifier, identifiers may not start with an `_`."])
+      let index = Index<TestDocument, Bool>(name: identifier, resolver: { _ in false }).eraseType()
+      XCTAssertEqual(UntypedAnyStorageInformation(storageInformation: index.storageInformation).validate(), ["`\(identifier)` is an invalid name, names may not start with an `_`."])
     }
   }
 
   func testEquatable() {
-    let boolIndex = Index<TestDocument, Bool>(identifier: "TestIndex", resolver: { _ in false }).eraseType()
-    XCTAssertEqual(UntypedAnyIndex(index: boolIndex), UntypedAnyIndex(index: boolIndex))
+    let boolStorageInfo = StorageInformation<TestDocument, Bool>(propertyName: .userDefined("TestIndex"))
+    let untypedBoolStorageInfo = UntypedAnyStorageInformation(storageInformation: AnyStorageInformation(storageInformation: boolStorageInfo))
+    XCTAssertEqual(untypedBoolStorageInfo, untypedBoolStorageInfo)
 
-    let stringIndex = Index<TestDocument, String>(identifier: "TestIndex", resolver: { _ in "" }).eraseType()
-    XCTAssertNotEqual(UntypedAnyIndex(index: boolIndex), UntypedAnyIndex(index: stringIndex))
+    let stringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("TestIndex"))
+    let untypedStringStorageInfo = UntypedAnyStorageInformation(storageInformation: AnyStorageInformation(storageInformation: stringStorageInfo))
+    XCTAssertNotEqual(untypedBoolStorageInfo, untypedStringStorageInfo)
 
-    let otherStringIndex = Index<TestDocument, String>(identifier: "OtherTestIndex", resolver: { _ in "" }).eraseType()
-    XCTAssertNotEqual(UntypedAnyIndex(index: stringIndex), UntypedAnyIndex(index: otherStringIndex))
+    let otherStringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("OtherTestIndex"))
+    let untypedOtherStringStorageInfo = UntypedAnyStorageInformation(storageInformation: AnyStorageInformation(storageInformation: otherStringStorageInfo))
+    XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherStringStorageInfo)
 
-    let otherDocumentIndex = Index<OtherTestDocument, String>(identifier: "TestIndex", resolver: { _ in "" }).eraseType()
-    XCTAssertNotEqual(UntypedAnyIndex(index: stringIndex), UntypedAnyIndex(index: otherDocumentIndex))
+    let otherDocumentStorageInfo = StorageInformation<OtherTestDocument, String>(propertyName: .userDefined("TestIndex"))
+    let untypedOtherDocumentStorageInfo = UntypedAnyStorageInformation(storageInformation: AnyStorageInformation(storageInformation: otherDocumentStorageInfo))
+    XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherDocumentStorageInfo)
   }
 }
 
 private struct TestDocument: Document {
-  static var documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [])
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()
@@ -56,7 +61,7 @@ private struct TestDocument: Document {
 }
 
 private struct OtherTestDocument: Document {
-  static var documentDescriptor = DocumentDescriptor<OtherTestDocument>(identifier: "OtherTestDocument", indices: [])
+  static var documentDescriptor = DocumentDescriptor<OtherTestDocument>(name: "OtherTestDocument", indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()

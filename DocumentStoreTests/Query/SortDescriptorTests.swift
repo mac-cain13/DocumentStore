@@ -12,33 +12,20 @@ import XCTest
 class SortDescriptorTests: XCTestCase {
 
   func testInitializer() {
-    let nsSortDescriptor = NSSortDescriptor(key: "Test", ascending: false)
-    let sortDescriptor = SortDescriptor<TestDocument>(sortDescriptor: nsSortDescriptor)
-    XCTAssertEqual(sortDescriptor.sortDescriptor, nsSortDescriptor)
+    let nsSortDescriptor = NSSortDescriptor(key: "", ascending: false)
+    let sortDescriptor = SortDescriptor<MockDocument>(forStorable: MockDocument.isTest, order: Order.descending)
+    XCTAssertEqual(sortDescriptor.foundationSortDescriptor, nsSortDescriptor)
   }
 
   // MARK: Index sortdescriptors
 
   func testAscending() {
-    let nsSortDescriptor = NSSortDescriptor(key: TestDocument.isTest.identifier, ascending: true)
-    XCTAssertEqual(TestDocument.isTest.ascending().sortDescriptor, nsSortDescriptor)
+    let nsSortDescriptor = NSSortDescriptor(key: MockDocument.isTest.storageInformation.propertyName.keyPath, ascending: true)
+    XCTAssertEqual(MockDocument.isTest.ascending().foundationSortDescriptor, nsSortDescriptor)
   }
 
   func testDescending() {
-    let nsSortDescriptor = NSSortDescriptor(key: TestDocument.isTest.identifier, ascending: false)
-    XCTAssertEqual(TestDocument.isTest.descending().sortDescriptor, nsSortDescriptor)
-  }
-}
-
-private struct TestDocument: Document {
-  static let isTest = Index<TestDocument, Bool>(identifier: "") { _ in false }
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
-
-  func serializeDocument() throws -> Data {
-    return Data()
-  }
-
-  static func deserializeDocument(from data: Data) throws -> TestDocument {
-    return TestDocument()
+    let nsSortDescriptor = NSSortDescriptor(key: MockDocument.isTest.storageInformation.propertyName.keyPath, ascending: false)
+    XCTAssertEqual(MockDocument.isTest.descending().foundationSortDescriptor, nsSortDescriptor)
   }
 }

@@ -18,18 +18,18 @@ class QueryNSFetchRequestTests: XCTestCase {
     super.setUp()
 
     query = Query<TestDocument>()
-    query.predicate = Predicate<TestDocument>(predicate: NSPredicate(value: false))
+    query.predicate = !TestDocument.isTest
     query.skip = 42
   }
 
   func testFetchRequestEntityName() {
     let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
-    XCTAssertEqual(request.entityName, TestDocument.documentDescriptor.identifier)
+    XCTAssertEqual(request.entityName, TestDocument.documentDescriptor.name)
   }
 
   func testFetchRequestPredicate() {
     let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
-    XCTAssertEqual(request.predicate, query.predicate?.predicate)
+    XCTAssertEqual(request.predicate, query.predicate?.foundationPredicate)
   }
 
   func testFetchRequestFetchOffset() {
@@ -58,10 +58,15 @@ class QueryNSFetchRequestTests: XCTestCase {
   }
 
   func testFetchRequestFetchLimitMaxUInt() {
+    let limit = UInt.max
+
     var query = self.query
-    query.limit = UInt.max
+    query.limit = limit
     let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
-    XCTAssertEqual(request.fetchLimit, Int(UInt32.max))
+
+    let limitAsUint32 = UInt32(exactly: limit) ?? UInt32.max
+    let limitAsInt = Int(exactly: limitAsUint32) ?? Int.max
+    XCTAssertEqual(request.fetchLimit, limitAsInt)
   }
 
   func testFetchRequestSortDescriptorsWhenUnordered() {
@@ -79,7 +84,7 @@ class QueryNSFetchRequestTests: XCTestCase {
       return
     }
 
-    XCTAssertEqual(sortDescriptors, [sortDescriptor].map { $0.sortDescriptor })
+    XCTAssertEqual(sortDescriptors, [sortDescriptor].map { $0.foundationSortDescriptor })
   }
 
   func testFetchRequestResultType() {
@@ -98,8 +103,8 @@ class QueryNSFetchRequestTests: XCTestCase {
 }
 
 private struct TestDocument: Document {
-  static let isTest = Index<TestDocument, Bool>(identifier: "") { _ in false }
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [])
+  static let isTest = Index<TestDocument, Bool>(name: "") { _ in false }
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()

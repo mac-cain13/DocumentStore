@@ -22,7 +22,6 @@ class CoreDataTransactionTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-
     TestDocument.deserializationResult = .succeeds
 
     let property = NSAttributeDescription()
@@ -31,11 +30,11 @@ class CoreDataTransactionTests: XCTestCase {
     property.isOptional = true
 
     let indexProperty = NSAttributeDescription()
-    indexProperty.name = TestDocument.isTest.identifier
+    indexProperty.name = TestDocument.isTest.storageInformation.propertyName.keyPath
     indexProperty.attributeType = .booleanAttributeType
 
     let entity = NSEntityDescription()
-    entity.name = TestDocument.documentDescriptor.identifier
+    entity.name = TestDocument.documentDescriptor.name
     entity.properties = [property, indexProperty]
     model.entities = [entity]
 
@@ -132,9 +131,9 @@ class CoreDataTransactionTests: XCTestCase {
   // MARK: Happy flow tests
 
   func testCount() {
-    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     entity.setValue(Data(), forKey: DocumentDataAttributeName)
-    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+    entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
       let count = try transaction.count(matching: Query<TestDocument>())
@@ -145,9 +144,9 @@ class CoreDataTransactionTests: XCTestCase {
   }
 
   func testFetch() {
-    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     entity.setValue(Data(), forKey: DocumentDataAttributeName)
-    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+    entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
       let items = try transaction.fetch(matching: Query<TestDocument>())
@@ -158,7 +157,7 @@ class CoreDataTransactionTests: XCTestCase {
   }
 
   func testDelete() {
-    NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
 
     do {
       let deletions = try transaction.delete(matching: Query<TestDocument>())
@@ -184,7 +183,7 @@ class CoreDataTransactionTests: XCTestCase {
       }
       XCTAssertEqual(data, TestDocument.data)
 
-      guard let bool = context.insertedObjects.first?.value(forKey: TestDocument.isTest.identifier) as? Bool else {
+      guard let bool = context.insertedObjects.first?.value(forKey: TestDocument.isTest.storageInformation.propertyName.keyPath) as? Bool else {
         XCTFail("No index for inserted object")
         return
       }
@@ -197,7 +196,7 @@ class CoreDataTransactionTests: XCTestCase {
   func testSaveChanges() {
     let transaction = CoreDataTransaction(context: context, documentDescriptors: ValidatedDocumentDescriptors(documentDescriptors: []), logTo: logger)
 
-    NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     XCTAssertTrue(context.hasChanges)
     do {
       try transaction.saveChanges()
@@ -212,9 +211,9 @@ class CoreDataTransactionTests: XCTestCase {
   func testFetchUndeserializableDocumentWithOtherError() {
     TestDocument.deserializationResult = .otherError
 
-    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     entity.setValue(Data(), forKey: DocumentDataAttributeName)
-    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+    entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
       let _ = try transaction.fetch(matching: Query<TestDocument>())
@@ -233,9 +232,9 @@ class CoreDataTransactionTests: XCTestCase {
   func testFetchUndeserializableDocumentWithAbortResolution() {
     TestDocument.deserializationResult = .errorWithResolution(.abortOperation)
 
-    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     entity.setValue(Data(), forKey: DocumentDataAttributeName)
-    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+    entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
       let _ = try transaction.fetch(matching: Query<TestDocument>())
@@ -254,9 +253,9 @@ class CoreDataTransactionTests: XCTestCase {
   func testFetchUndeserializableDocumentWithDeleteResolution() {
     TestDocument.deserializationResult = .errorWithResolution(.deleteDocument)
 
-    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     entity.setValue(Data(), forKey: DocumentDataAttributeName)
-    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+    entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
       let items = try transaction.fetch(matching: Query<TestDocument>())
@@ -270,9 +269,9 @@ class CoreDataTransactionTests: XCTestCase {
   func testFetchUndeserializableDocumentWithSkipResolution() {
     TestDocument.deserializationResult = .errorWithResolution(.skipDocument)
 
-    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     entity.setValue(Data(), forKey: DocumentDataAttributeName)
-    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+    entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
       let items = try transaction.fetch(matching: Query<TestDocument>())
@@ -284,9 +283,9 @@ class CoreDataTransactionTests: XCTestCase {
   }
 
   func testFetchCorruptDocument() {
-    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.identifier, into: context)
+    let entity = NSEntityDescription.insertNewObject(forEntityName: TestDocument.documentDescriptor.name, into: context)
     entity.setValue(nil, forKey: DocumentDataAttributeName)
-    entity.setValue(false, forKey: TestDocument.isTest.identifier)
+    entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
       let items = try transaction.fetch(matching: Query<TestDocument>())
@@ -294,9 +293,9 @@ class CoreDataTransactionTests: XCTestCase {
       XCTAssertEqual(context.deletedObjects.count, 0)
       XCTAssertEqual(logger.loggedMessages.count, 2)
       XCTAssertEqual(logger.loggedMessages.first?.level, .error)
-      XCTAssertEqual(logger.loggedMessages.first?.message, "Encountered corrupt \'_DocumentData\' attribute. (DocumentStoreError #5: Failed to retrieve \'_DocumentData\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
+      XCTAssertEqual(logger.loggedMessages.first?.message, "Encountered corrupt \'_documentData\' attribute. (DocumentStoreError #5: Failed to retrieve \'_documentData\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
       XCTAssertEqual(logger.loggedMessages.last?.level, .warn)
-      XCTAssertEqual(logger.loggedMessages.last?.message, "Deserializing \'TestDocument\' document failed, recovering with \'skipDocument\' resolution. (DocumentStoreError #5: Failed to retrieve \'_DocumentData\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
+      XCTAssertEqual(logger.loggedMessages.last?.message, "Deserializing \'TestDocument\' document failed, recovering with \'skipDocument\' resolution. (DocumentStoreError #5: Failed to retrieve \'_documentData\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
     } catch {
       XCTFail("Unexpected error type")
     }
@@ -325,7 +324,10 @@ class CoreDataTransactionTests: XCTestCase {
 
   func testCountContextFailure() {
     var query = Query<TestDocument>()
-    query.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+    let storageInfo = StorageInformation<TestDocument, Bool>(propertyName: .libraryDefined("error"))
+    let left = Expression(forStorageInformation: storageInfo)
+    let right = Expression<TestDocument, Bool>(forConstantValue: false)
+    query.predicate = Predicate(left: left, right: right, comparisonOperator: .equalTo)
 
     do {
       _ = try transaction.count(matching: query)
@@ -350,7 +352,10 @@ class CoreDataTransactionTests: XCTestCase {
 
   func testFetchContextFailure() {
     var query = Query<TestDocument>()
-    query.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+    let storageInfo = StorageInformation<TestDocument, Bool>(propertyName: .libraryDefined("error"))
+    let left = Expression(forStorageInformation: storageInfo)
+    let right = Expression<TestDocument, Bool>(forConstantValue: false)
+    query.predicate = Predicate(left: left, right: right, comparisonOperator: .equalTo)
 
     do {
       _ = try transaction.fetch(matching: query)
@@ -375,7 +380,10 @@ class CoreDataTransactionTests: XCTestCase {
 
   func testDeleteContextFailure() {
     var query = Query<TestDocument>()
-    query.predicate = Predicate(predicate: NSPredicate(format: "error = %d", 3))
+    let storageInfo = StorageInformation<TestDocument, Bool>(propertyName: .libraryDefined("error"))
+    let left = Expression(forStorageInformation: storageInfo)
+    let right = Expression<TestDocument, Bool>(forConstantValue: false)
+    query.predicate = Predicate(left: left, right: right, comparisonOperator: .equalTo)
 
     do {
       _ = try transaction.delete(matching: query)
@@ -406,8 +414,8 @@ private struct TestDocument: Document {
     case otherError
   }
 
-  static let isTest = Index<TestDocument, Bool>(identifier: "isTest") { _ in true }
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "TestDocument", indices: [TestDocument.isTest.eraseType()])
+  static let isTest = Index<TestDocument, Bool>(name: "isTest") { _ in true }
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [TestDocument.isTest.eraseType()])
 
   static let data = Data(bytes: [42])
   static let error = NSError(domain: "TestDomain", code: 42, userInfo: nil)

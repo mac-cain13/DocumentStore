@@ -17,9 +17,9 @@ protocol ManagedObjectModelService {
 final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
   func validate(_ documentDescriptors: [AnyDocumentDescriptor], logTo logger: Logger) throws -> ValidatedDocumentDescriptors {
     let validationIssues = documentDescriptors.validate() + documentDescriptors
-      .map { $0.identifier }
+      .map { $0.name }
       .duplicates()
-      .map { "Multiple DocumentDescriptors have `\($0)` as identifier, every document descriptor must have an unique identifier." }
+      .map { "Multiple DocumentDescriptors have `\($0)` as name, every document descriptor must have an unique name." }
 
     guard validationIssues.isEmpty else {
       let errorMessage = "One or more document descriptors are invalid:\n - " + validationIssues.joined(separator: "\n - ")
@@ -31,7 +31,7 @@ final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
   }
 
   func generateModel(from validatedDocumentDescriptors: ValidatedDocumentDescriptors, logTo logger: Logger) -> NSManagedObjectModel {
-    logger.log(level: .trace, message: "Creating shared attribute `_DocumentData`...")
+    logger.log(level: .trace, message: "Creating shared attribute `_documentData`...")
     let documentDataAttribute = NSAttributeDescription()
     documentDataAttribute.name = DocumentDataAttributeName
     documentDataAttribute.attributeType = .binaryDataAttributeType
@@ -42,14 +42,14 @@ final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
     let model = NSManagedObjectModel()
     model.entities = validatedDocumentDescriptors.documentDescriptors
       .map { documentDescriptor in
-        logger.log(level: .trace, message: "Creating entity `\(documentDescriptor.identifier)`...")
+        logger.log(level: .trace, message: "Creating entity `\(documentDescriptor.name)`...")
 
         let indexAttributes = documentDescriptor.indices
           .map { index -> NSAttributeDescription in
-            logger.log(level: .trace, message: "  Creating attribute `\(index.identifier)` of type \(index.storageType.attributeType)...")
+            logger.log(level: .trace, message: "  Creating attribute `\(index.propertyName.keyPath)` of type \(index.storageType.attributeType)...")
 
             let attribute = NSAttributeDescription()
-            attribute.name = index.identifier
+            attribute.name = index.propertyName.keyPath
             attribute.attributeType = index.storageType.attributeType
             attribute.isIndexed = true
             attribute.isOptional = false
@@ -58,7 +58,7 @@ final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
         }
 
         let entity = NSEntityDescription()
-        entity.name = documentDescriptor.identifier
+        entity.name = documentDescriptor.name
         entity.properties = [documentDataAttribute] + indexAttributes
         return entity
     }

@@ -1,5 +1,5 @@
 //
-//  IndexStorageType.swift
+//  StorageType.swift
 //  DocumentStore
 //
 //  Created by Mathijs Kadijk on 07-11-16.
@@ -16,7 +16,7 @@ import CoreData
 /// -  double: Double storage
 /// -  int: Integer (64 bit) storage
 /// -  string: String storage
-public enum IndexStorageType {
+public enum StorageType {
   case bool
   case date
   case double

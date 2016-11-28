@@ -59,10 +59,10 @@ class QueryTests: XCTestCase {
 
     let predicate: Predicate<TestDocument> = TestDocument.isTest == false
     query = query.filtered { _ in predicate }
-    XCTAssertEqual(query.predicate?.predicate, predicate.predicate)
+    XCTAssertEqual(query.predicate?.foundationPredicate, predicate.foundationPredicate)
 
     query = query.filtered { _ in predicate }
-    XCTAssertEqual(query.predicate?.predicate, (predicate && predicate).predicate)
+    XCTAssertEqual(query.predicate?.foundationPredicate, (predicate && predicate).foundationPredicate)
   }
 
   // MARK: Sorting
@@ -71,28 +71,28 @@ class QueryTests: XCTestCase {
 
     let sortDescriptor = TestDocument.isTest.ascending()
     var orderedQuery = query.sorted { _ in sortDescriptor }
-    XCTAssertEqual(orderedQuery.sortDescriptors.map { $0.sortDescriptor }, [sortDescriptor.sortDescriptor])
+    XCTAssertEqual(orderedQuery.sortDescriptors.map { $0.foundationSortDescriptor }, [sortDescriptor.foundationSortDescriptor])
 
     let otherSortDescriptor = TestDocument.isTest.descending()
     orderedQuery = orderedQuery.sorted { _ in otherSortDescriptor }
-    XCTAssertEqual(orderedQuery.sortDescriptors.map { $0.sortDescriptor }, [otherSortDescriptor.sortDescriptor])
+    XCTAssertEqual(orderedQuery.sortDescriptors.map { $0.foundationSortDescriptor }, [otherSortDescriptor.foundationSortDescriptor])
   }
 
   func testThenSorted() {
     let appendedSortDescriptor = TestDocument.isTest.ascending()
 
     var query = self.query
-    query.sortDescriptors = [SortDescriptor<TestDocument>(sortDescriptor: NSSortDescriptor(key: "TestKey", ascending: false))]
+    query.sortDescriptors = [TestDocument.isTest.descending()]
 
     let sortedQuery = query.thenSorted { _ in appendedSortDescriptor }
     let allSortDescriptors = query.sortDescriptors + [appendedSortDescriptor]
-    XCTAssertEqual(sortedQuery.sortDescriptors.map { $0.sortDescriptor }, allSortDescriptors.map { $0.sortDescriptor })
+    XCTAssertEqual(sortedQuery.sortDescriptors.map { $0.foundationSortDescriptor }, allSortDescriptors.map { $0.foundationSortDescriptor })
   }
 }
 
 private struct TestDocument: Document {
-  static let isTest = Index<TestDocument, Bool>(identifier: "") { _ in false }
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+  static let isTest = Index<TestDocument, Bool>(name: "") { _ in false }
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "", indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()

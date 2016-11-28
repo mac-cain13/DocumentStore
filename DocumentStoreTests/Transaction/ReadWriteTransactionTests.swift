@@ -91,7 +91,7 @@ class ReadWriteTransactionTests: XCTestCase {
 }
 
 private struct TestDocument: Document {
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(identifier: "", indices: [])
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "", indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()
