@@ -8,21 +8,13 @@
 
 import Foundation
 
-public struct Identifier<DocumentType: Document, ValueType: StorableValue>: Storable {
-  public let storageInformation: StorageInformation<DocumentType, ValueType>
-  public let resolver: (DocumentType) -> ValueType
-
-  public init(resolver: @escaping (DocumentType) -> ValueType) {
-    self.storageInformation = StorageInformation(propertyName: .libraryDefined(DocumentIdentifierAttributeName))
-    self.resolver = resolver
-  }
-}
-
 /// Description of a `Document` that among other things identifies it.
 public struct DocumentDescriptor<DocumentType: Document> {
   let name: String
+  let identifier: AnyIndex<DocumentType>
   let indices: [AnyIndex<DocumentType>]
 
+  // TODO: Needs update
   /// Create a description of a `Document`
   ///
   /// - Warning: Do never change the name, this is the only unique reference there is for the
@@ -32,8 +24,9 @@ public struct DocumentDescriptor<DocumentType: Document> {
   /// - Parameters:
   ///   - name: Unique unchangable (within one store) name of the described `Document`
   ///   - indices: List of all indices that should be created for the described `Document`
-  public init(name: String, indices: [AnyIndex<DocumentType>]) {
+  public init<IdentifierValueType: StorableValue>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
     self.name = name
+    self.identifier = AnyIndex(from: identifier)
     self.indices = indices
   }
 }
@@ -41,11 +34,13 @@ public struct DocumentDescriptor<DocumentType: Document> {
 /// Type erased version of a `DocumentDescriptor`.
 public struct AnyDocumentDescriptor: Validatable, Equatable {
   let name: String
+  let identifier: UntypedAnyStorageInformation
   let indices: [UntypedAnyStorageInformation]
 
   // TODO
   public init<DocumentType>(from descriptor: DocumentDescriptor<DocumentType>) {
     self.name = descriptor.name
+    self.identifier = UntypedAnyStorageInformation(storageInformation: descriptor.identifier.storageInformation)
     self.indices = descriptor.indices.map { UntypedAnyStorageInformation(storageInformation: $0.storageInformation) }
   }
 

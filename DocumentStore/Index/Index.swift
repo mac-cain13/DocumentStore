@@ -11,7 +11,7 @@ import Foundation
 /// Index for a `Document` used in a `Query` to filter and order `Document`s in an efficient way.
 public struct Index<DocumentType: Document, ValueType: StorableValue>: Storable {
   public let storageInformation: StorageInformation<DocumentType, ValueType>
-  public let resolver: (DocumentType) -> ValueType
+  public let resolver: (DocumentType) -> ValueType?
 
   /// Create an `Index`.
   ///
@@ -22,8 +22,8 @@ public struct Index<DocumentType: Document, ValueType: StorableValue>: Storable 
   /// - Parameters:
   ///   - name: Unique unchangable (within one document) identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
-  public init(name: String, resolver: @escaping (DocumentType) -> ValueType) {
-    self.storageInformation = StorageInformation(propertyName: .userDefined(name))
+  public init(name: String, resolver: @escaping (DocumentType) -> ValueType?) {
+    self.storageInformation = StorageInformation(propertyName: .userDefined(name), isOptional: true)
     self.resolver = resolver
   }
 }
@@ -31,11 +31,16 @@ public struct Index<DocumentType: Document, ValueType: StorableValue>: Storable 
 /// Type erased version of an `Index`.
 public struct AnyIndex<DocumentType: Document> {
   let storageInformation: AnyStorageInformation<DocumentType>
-  let resolver: (DocumentType) -> Any
+  let resolver: (DocumentType) -> Any?
 
-  // TODO
+  // TODO: Docs
   public init<ValueType: StorableValue>(from index: Index<DocumentType, ValueType>) {
     self.storageInformation = AnyStorageInformation(storageInformation: index.storageInformation)
     self.resolver = index.resolver
+  }
+
+  init<ValueType: StorableValue>(from identifier: Identifier<DocumentType, ValueType>) {
+    self.storageInformation = AnyStorageInformation(storageInformation: identifier.storageInformation)
+    self.resolver = identifier.resolver
   }
 }

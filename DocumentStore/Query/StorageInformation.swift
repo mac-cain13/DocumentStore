@@ -53,15 +53,18 @@ enum PropertyName: Equatable, Validatable {
 
 public struct StorageInformation<DocumentType: Document, ValueType: StorableValue> {
   let propertyName: PropertyName
+  let isOptional: Bool
 }
 
 struct AnyStorageInformation<DocumentType: Document> {
   let propertyName: PropertyName
   let storageType: StorageType
+  let isOptional: Bool
 
   init<ValueType: StorableValue>(storageInformation: StorageInformation<DocumentType, ValueType>) {
     self.propertyName = storageInformation.propertyName
     self.storageType = ValueType.storageType
+    self.isOptional = storageInformation.isOptional
   }
 }
 
@@ -69,11 +72,13 @@ struct UntypedAnyStorageInformation: Equatable, Validatable {
   private let documentName: String
   let propertyName: PropertyName
   let storageType: StorageType
+  let isOptional: Bool
 
   init<DocumentType>(storageInformation: AnyStorageInformation<DocumentType>) {
     self.documentName = DocumentType.documentDescriptor.name
     self.propertyName = storageInformation.propertyName
     self.storageType = storageInformation.storageType
+    self.isOptional = storageInformation.isOptional
   }
 
   func validate() -> [ValidationIssue] {
@@ -83,6 +88,7 @@ struct UntypedAnyStorageInformation: Equatable, Validatable {
   static func == (lhs: UntypedAnyStorageInformation, rhs: UntypedAnyStorageInformation) -> Bool {
     return lhs.documentName == rhs.documentName &&
       lhs.propertyName == rhs.propertyName &&
-      lhs.storageType == rhs.storageType
+      lhs.storageType == rhs.storageType &&
+      lhs.isOptional == rhs.isOptional
   }
 }

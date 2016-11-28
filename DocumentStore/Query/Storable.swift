@@ -13,7 +13,7 @@ public protocol Storable {
   associatedtype ValueType: StorableValue
 
   var storageInformation: StorageInformation<DocumentType, ValueType> { get }
-  var resolver: (DocumentType) -> ValueType { get }
+  var resolver: (DocumentType) -> ValueType? { get }
 }
 
 private extension Storable {

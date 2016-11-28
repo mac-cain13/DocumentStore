@@ -31,7 +31,7 @@ final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
   }
 
   func generateModel(from validatedDocumentDescriptors: ValidatedDocumentDescriptors, logTo logger: Logger) -> NSManagedObjectModel {
-    logger.log(level: .trace, message: "Creating shared attribute `_documentData`...")
+    logger.log(level: .trace, message: "Creating shared attribute `\(DocumentDataAttributeName)`...")
     let documentDataAttribute = NSAttributeDescription()
     documentDataAttribute.name = DocumentDataAttributeName
     documentDataAttribute.attributeType = .binaryDataAttributeType
@@ -44,25 +44,33 @@ final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
       .map { documentDescriptor in
         logger.log(level: .trace, message: "Creating entity `\(documentDescriptor.name)`...")
 
-        let indexAttributes = documentDescriptor.indices
-          .map { index -> NSAttributeDescription in
-            logger.log(level: .trace, message: "  Creating attribute `\(index.propertyName.keyPath)` of type \(index.storageType.attributeType)...")
+        logger.log(level: .trace, message: "  Creating attribute `\(documentDescriptor.identifier.propertyName.keyPath)` of type \(documentDescriptor.identifier.storageType.attributeType)...")
+        let identifierAttribute = NSAttributeDescription(from: documentDescriptor.identifier)
 
-            let attribute = NSAttributeDescription()
-            attribute.name = index.propertyName.keyPath
-            attribute.attributeType = index.storageType.attributeType
-            attribute.isIndexed = true
-            attribute.isOptional = false
-            attribute.allowsExternalBinaryDataStorage = false
-            return attribute
+        let indexAttributes = documentDescriptor.indices
+          .map { storageInformation -> NSAttributeDescription in
+            logger.log(level: .trace, message: "  Creating attribute `\(storageInformation.propertyName.keyPath)` of type \(storageInformation.storageType.attributeType)...")
+            return NSAttributeDescription(from: storageInformation)
         }
 
         let entity = NSEntityDescription()
         entity.name = documentDescriptor.name
-        entity.properties = [documentDataAttribute] + indexAttributes
+        entity.properties = [documentDataAttribute, identifierAttribute] + indexAttributes
         return entity
     }
 
     return model
+  }
+}
+
+private extension NSAttributeDescription {
+  convenience init(from storageInformation: UntypedAnyStorageInformation) {
+    self.init()
+
+    name = storageInformation.propertyName.keyPath
+    attributeType = storageInformation.storageType.attributeType
+    isIndexed = true
+    isOptional = storageInformation.isOptional
+    allowsExternalBinaryDataStorage = false
   }
 }
