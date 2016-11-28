@@ -21,7 +21,7 @@ class CoreDataTransaction: ReadWritableTransaction {
   }
 
   private func validateUseOfDocumentType<DocumentType: Document>(_: DocumentType.Type) throws {
-    guard documentDescriptors.documentDescriptors.contains(DocumentType.documentDescriptor.eraseType()) else {
+    guard documentDescriptors.documentDescriptors.contains(AnyDocumentDescriptor(from: DocumentType.documentDescriptor)) else {
       let error = DocumentStoreError(
         kind: .documentDescriptionNotRegistered,
         message: "The document description with identifier '\(DocumentType.documentDescriptor.name)' is not registered with the DocumentStore this transaction is associated with, please pass all DocumentDescriptions that are used to the DocumentStore initializer.",

@@ -28,7 +28,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
 
   func testValidateValid() {
     do {
-      let descriptors = [TestDocument.documentDescriptor.eraseType()]
+      let descriptors = [AnyDocumentDescriptor(from: TestDocument.documentDescriptor)]
       let validated = try managedObjectModelService.validate(descriptors, logTo: NoLogger())
       XCTAssertEqual(validated.documentDescriptors, descriptors)
     } catch {
@@ -37,7 +37,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateBubblesDescriptorErrors() {
-    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: "_", indices: []).eraseType()
+    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", indices: []))
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
@@ -57,7 +57,10 @@ class ManagedObjectModelServiceTests: XCTestCase {
     let issues = ["Multiple DocumentDescriptors have `\(TestDocument.documentDescriptor.name)` as name, every document descriptor must have an unique name."]
 
     do {
-      let descriptors = [TestDocument.documentDescriptor.eraseType(), TestDocument.documentDescriptor.eraseType()]
+      let descriptors = DocumentDescriptorArrayBuilder()
+        .append(TestDocument.documentDescriptor)
+        .append(TestDocument.documentDescriptor)
+        .array
       let validated = try managedObjectModelService.validate(descriptors, logTo: NoLogger())
       XCTAssertEqual(validated.documentDescriptors, descriptors)
     } catch let error as DocumentStoreError {
@@ -70,7 +73,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateLogging() {
-    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: "_", indices: []).eraseType()
+    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", indices: []))
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
@@ -97,7 +100,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testModelDocumentDataProperty() {
-    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [TestDocument.documentDescriptor.eraseType()])
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: TestDocument.documentDescriptor)])
     let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
     XCTAssertEqual(model.entities.count, 1)
 
@@ -115,10 +118,10 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testModelIndexProperty() {
-    let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }).eraseType()
+    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
     let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [index])
 
-    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [documentDescriptor.eraseType()])
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])
     let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
     XCTAssertEqual(model.entities.count, 1)
 
@@ -138,10 +141,10 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testModelLogging() {
-    let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }).eraseType()
+    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
     let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [index])
 
-    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [documentDescriptor.eraseType()])
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])
     let logger = MockLogger()
     _ = managedObjectModelService.generateModel(from: descriptors, logTo: logger)
 

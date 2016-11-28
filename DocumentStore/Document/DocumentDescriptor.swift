@@ -36,13 +36,6 @@ public struct DocumentDescriptor<DocumentType: Document> {
     self.name = name
     self.indices = indices
   }
-
-  /// Type erasure for use of a `DocumentDescriptor` in a list.
-  ///
-  /// - Returns: `AnyDocumentDescriptor` wrapping this descriptor
-  public func eraseType() -> AnyDocumentDescriptor {
-    return AnyDocumentDescriptor(descriptor: self)
-  }
 }
 
 /// Type erased version of a `DocumentDescriptor`.
@@ -50,7 +43,8 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
   let name: String
   let indices: [UntypedAnyStorageInformation]
 
-  public init<DocumentType>(descriptor: DocumentDescriptor<DocumentType>) {
+  // TODO
+  public init<DocumentType>(from descriptor: DocumentDescriptor<DocumentType>) {
     self.name = descriptor.name
     self.indices = descriptor.indices.map { UntypedAnyStorageInformation(storageInformation: $0.storageInformation) }
   }

@@ -45,6 +45,8 @@
 		D57200181DE7826900C5E585 /* ExpressionComparisonOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57200171DE7826900C5E585 /* ExpressionComparisonOperator.swift */; };
 		D572001C1DE7871200C5E585 /* StorageInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572001B1DE7871200C5E585 /* StorageInformation.swift */; };
 		D572001E1DEB469500C5E585 /* MockDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572001D1DEB469500C5E585 /* MockDocument.swift */; };
+		D57200201DECCA9600C5E585 /* IndexArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572001F1DECCA9600C5E585 /* IndexArrayBuilder.swift */; };
+		D57200221DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57200211DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift */; };
 		D5796CA01DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */; };
 		D5796CA31DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5796CA21DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift */; };
 		D59047FB1DCBA44E000F2517 /* DocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59047FA1DCBA44E000F2517 /* DocumentStore.swift */; };
@@ -131,6 +133,8 @@
 		D57200171DE7826900C5E585 /* ExpressionComparisonOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionComparisonOperator.swift; sourceTree = "<group>"; };
 		D572001B1DE7871200C5E585 /* StorageInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageInformation.swift; sourceTree = "<group>"; };
 		D572001D1DEB469500C5E585 /* MockDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDocument.swift; sourceTree = "<group>"; };
+		D572001F1DECCA9600C5E585 /* IndexArrayBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexArrayBuilder.swift; sourceTree = "<group>"; };
+		D57200211DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDescriptorArrayBuilder.swift; sourceTree = "<group>"; };
 		D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerFactoryTests.swift; sourceTree = "<group>"; };
 		D5796CA21DDF8F28007BCFC2 /* CoreDataTransactionFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTransactionFactoryTests.swift; sourceTree = "<group>"; };
 		D59047FA1DCBA44E000F2517 /* DocumentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
@@ -409,6 +413,8 @@
 			children = (
 				D57200061DE1BDF500C5E585 /* ExceptionHandler.swift */,
 				D5FCEF411DCFC7C20028364C /* Sequence+Duplicates.swift */,
+				D572001F1DECCA9600C5E585 /* IndexArrayBuilder.swift */,
+				D57200211DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -606,6 +612,7 @@
 				D5160E691DD78EB5006C8177 /* CoreDataTransaction.swift in Sources */,
 				D5FCEF421DCFC7C20028364C /* Sequence+Duplicates.swift in Sources */,
 				D5160E6F1DD7935F006C8177 /* ReadWritableTransaction.swift in Sources */,
+				D57200201DECCA9600C5E585 /* IndexArrayBuilder.swift in Sources */,
 				D50219511DCD39FA00408ADC /* DocumentDescriptor.swift in Sources */,
 				D5FCEF441DD05E4D0028364C /* Constants.swift in Sources */,
 				D5FCEF401DCFC21A0028364C /* Validatable.swift in Sources */,
@@ -614,6 +621,7 @@
 				D5F790541DDCE1ED005D8A70 /* ValidatedDocumentDescriptors.swift in Sources */,
 				D5F7904E1DDCC979005D8A70 /* DependencyContainer.swift in Sources */,
 				D59048011DCBD9F8000F2517 /* Index.swift in Sources */,
+				D57200221DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift in Sources */,
 				D5FCEF481DD064640028364C /* DocumentStoreError.swift in Sources */,
 				D59047FF1DCBD139000F2517 /* Document.swift in Sources */,
 				D5FCEF581DD068020028364C /* Query+NSFetchRequest.swift in Sources */,

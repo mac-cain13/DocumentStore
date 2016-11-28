@@ -43,7 +43,7 @@ class CoreDataTransactionTests: XCTestCase {
     context = container.newBackgroundContext()
     logger = MockLogger()
 
-    transaction = CoreDataTransaction(context: context, documentDescriptors: ValidatedDocumentDescriptors(documentDescriptors: [TestDocument.documentDescriptor.eraseType()]), logTo: logger)
+    transaction = CoreDataTransaction(context: context, documentDescriptors: ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: TestDocument.documentDescriptor)]), logTo: logger)
   }
 
   // MARK: Unregistered document type
@@ -415,7 +415,7 @@ private struct TestDocument: Document {
   }
 
   static let isTest = Index<TestDocument, Bool>(name: "isTest") { _ in true }
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [TestDocument.isTest.eraseType()])
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [AnyIndex(from: TestDocument.isTest)])
 
   static let data = Data(bytes: [42])
   static let error = NSError(domain: "TestDomain", code: 42, userInfo: nil)

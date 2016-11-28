@@ -12,13 +12,13 @@ import XCTest
 class DocumentDescriptorTests: XCTestCase {
 
   func testValidDescriptor() {
-    let issues = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: []).eraseType().validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [])).validate()
 
     XCTAssertTrue(issues.isEmpty)
   }
 
   func testEmptyIdentifier() {
-    let issues = DocumentDescriptor<TestDocument>(name: "", indices: []).eraseType().validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "", indices: [])).validate()
 
     XCTAssertEqual(issues.count, 1)
     XCTAssertEqual(issues.first, "DocumentDescriptor names may not be empty.")
@@ -26,7 +26,7 @@ class DocumentDescriptorTests: XCTestCase {
 
   func testUnderscoreIdentifier() {
     for identifier in ["_", "_Something"] {
-      let issues = DocumentDescriptor<TestDocument>(name: identifier, indices: []).eraseType().validate()
+      let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: identifier, indices: [])).validate()
 
       XCTAssertEqual(issues.count, 1)
       XCTAssertEqual(
@@ -39,12 +39,12 @@ class DocumentDescriptorTests: XCTestCase {
   func testDuplicateIndexIdentifiers() {
     let name = "TestDocument"
     let duplicateIndex = "DuplicateIndex"
-    let indices = [
-      Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }).eraseType(),
-      Index<TestDocument, Int>(name: "OtherIndex", resolver: { _ in 0 }).eraseType(),
-      Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }).eraseType(),
-    ]
-    let issues = DocumentDescriptor<TestDocument>(name: name, indices: indices).eraseType().validate()
+    let indices = IndexArrayBuilder()
+      .append(Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }))
+      .append(Index<TestDocument, Int>(name: "OtherIndex", resolver: { _ in 0 }))
+      .append(Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }))
+      .array
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, indices: indices)).validate()
 
     XCTAssertEqual(issues.count, 1)
     XCTAssertEqual(
@@ -54,27 +54,27 @@ class DocumentDescriptorTests: XCTestCase {
   }
 
   func testInvalidIndex() {
-    let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false }).eraseType()
+    let invalidIndex = AnyIndex(from: Index<TestDocument, Bool>(name: "_", resolver: { _ in false }))
     let indexIssues = UntypedAnyStorageInformation(storageInformation: invalidIndex.storageInformation).validate()
 
-    let issues = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [invalidIndex]).eraseType().validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [invalidIndex])).validate()
 
     XCTAssertEqual(issues.count, indexIssues.count)
     XCTAssertEqual(issues, indexIssues)
   }
 
   func testMultipleIssues() {
-    let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false }).eraseType()
-    let indexIssues = UntypedAnyStorageInformation(storageInformation: invalidIndex.storageInformation).validate()
+    let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false })
+    let indexIssues = UntypedAnyStorageInformation(storageInformation: AnyIndex(from: invalidIndex).storageInformation).validate()
 
     let name = "_"
     let duplicateIndex = "DuplicateIndex"
-    let indices = [
-      Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }).eraseType(),
-      invalidIndex,
-      Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }).eraseType(),
-      ]
-    let issues = DocumentDescriptor<TestDocument>(name: name, indices: indices).eraseType().validate()
+    let indices = IndexArrayBuilder()
+      .append(Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }))
+      .append(invalidIndex)
+      .append(Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }))
+      .array
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, indices: indices)).validate()
 
     XCTAssertEqual(issues.count, 3)
     XCTAssertEqual(
@@ -87,18 +87,18 @@ class DocumentDescriptorTests: XCTestCase {
   }
 
   func testEquatable() {
-    let descriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: []).eraseType()
+    let descriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: []))
     XCTAssertEqual(descriptor, descriptor)
 
     // Note; The DocumentType in de descriptor is just to validate the indices are for this document, it cannot be checked in the equasion
-    let otherDocumentDescriptor = DocumentDescriptor<OtherTestDocument>(name: "TestDocument", indices: []).eraseType()
+    let otherDocumentDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<OtherTestDocument>(name: "TestDocument", indices: []))
     XCTAssertEqual(descriptor, otherDocumentDescriptor)
 
-    let otherIdentifierDescriptor = DocumentDescriptor<TestDocument>(name: "OtherTestDocument", indices: []).eraseType()
+    let otherIdentifierDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "OtherTestDocument", indices: []))
     XCTAssertNotEqual(descriptor, otherIdentifierDescriptor)
 
-    let index = Index<TestDocument, Bool>(name: "") { _ in false }.eraseType()
-    let otherIndexDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [index]).eraseType()
+    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "") { _ in false })
+    let otherIndexDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [index]))
     XCTAssertNotEqual(descriptor, otherIndexDescriptor)
   }
 }

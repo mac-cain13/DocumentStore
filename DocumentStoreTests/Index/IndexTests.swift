@@ -13,18 +13,18 @@ class IndexTests: XCTestCase {
 
   // TODO: Should move to storageInformation tests
   func testValid() {
-    let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }).eraseType()
+    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
     XCTAssertTrue(UntypedAnyStorageInformation(storageInformation: index.storageInformation).validate().isEmpty)
   }
 
   func testEmptyIdentifier() {
-    let index = Index<TestDocument, Bool>(name: "", resolver: { _ in false }).eraseType()
+    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "", resolver: { _ in false }))
     XCTAssertEqual(UntypedAnyStorageInformation(storageInformation: index.storageInformation).validate(), ["Name may not be empty."])
   }
 
   func testUnderscoreIdentifier() {
     for identifier in ["_", "_Index"] {
-      let index = Index<TestDocument, Bool>(name: identifier, resolver: { _ in false }).eraseType()
+      let index = AnyIndex(from: Index<TestDocument, Bool>(name: identifier, resolver: { _ in false }))
       XCTAssertEqual(UntypedAnyStorageInformation(storageInformation: index.storageInformation).validate(), ["`\(identifier)` is an invalid name, names may not start with an `_`."])
     }
   }
