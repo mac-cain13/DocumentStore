@@ -12,13 +12,13 @@ import XCTest
 class DocumentDescriptorTests: XCTestCase {
 
   func testValidDescriptor() {
-    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [])).validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [])).validate()
 
     XCTAssertTrue(issues.isEmpty)
   }
 
   func testEmptyIdentifier() {
-    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "", indices: [])).validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "", identifier: Identifier { _ in return UUID().uuidString }, indices: [])).validate()
 
     XCTAssertEqual(issues.count, 1)
     XCTAssertEqual(issues.first, "DocumentDescriptor names may not be empty.")
@@ -26,7 +26,7 @@ class DocumentDescriptorTests: XCTestCase {
 
   func testUnderscoreIdentifier() {
     for identifier in ["_", "_Something"] {
-      let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: identifier, indices: [])).validate()
+      let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: identifier, identifier: Identifier { _ in return UUID().uuidString }, indices: [])).validate()
 
       XCTAssertEqual(issues.count, 1)
       XCTAssertEqual(
@@ -44,7 +44,7 @@ class DocumentDescriptorTests: XCTestCase {
       .append(Index<TestDocument, Int>(name: "OtherIndex", resolver: { _ in 0 }))
       .append(Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }))
       .array
-    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, indices: indices)).validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, identifier: Identifier { _ in return UUID().uuidString }, indices: indices)).validate()
 
     XCTAssertEqual(issues.count, 1)
     XCTAssertEqual(
@@ -55,9 +55,9 @@ class DocumentDescriptorTests: XCTestCase {
 
   func testInvalidIndex() {
     let invalidIndex = AnyIndex(from: Index<TestDocument, Bool>(name: "_", resolver: { _ in false }))
-    let indexIssues = UntypedAnyStorageInformation(storageInformation: invalidIndex.storageInformation).validate()
+    let indexIssues = UntypedAnyStorageInformation(from: invalidIndex.storageInformation).validate()
 
-    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [invalidIndex])).validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [invalidIndex])).validate()
 
     XCTAssertEqual(issues.count, indexIssues.count)
     XCTAssertEqual(issues, indexIssues)
@@ -65,7 +65,7 @@ class DocumentDescriptorTests: XCTestCase {
 
   func testMultipleIssues() {
     let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false })
-    let indexIssues = UntypedAnyStorageInformation(storageInformation: AnyIndex(from: invalidIndex).storageInformation).validate()
+    let indexIssues = UntypedAnyStorageInformation(from: AnyIndex(from: invalidIndex).storageInformation).validate()
 
     let name = "_"
     let duplicateIndex = "DuplicateIndex"
@@ -74,7 +74,7 @@ class DocumentDescriptorTests: XCTestCase {
       .append(invalidIndex)
       .append(Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }))
       .array
-    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, indices: indices)).validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, identifier: Identifier { _ in return UUID().uuidString }, indices: indices)).validate()
 
     XCTAssertEqual(issues.count, 3)
     XCTAssertEqual(
@@ -87,24 +87,24 @@ class DocumentDescriptorTests: XCTestCase {
   }
 
   func testEquatable() {
-    let descriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: []))
+    let descriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
     XCTAssertEqual(descriptor, descriptor)
 
     // Note; The DocumentType in de descriptor is just to validate the indices are for this document, it cannot be checked in the equasion
-    let otherDocumentDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<OtherTestDocument>(name: "TestDocument", indices: []))
+    let otherDocumentDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<OtherTestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
     XCTAssertEqual(descriptor, otherDocumentDescriptor)
 
-    let otherIdentifierDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "OtherTestDocument", indices: []))
+    let otherIdentifierDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "OtherTestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
     XCTAssertNotEqual(descriptor, otherIdentifierDescriptor)
 
     let index = AnyIndex(from: Index<TestDocument, Bool>(name: "") { _ in false })
-    let otherIndexDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [index]))
+    let otherIndexDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index]))
     XCTAssertNotEqual(descriptor, otherIndexDescriptor)
   }
 }
 
 private struct TestDocument: Document {
-  static var documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [])
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()
@@ -116,7 +116,7 @@ private struct TestDocument: Document {
 }
 
 private struct OtherTestDocument: Document {
-  static var documentDescriptor = DocumentDescriptor<OtherTestDocument>(name: "OtherTestDocument", indices: [])
+  static var documentDescriptor = DocumentDescriptor<OtherTestDocument>(name: "OtherTestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()

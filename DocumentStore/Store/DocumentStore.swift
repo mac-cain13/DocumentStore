@@ -130,7 +130,7 @@ public final class DocumentStore {
           transactionResult = .success(result)
         case .saveChanges:
           do {
-            try transaction.saveChanges()
+            try transaction.persistChanges()
             transactionResult = .success(result)
           } catch let error {
             let documentStoreError = DocumentStoreError(kind: .operationFailed, message: "Failed to save changes from a transaction to the store.", underlyingError: error)

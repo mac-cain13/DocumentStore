@@ -61,7 +61,7 @@ struct AnyStorageInformation<DocumentType: Document> {
   let storageType: StorageType
   let isOptional: Bool
 
-  init<ValueType: StorableValue>(storageInformation: StorageInformation<DocumentType, ValueType>) {
+  init<ValueType: StorableValue>(from storageInformation: StorageInformation<DocumentType, ValueType>) {
     self.propertyName = storageInformation.propertyName
     self.storageType = ValueType.storageType
     self.isOptional = storageInformation.isOptional
@@ -69,12 +69,12 @@ struct AnyStorageInformation<DocumentType: Document> {
 }
 
 struct UntypedAnyStorageInformation: Equatable, Validatable {
-  private let documentName: String
+  let documentName: String
   let propertyName: PropertyName
   let storageType: StorageType
   let isOptional: Bool
 
-  init<DocumentType>(storageInformation: AnyStorageInformation<DocumentType>) {
+  init<DocumentType>(from storageInformation: AnyStorageInformation<DocumentType>) {
     self.documentName = DocumentType.documentDescriptor.name
     self.propertyName = storageInformation.propertyName
     self.storageType = storageInformation.storageType

@@ -8,11 +8,21 @@
 
 import Foundation
 
+public enum SaveMode {
+  case addOrReplace
+  case addOnly
+  case replaceOnly
+}
+
 protocol ReadWritableTransaction: ReadableTransaction {
+  @discardableResult
+  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool
+
   @discardableResult
   func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int
 
-  func add<DocumentType: Document>(document: DocumentType) throws
+  @discardableResult
+  func delete<DocumentType: Document>(document: DocumentType) throws -> Bool
 
-  func saveChanges() throws
+  func persistChanges() throws
 }

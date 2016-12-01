@@ -17,17 +17,9 @@ public class ReadWriteTransaction: ReadTransaction, ReadWritableTransaction {
     super.init(transaction: transaction)
   }
 
-  /// Add the given `Document` to the `DocumentStore` this `ReadWriteTransaction` is associated with.
-  ///
-  /// - Precondition: The `DocumentDescriptor` of the `Document` you are adding must be registered
-  ///                 with the `DocumentStore` the given `ReadTransaction` is associated with. If
-  ///                 this isn't the case a `TransactionError.documentStoreError` is thrown the
-  ///                 `DocumentStoreError` will be of kind `documentDescriptionNotRegistered`.
-  ///
-  /// - Parameter document: `Document` to add to the `DocumentStore`
-  /// - Throws: `TransactionError` on all failures
-  public func add<DocumentType: Document>(document: DocumentType) throws {
-    try transaction.add(document: document)
+  @discardableResult
+  public func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode = .addOrReplace) throws -> Bool {
+    return try transaction.save(document: document, saveMode: saveMode)
   }
 
   /// Delete all `Document`s matching the given `Query`.
@@ -45,7 +37,12 @@ public class ReadWriteTransaction: ReadTransaction, ReadWritableTransaction {
     return try transaction.delete(matching: query)
   }
 
-  func saveChanges() throws {
-    try transaction.saveChanges()
+  @discardableResult
+  public func delete<DocumentType: Document>(document: DocumentType) throws -> Bool {
+    return try transaction.delete(document: document)
+  }
+
+  func persistChanges() throws {
+    try transaction.persistChanges()
   }
 }

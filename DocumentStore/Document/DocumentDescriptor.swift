@@ -14,7 +14,7 @@ public struct DocumentDescriptor<DocumentType: Document> {
   let identifier: AnyIndex<DocumentType>
   let indices: [AnyIndex<DocumentType>]
 
-  // TODO: Needs update
+  // TODO: Docs need update
   /// Create a description of a `Document`
   ///
   /// - Warning: Do never change the name, this is the only unique reference there is for the
@@ -22,7 +22,7 @@ public struct DocumentDescriptor<DocumentType: Document> {
   ///            in data loss!
   ///
   /// - Parameters:
-  ///   - name: Unique unchangable (within one store) name of the described `Document`
+  ///   - name: Unique (within one store) unchangable name of the described `Document`
   ///   - indices: List of all indices that should be created for the described `Document`
   public init<IdentifierValueType: StorableValue>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
     self.name = name
@@ -40,8 +40,8 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
   // TODO
   public init<DocumentType>(from descriptor: DocumentDescriptor<DocumentType>) {
     self.name = descriptor.name
-    self.identifier = UntypedAnyStorageInformation(storageInformation: descriptor.identifier.storageInformation)
-    self.indices = descriptor.indices.map { UntypedAnyStorageInformation(storageInformation: $0.storageInformation) }
+    self.identifier = UntypedAnyStorageInformation(from: descriptor.identifier.storageInformation)
+    self.indices = descriptor.indices.map { UntypedAnyStorageInformation(from: $0.storageInformation) }
   }
 
   func validate() -> [ValidationIssue] {

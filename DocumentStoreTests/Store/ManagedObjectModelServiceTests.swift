@@ -37,7 +37,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateBubblesDescriptorErrors() {
-    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", indices: []))
+    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
@@ -73,7 +73,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateLogging() {
-    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", indices: []))
+    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
@@ -106,7 +106,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
 
     let entity = model.entities.first
     XCTAssertEqual(entity?.name, TestDocument.documentDescriptor.name)
-    XCTAssertEqual(entity?.properties.count, 1)
+    XCTAssertEqual(entity?.properties.count, 2)
 
     let property = entity?.properties.first as? NSAttributeDescription
     XCTAssertNotNil(property)
@@ -119,7 +119,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
 
   func testModelIndexProperty() {
     let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
-    let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [index])
+    let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index])
 
     let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])
     let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
@@ -127,31 +127,32 @@ class ManagedObjectModelServiceTests: XCTestCase {
 
     let entity = model.entities.first
     XCTAssertEqual(entity?.name, documentDescriptor.name)
-    XCTAssertEqual(entity?.properties.count, 2)
+    XCTAssertEqual(entity?.properties.count, 3)
     XCTAssertNotNil(entity?.propertiesByName[DocumentDataAttributeName])
 
-    XCTAssertEqual(entity?.propertiesByName.count, documentDescriptor.indices.count + 1)
+    XCTAssertEqual(entity?.propertiesByName.count, documentDescriptor.indices.count + 2)
 
     let property = entity?.propertiesByName[index.storageInformation.propertyName.keyPath] as? NSAttributeDescription
     XCTAssertNotNil(property)
     XCTAssertEqual(property?.name, index.storageInformation.propertyName.keyPath)
     XCTAssertEqual(property?.attributeType, index.storageInformation.storageType.attributeType)
     XCTAssertEqual(property?.isIndexed, true)
-    XCTAssertEqual(property?.isOptional, false)
+    XCTAssertEqual(property?.isOptional, true)
   }
 
   func testModelLogging() {
     let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
-    let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [index])
+    let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index])
 
     let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])
     let logger = MockLogger()
     _ = managedObjectModelService.generateModel(from: descriptors, logTo: logger)
 
     let expectedLogs: [MockLogger.LogMessage] = [
-      MockLogger.LogMessage(level: .trace, message: "Creating shared attribute `_documentData`..."),
+      MockLogger.LogMessage(level: .trace, message: "Creating shared attribute `\(DocumentDataAttributeName)`..."),
       MockLogger.LogMessage(level: .trace, message: "Creating entity `\(documentDescriptor.name)`..."),
-      MockLogger.LogMessage(level: .trace, message: "  Creating attribute `\(index.storageInformation.propertyName.keyPath)` of type \(index.storageInformation.storageType.attributeType)...")
+      MockLogger.LogMessage(level: .trace, message: "  Creating attribute `\(DocumentIdentifierAttributeName)` of type string..."),
+      MockLogger.LogMessage(level: .trace, message: "  Creating attribute `\(index.storageInformation.propertyName.keyPath)` of type bool...")
     ]
 
     XCTAssertEqual(logger.loggedMessages, expectedLogs)
@@ -163,7 +164,7 @@ private func errorMessage(with issues: [ValidationIssue]) -> String {
 }
 
 private struct TestDocument: Document {
-  static var documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", indices: [])
+  static var documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()

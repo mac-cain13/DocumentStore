@@ -131,18 +131,4 @@ public struct Query<DocumentType: Document> {
     query.sortDescriptors.append(closure(DocumentType.self))
     return query
   }
-
-  // MARK: Executing
-
-  /// Execute this `Query` by performing the given operation.
-  ///
-  /// - Note: This is just a convenience method so `query.execute(operation: transaction.fetch)` is
-  ///         exactly the same as `transaction.fetch(matching: query)`.
-  ///
-  /// - Parameter operation: The operation that takes this `Query` and returns a result
-  /// - Returns: The result of the operation
-  /// - Throws: Any error the operation throws will be rethrown
-  public func execute<Result>(operation: (Query<DocumentType>) throws -> Result) rethrows -> Result {
-    return try operation(self)
-  }
 }

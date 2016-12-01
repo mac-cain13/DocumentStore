@@ -92,7 +92,7 @@ class QueryTests: XCTestCase {
 
 private struct TestDocument: Document {
   static let isTest = Index<TestDocument, Bool>(name: "") { _ in false }
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "", indices: [])
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()

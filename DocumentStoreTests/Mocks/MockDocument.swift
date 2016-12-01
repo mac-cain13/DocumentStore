@@ -11,7 +11,7 @@ import Foundation
 
 struct MockDocument: Document {
   static let isTest = Index<MockDocument, Bool>(name: "") { _ in false }
-  static let documentDescriptor = DocumentDescriptor<MockDocument>(name: "", indices: [])
+  static let documentDescriptor = DocumentDescriptor<MockDocument>(name: "", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {
     return Data()

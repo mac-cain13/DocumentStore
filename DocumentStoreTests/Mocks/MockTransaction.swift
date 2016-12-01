@@ -12,9 +12,10 @@ import Foundation
 class MockTransaction: ReadWritableTransaction {
   var countCalls = 0
   var fetchCalls = 0
-  var deleteCalls = 0
-  var addCalls = 0
+  var deleteQueryCalls = 0
+  var deleteDocumentCalls = 0
   var saveCalls = 0
+  var persistChangesCalls = 0
 
   var fetchLimitCallback: ((UInt?) -> Void)?
 
@@ -35,15 +36,21 @@ class MockTransaction: ReadWritableTransaction {
 
   @discardableResult
   func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
-    deleteCalls += 1
+    deleteQueryCalls += 1
     return 1
   }
 
-  func add<DocumentType: Document>(document: DocumentType) throws {
-    addCalls += 1
+  func delete<DocumentType : Document>(document: DocumentType) throws -> Bool {
+    deleteDocumentCalls += 1
+    return true
   }
 
-  func saveChanges() throws {
+  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool {
     saveCalls += 1
+    return true
+  }
+
+  func persistChanges() throws {
+    persistChangesCalls += 1
   }
 }

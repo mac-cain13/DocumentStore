@@ -92,13 +92,32 @@ class DocumentStoreTestsOld: XCTestCase {
 //        return .SaveChanges
 //      }
 
-//      documentStore!.read(handler: { result in fatalError() }) { (transaction) -> Developer? in
+//      try Query<Developer>()
+//        .filtered { $0.age > 18 && $0.age < 30 }
+//        .sorted { $0.age.ascending() }
+//        .skipping(upTo: 3)
+//        .limited(upTo: 1)
+//        .delete()
+//
+//      documentStore!.read { in
+//        try $0.fetchFirst(
+//          Query<Developer>()
+//            .filtered { $0.age > 18 && $0.age < 30 }
+//            .sorted { $0.age.ascending() }
+//            .skipping(upTo: 3)
+//            .limited(upTo: 1)
+//        )
+//
+//
 //        return try Query<Developer>()
 //          .filtered { $0.age > 18 && $0.age < 30 }
 //          .sorted { $0.age.ascending() }
 //          .skipping(upTo: 3)
 //          .limited(upTo: 1)
 //          .execute(operation: transaction.fetchFirst)
+//      }
+//      .then { developer in
+//
 //      }
 
       // Promise example

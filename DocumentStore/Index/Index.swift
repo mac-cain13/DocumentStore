@@ -35,12 +35,12 @@ public struct AnyIndex<DocumentType: Document> {
 
   // TODO: Docs
   public init<ValueType: StorableValue>(from index: Index<DocumentType, ValueType>) {
-    self.storageInformation = AnyStorageInformation(storageInformation: index.storageInformation)
+    self.storageInformation = AnyStorageInformation(from: index.storageInformation)
     self.resolver = index.resolver
   }
 
   init<ValueType: StorableValue>(from identifier: Identifier<DocumentType, ValueType>) {
-    self.storageInformation = AnyStorageInformation(storageInformation: identifier.storageInformation)
+    self.storageInformation = AnyStorageInformation(from: identifier.storageInformation)
     self.resolver = identifier.resolver
   }
 }

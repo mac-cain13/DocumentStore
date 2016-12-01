@@ -212,7 +212,7 @@ class DocumentStoreTests: XCTestCase {
         return
       }
 
-      XCTAssertEqual(mockTransaction.saveChangesCount, 1)
+      XCTAssertEqual(mockTransaction.persistChangesCount, 1)
       handlerExpectation.fulfill()
     }
 
@@ -232,7 +232,7 @@ class DocumentStoreTests: XCTestCase {
 
       XCTAssertEqual(error.kind, .operationFailed)
       XCTAssertEqual(error.message, "Failed to save changes from a transaction to the store.")
-      XCTAssertEqual(error.underlyingError as? NSError, MockSaveErrorTransaction.saveError)
+      XCTAssertEqual(error.underlyingError as? NSError, MockSaveErrorTransaction.persistError)
       handlerExpectation.fulfill()
     }
 
@@ -245,7 +245,7 @@ class DocumentStoreTests: XCTestCase {
         return (.discardChanges, false)
       }
 
-      mockTransaction.savingShouldSucceed = false
+      mockTransaction.persistingShouldSucceed = false
       return (.saveChanges, false)
     }
 
@@ -337,12 +337,12 @@ private class MockTransactionFactory: TransactionFactory {
 }
 
 private class MockSaveErrorTransaction: ReadWritableTransaction {
-  static let saveError = NSError(domain: "TestDomain", code: 42, userInfo: nil)
+  static let persistError = NSError(domain: "TestDomain", code: 42, userInfo: nil)
 
   let context: NSManagedObjectContext
-  private(set) var saveChangesCount = 0
+  private(set) var persistChangesCount = 0
 
-  var savingShouldSucceed = true
+  var persistingShouldSucceed = true
 
   init(context: NSManagedObjectContext) {
     self.context = context
@@ -356,18 +356,25 @@ private class MockSaveErrorTransaction: ReadWritableTransaction {
     return []
   }
 
-  func add<DocumentType: Document>(document: DocumentType) throws {}
+  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool {
+    return true
+  }
 
   @discardableResult
   func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     return 0
   }
 
-  func saveChanges() throws {
-    saveChangesCount += 1
+  @discardableResult
+  func delete<DocumentType: Document>(document: DocumentType) throws -> Bool {
+    return true
+  }
 
-    if !savingShouldSucceed {
-      throw MockSaveErrorTransaction.saveError
+  func persistChanges() throws {
+    persistChangesCount += 1
+
+    if !persistingShouldSucceed {
+      throw MockSaveErrorTransaction.persistError
     }
   }
 }

@@ -11,4 +11,4 @@ import Foundation
 let dependencyContainer = DependencyContainer()
 
 let DocumentDataAttributeName = "_documentData"
-let DocumentIdentifierAttributeName = "_id"
+let DocumentIdentifierAttributeName = "_documentIdentifier"

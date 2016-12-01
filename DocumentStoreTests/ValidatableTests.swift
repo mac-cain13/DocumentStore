@@ -24,6 +24,7 @@ class ValidatableTests: XCTestCase {
 }
 
 private struct FixedValidatable: Validatable {
-  fileprivate let issues: [ValidationIssue]
+  let issues: [ValidationIssue]
+
   func validate() -> [ValidationIssue] { return issues }
 }

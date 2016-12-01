@@ -107,6 +107,52 @@ class CoreDataTransaction: ReadWritableTransaction {
     }
   }
 
+  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool {
+    try validateUseOfDocumentType(DocumentType.self)
+
+    let identifier = DocumentType.documentDescriptor.identifier
+    let identifierValue = DocumentType.documentDescriptor.identifier.resolver(document)
+
+    let request = NSFetchRequest<NSManagedObject>(entityName: DocumentType.documentDescriptor.name)
+    request.predicate = NSComparisonPredicate(
+      leftExpression: NSExpression(forKeyPath: identifier.storageInformation.propertyName.keyPath),
+      rightExpression: NSExpression(forConstantValue: identifierValue),
+      modifier: .direct,
+      type: .equalTo
+    )
+    request.resultType = .managedObjectResultType
+
+    let currentManagedObject = try convertExceptionToError {
+      try context.fetch(request).first
+    }
+
+    let managedObject: NSManagedObject
+    switch (saveMode, currentManagedObject) {
+    case (.replaceOnly, .none), (.addOnly, .some):
+      return false
+    case (.replaceOnly, let .some(currentManagedObject)), (.addOrReplace, let .some(currentManagedObject)):
+      managedObject = currentManagedObject
+    case (.addOnly, .none), (.addOrReplace, .none):
+      managedObject = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.name, into: context)
+    }
+
+    do {
+      let documentData = try document.serializeDocument()
+
+      try convertExceptionToError {
+        managedObject.setValue(documentData, forKey: DocumentDataAttributeName)
+        managedObject.setValue(identifierValue, forKey: identifier.storageInformation.propertyName.keyPath)
+        DocumentType.documentDescriptor.indices.forEach {
+          managedObject.setValue($0.resolver(document), forKey: $0.storageInformation.propertyName.keyPath)
+        }
+      }
+
+      return true
+    } catch let error {
+      throw TransactionError.serializationFailed(error)
+    }
+  }
+
   @discardableResult
   func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int {
     try validateUseOfDocumentType(DocumentType.self)
@@ -129,25 +175,35 @@ class CoreDataTransaction: ReadWritableTransaction {
     }
   }
 
-  func add<DocumentType: Document>(document: DocumentType) throws {
+  @discardableResult
+  func delete<DocumentType: Document>(document: DocumentType) throws -> Bool {
     try validateUseOfDocumentType(DocumentType.self)
 
-    do {
-      let documentData = try document.serializeDocument()
+    let identifier = DocumentType.documentDescriptor.identifier
+    let identifierValue = DocumentType.documentDescriptor.identifier.resolver(document)
 
-      try convertExceptionToError {
-        let entity = NSEntityDescription.insertNewObject(forEntityName: DocumentType.documentDescriptor.name, into: context)
-        entity.setValue(documentData, forKey: DocumentDataAttributeName)
-        DocumentType.documentDescriptor.indices.forEach {
-          entity.setValue($0.resolver(document), forKey: $0.storageInformation.propertyName.keyPath)
-        }
-      }
-    } catch let error {
-      throw TransactionError.serializationFailed(error)
+    let request = NSFetchRequest<NSManagedObject>(entityName: DocumentType.documentDescriptor.name)
+    request.predicate = NSComparisonPredicate(
+      leftExpression: NSExpression(forKeyPath: identifier.storageInformation.propertyName.keyPath),
+      rightExpression: NSExpression(forConstantValue: identifierValue),
+      modifier: .direct,
+      type: .equalTo
+    )
+    request.resultType = .managedObjectResultType
+
+    let currentManagedObject = try convertExceptionToError {
+      try context.fetch(request).first
     }
+
+    guard let managedObject = currentManagedObject else {
+      return false
+    }
+
+    context.delete(managedObject)
+    return true
   }
 
-  func saveChanges() throws {
+  func persistChanges() throws {
     if context.hasChanges {
       try context.save()
     }
