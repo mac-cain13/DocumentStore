@@ -58,15 +58,13 @@ class QueryNSFetchRequestTests: XCTestCase {
   }
 
   func testFetchRequestFetchLimitMaxUInt() {
-    let limit = UInt.max
+    let limit = UInt(Int32.max)
 
     var query = self.query
     query.limit = limit
     let request: NSFetchRequest<NSManagedObject> = query.fetchRequest()
 
-    let limitAsUint32 = UInt32(exactly: limit) ?? UInt32.max
-    let limitAsInt = Int(exactly: limitAsUint32) ?? Int.max
-    XCTAssertEqual(request.fetchLimit, limitAsInt)
+    XCTAssertEqual(UInt(request.fetchLimit), limit)
   }
 
   func testFetchRequestSortDescriptorsWhenUnordered() {

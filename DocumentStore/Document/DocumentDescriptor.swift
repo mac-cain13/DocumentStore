@@ -14,15 +14,15 @@ public struct DocumentDescriptor<DocumentType: Document> {
   let identifier: AnyIndex<DocumentType>
   let indices: [AnyIndex<DocumentType>]
 
-  // TODO: Docs need update
   /// Create a description of a `Document`
   ///
-  /// - Warning: Do never change the name, this is the only unique reference there is for the
-  ///            storage system to know what `Document` you are describing. Changing it will result
-  ///            in data loss!
+  /// - Warning: Do never change the name or the returned value of the identifier, those are used as 
+  ///            the unique references to your documents in the storage system. Changing them will
+  ///            result in data loss!
   ///
   /// - Parameters:
   ///   - name: Unique (within one store) unchangable name of the described `Document`
+  ///   - identifier: Unique `Identifier` (for this type of `Document`), used to identify the document
   ///   - indices: List of all indices that should be created for the described `Document`
   public init<IdentifierValueType: StorableValue>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
     self.name = name
@@ -31,13 +31,16 @@ public struct DocumentDescriptor<DocumentType: Document> {
   }
 }
 
-/// Type erased version of a `DocumentDescriptor`.
+/// Type eraser for `DocumentDescriptor` to make it possible to store them in for example an array.
 public struct AnyDocumentDescriptor: Validatable, Equatable {
   let name: String
   let identifier: UntypedAnyStorageInformation
   let indices: [UntypedAnyStorageInformation]
 
-  // TODO
+  /// Type erase a `DocumentDescriptor`.
+  ///
+  /// - Parameter descriptor: The `DocumentDescriptor` to type erase
+  /// - SeeAlso: `DocumentDescriptorArrayBuilder`
   public init<DocumentType>(from descriptor: DocumentDescriptor<DocumentType>) {
     self.name = descriptor.name
     self.identifier = UntypedAnyStorageInformation(from: descriptor.identifier.storageInformation)

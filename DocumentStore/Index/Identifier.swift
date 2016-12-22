@@ -8,11 +8,17 @@
 
 import Foundation
 
-// TODO
+/// Describes a unique `Identifier` for a `Document`, think of it as the primary key of the document.
 public struct Identifier<DocumentType: Document, ValueType: StorableValue>: Storable {
   public let storageInformation: StorageInformation<DocumentType, ValueType>
   public let resolver: (DocumentType) -> ValueType?
 
+  /// Intialize an `Identifier`
+  ///
+  /// - Warning: The `resolver` must always return the same identifying value for the same `Document`.
+  ///            Not doing so will result in undefined behaviour of the `DocumentStore`.
+  ///
+  /// - Parameter resolver: Given a `Document` the resolver should return the unique identifier
   public init(resolver: @escaping (DocumentType) -> ValueType) {
     self.storageInformation = StorageInformation(propertyName: .libraryDefined(DocumentIdentifierAttributeName), isOptional: false)
     self.resolver = resolver

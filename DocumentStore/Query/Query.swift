@@ -27,6 +27,7 @@ public struct Query<DocumentType: Document> {
   public var skip: UInt
 
   /// An optional maximum number of `Document`s that this `Query` will match
+  /// - Warning: Values above `Int32.max` are not guaranteed to be respected and might be interpeted as no limit.
   public var limit: UInt?
 
   // MARK: Initializers

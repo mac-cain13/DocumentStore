@@ -28,12 +28,15 @@ public struct Index<DocumentType: Document, ValueType: StorableValue>: Storable 
   }
 }
 
-/// Type erased version of an `Index`.
+/// Type eraser for `Index` to make it possible to store them in for example an array.
 public struct AnyIndex<DocumentType: Document> {
   let storageInformation: AnyStorageInformation<DocumentType>
   let resolver: (DocumentType) -> Any?
 
-  // TODO: Docs
+  /// Type erase an `Index`.
+  ///
+  /// - Parameter index: The `Index` to type erase
+  /// - SeeAlso: `IndexArrayBuilder`
   public init<ValueType: StorableValue>(from index: Index<DocumentType, ValueType>) {
     self.storageInformation = AnyStorageInformation(from: index.storageInformation)
     self.resolver = index.resolver

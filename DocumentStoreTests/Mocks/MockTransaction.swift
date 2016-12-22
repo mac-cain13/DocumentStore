@@ -40,7 +40,7 @@ class MockTransaction: ReadWritableTransaction {
     return 1
   }
 
-  func delete<DocumentType : Document>(document: DocumentType) throws -> Bool {
+  func delete<DocumentType: Document>(document: DocumentType) throws -> Bool {
     deleteDocumentCalls += 1
     return true
   }

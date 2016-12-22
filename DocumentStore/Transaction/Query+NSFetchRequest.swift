@@ -21,9 +21,7 @@ extension Query {
 
     if let limit = limit {
       // fetchLimit is typed as `Int`, but actually is and acts like a UInt32
-      let limitAsUint32 = UInt32(exactly: limit) ?? UInt32.max
-      let limitAsInt = Int(exactly: limitAsUint32) ?? Int.max
-      request.fetchLimit = limitAsInt
+      request.fetchLimit = Int(exactly: limit) ?? Int.max
     }
 
     switch ResultType.self {

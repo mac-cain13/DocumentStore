@@ -110,21 +110,8 @@ class CoreDataTransaction: ReadWritableTransaction {
   func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool {
     try validateUseOfDocumentType(DocumentType.self)
 
-    let identifier = DocumentType.documentDescriptor.identifier
     let identifierValue = DocumentType.documentDescriptor.identifier.resolver(document)
-
-    let request = NSFetchRequest<NSManagedObject>(entityName: DocumentType.documentDescriptor.name)
-    request.predicate = NSComparisonPredicate(
-      leftExpression: NSExpression(forKeyPath: identifier.storageInformation.propertyName.keyPath),
-      rightExpression: NSExpression(forConstantValue: identifierValue),
-      modifier: .direct,
-      type: .equalTo
-    )
-    request.resultType = .managedObjectResultType
-
-    let currentManagedObject = try convertExceptionToError {
-      try context.fetch(request).first
-    }
+    let currentManagedObject = try fetchManagedObject(for: document, with: identifierValue)
 
     let managedObject: NSManagedObject
     switch (saveMode, currentManagedObject) {
@@ -141,7 +128,7 @@ class CoreDataTransaction: ReadWritableTransaction {
 
       try convertExceptionToError {
         managedObject.setValue(documentData, forKey: DocumentDataAttributeName)
-        managedObject.setValue(identifierValue, forKey: identifier.storageInformation.propertyName.keyPath)
+        managedObject.setValue(identifierValue, forKey: DocumentType.documentDescriptor.identifier.storageInformation.propertyName.keyPath)
         DocumentType.documentDescriptor.indices.forEach {
           managedObject.setValue($0.resolver(document), forKey: $0.storageInformation.propertyName.keyPath)
         }
@@ -179,23 +166,7 @@ class CoreDataTransaction: ReadWritableTransaction {
   func delete<DocumentType: Document>(document: DocumentType) throws -> Bool {
     try validateUseOfDocumentType(DocumentType.self)
 
-    let identifier = DocumentType.documentDescriptor.identifier
-    let identifierValue = DocumentType.documentDescriptor.identifier.resolver(document)
-
-    let request = NSFetchRequest<NSManagedObject>(entityName: DocumentType.documentDescriptor.name)
-    request.predicate = NSComparisonPredicate(
-      leftExpression: NSExpression(forKeyPath: identifier.storageInformation.propertyName.keyPath),
-      rightExpression: NSExpression(forConstantValue: identifierValue),
-      modifier: .direct,
-      type: .equalTo
-    )
-    request.resultType = .managedObjectResultType
-
-    let currentManagedObject = try convertExceptionToError {
-      try context.fetch(request).first
-    }
-
-    guard let managedObject = currentManagedObject else {
+    guard let managedObject = try fetchManagedObject(for: document) else {
       return false
     }
 
@@ -209,4 +180,20 @@ class CoreDataTransaction: ReadWritableTransaction {
     }
   }
 
+  private func fetchManagedObject<DocumentType: Document>(for document: DocumentType, with identifierValue: Any? = nil) throws -> NSManagedObject? {
+    let identifierValue = identifierValue ?? DocumentType.documentDescriptor.identifier.resolver(document)
+
+    let request = NSFetchRequest<NSManagedObject>(entityName: DocumentType.documentDescriptor.name)
+    request.predicate = NSComparisonPredicate(
+      leftExpression: NSExpression(forKeyPath: DocumentType.documentDescriptor.identifier.storageInformation.propertyName.keyPath),
+      rightExpression: NSExpression(forConstantValue: identifierValue),
+      modifier: .direct,
+      type: .equalTo
+    )
+    request.resultType = .managedObjectResultType
+
+    return try convertExceptionToError {
+      try context.fetch(request).first
+    }
+  }
 }

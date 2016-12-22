@@ -8,11 +8,15 @@
 
 import Foundation
 
+/// Describes a value that can be stored in the `DocumentStore` as a `Query`able value.
 public protocol Storable {
   associatedtype DocumentType: Document
   associatedtype ValueType: StorableValue
 
+  /// Storage information for the store to know how to save this value
   var storageInformation: StorageInformation<DocumentType, ValueType> { get }
+
+  /// Resolver that is able to get the value for this storable from a given `Document`
   var resolver: (DocumentType) -> ValueType? { get }
 }
 
