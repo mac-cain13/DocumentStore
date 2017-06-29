@@ -18,7 +18,7 @@ public struct Predicate<DocumentType: Document> {
   ///   - left: `Expression` on the left hand side of the operator
   ///   - right: `Expression` on the right hand side of the operator
   ///   - comparisonOperator: Operator to use for the comparison
-  public init<ValueType: StorableValue>(left: Expression<DocumentType, ValueType>, right: Expression<DocumentType, ValueType>, comparisonOperator: ExpressionComparisonOperator) {
+  public init<ValueType>(left: Expression<DocumentType, ValueType>, right: Expression<DocumentType, ValueType>, comparisonOperator: ExpressionComparisonOperator) {
     foundationPredicate = NSComparisonPredicate(leftExpression: left.foundationExpression, rightExpression: right.foundationExpression, modifier: .direct, type: comparisonOperator.foundationOperator)
   }
 

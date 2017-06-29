@@ -17,7 +17,7 @@ public struct DocumentDescriptorArrayBuilder {
   ///
   /// - Parameter documentDescriptor: `DocumentDescriptor` to add
   /// - Returns: A `DocumentDescriptorArrayBuilder` with the given `DocumentDescriptor` added to the array
-  public func append<DocumentType: Document>(_ documentDescriptor: DocumentDescriptor<DocumentType>) -> DocumentDescriptorArrayBuilder {
+  public func append<DocumentType>(_ documentDescriptor: DocumentDescriptor<DocumentType>) -> DocumentDescriptorArrayBuilder {
     var builder = self
     builder.array.append(AnyDocumentDescriptor(from: documentDescriptor))
     return builder

@@ -232,7 +232,7 @@ class DocumentStoreTests: XCTestCase {
 
       XCTAssertEqual(error.kind, .operationFailed)
       XCTAssertEqual(error.message, "Failed to save changes from a transaction to the store.")
-      XCTAssertEqual(error.underlyingError as? NSError, MockSaveErrorTransaction.persistError)
+      XCTAssertEqual(error.underlyingError as NSError?, MockSaveErrorTransaction.persistError)
       handlerExpectation.fulfill()
     }
 

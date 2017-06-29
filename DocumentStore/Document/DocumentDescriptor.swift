@@ -24,7 +24,7 @@ public struct DocumentDescriptor<DocumentType: Document> {
   ///   - name: Unique (within one store) unchangable name of the described `Document`
   ///   - identifier: Unique `Identifier` (for this type of `Document`), used to identify the document
   ///   - indices: List of all indices that should be created for the described `Document`
-  public init<IdentifierValueType: StorableValue>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
+  public init<IdentifierValueType>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
     self.name = name
     self.identifier = AnyIndex(from: identifier)
     self.indices = indices

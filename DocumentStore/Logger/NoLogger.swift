@@ -8,6 +8,8 @@
 
 import Foundation
 
-final class NoLogger: Logger {
-  func log(level: LogLevel, message: String) {}
+final public class NoLogger: Logger {
+  public init() {}
+
+  public func log(level: LogLevel, message: String) {}
 }

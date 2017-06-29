@@ -37,12 +37,12 @@ public struct AnyIndex<DocumentType: Document> {
   ///
   /// - Parameter index: The `Index` to type erase
   /// - SeeAlso: `IndexArrayBuilder`
-  public init<ValueType: StorableValue>(from index: Index<DocumentType, ValueType>) {
+  public init<ValueType>(from index: Index<DocumentType, ValueType>) {
     self.storageInformation = AnyStorageInformation(from: index.storageInformation)
     self.resolver = index.resolver
   }
 
-  init<ValueType: StorableValue>(from identifier: Identifier<DocumentType, ValueType>) {
+  init<ValueType>(from identifier: Identifier<DocumentType, ValueType>) {
     self.storageInformation = AnyStorageInformation(from: identifier.storageInformation)
     self.resolver = identifier.resolver
   }

@@ -17,7 +17,7 @@ public struct IndexArrayBuilder<DocumentType: Document> {
   ///
   /// - Parameter index: `Index` to add
   /// - Returns: A `IndexArrayBuilder` with the given `Index` added to the array
-  public func append<ValueType: StorableValue>(_ index: Index<DocumentType, ValueType>) -> IndexArrayBuilder<DocumentType> {
+  public func append<ValueType>(_ index: Index<DocumentType, ValueType>) -> IndexArrayBuilder<DocumentType> {
     var builder = self
     builder.array.append(AnyIndex(from: index))
     return builder

@@ -61,7 +61,7 @@ struct AnyStorageInformation<DocumentType: Document> {
   let storageType: StorageType
   let isOptional: Bool
 
-  init<ValueType: StorableValue>(from storageInformation: StorageInformation<DocumentType, ValueType>) {
+  init<ValueType>(from storageInformation: StorageInformation<DocumentType, ValueType>) {
     self.propertyName = storageInformation.propertyName
     self.storageType = ValueType.storageType
     self.isOptional = storageInformation.isOptional
