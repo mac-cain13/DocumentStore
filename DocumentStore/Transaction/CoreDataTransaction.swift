@@ -88,7 +88,8 @@ class CoreDataTransaction: ReadWritableTransaction {
             throw DocumentDeserializationError(resolution: .skipDocument, underlyingError: error)
           }
 
-          return try DocumentType.deserializeDocument(from: documentData)
+          let decoder = JSONDecoder() // TODO: Extract decoder
+          return try decoder.decode(DocumentType.self, from: documentData)
         } catch let error as DocumentDeserializationError {
           logger.log(level: .warn, message: "Deserializing '\(DocumentType.documentDescriptor.name)' document failed, recovering with '\(error.resolution)' resolution.", error: error.underlyingError)
 
@@ -124,7 +125,8 @@ class CoreDataTransaction: ReadWritableTransaction {
     }
 
     do {
-      let documentData = try document.serializeDocument()
+      let encoder = JSONEncoder() // TODO: Extract encoder
+      let documentData = try encoder.encode(document)
 
       try convertExceptionToError {
         managedObject.setValue(documentData, forKey: DocumentDataAttributeName)

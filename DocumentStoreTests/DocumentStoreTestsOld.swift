@@ -18,58 +18,52 @@ import DocumentStore
 //    .add(Shipment.documentDescriptor)
 //)
 //
-//struct Developer {
-//  let name: String
-//  let age: Int
-//}
-//
+struct Developer: Codable {
+  let name: String
+  let age: Int
+}
+
+extension Developer: Document {
+  static let documentDescriptor = DocumentDescriptor<Developer>(
+    name: "Developer",
+    identifier: Identifier(keyPath: \.name),
+    indices: [
+      AnyIndex(from: Index(name: "name", keyPath: \.name)),
+      AnyIndex(from: Index(name: "age", keyPath: \.age))
+    ]
+  )
+}
+
+// Shorthands for keypath initializers
 //extension Developer: Document {
-//  static let name: Index<Developer, String> = { Index(name: "name") { $0.name } }()
-//  static let age: Index<Developer, Int> = { Index(name: "age") { $0.age } }()
-//
 //  static let documentDescriptor = DocumentDescriptor<Developer>(
 //    name: "Developer",
+//    identifier: \.name,
 //    indices: [
-//      name.eraseType(),
-//      age.eraseType()
+//      AnyIndex(name: "name", keyPath: \.name),
+//      AnyIndex(name: "age", keyPath: \.age)
 //    ]
 //  )
-//
-//  static func deserializeDocument(from data: Data) throws -> Developer {
-//    fatalError()
-//  }
-//
-//  func serializeDocument() throws -> Data {
-//    fatalError()
-//  }
 //}
+
 //
-//struct Shipment {
-//  let barcode: String
-//  let status: Int
-//  let weight: Double
-//}
-//
-//extension Shipment: Document {
-//  static let barcode: Index<Shipment, String> = { Index(name: "barcode") { $0.barcode } }()
-//  static let status: Index<Shipment, Int> = { Index(name: "status") { $0.status } }()
-//  static let weight: Index<Shipment, Double> = { Index(name: "weight") { $0.weight } }()
-//
-//  static let documentDescriptor = DocumentDescriptor<Shipment>(
-//    name: "Shipment",
-////    identifier: barcode,
-//    indices: IndexList()
-//      .add(status)
-//  )
-//
-//  static func deserializeDocument(from data: Data) throws -> Shipment {
-//    fatalError()
-//  }
-//
-//  func serializeDocument() throws -> Data {
-//    fatalError()
-//  }
-//}
+struct Shipment: Document {
+  let barcode: String
+  let status: Int
+  let weight: Double
+}
+
+extension Shipment {
+  static let barcode: Identifier<Shipment, String> = { Identifier() { $0.barcode } }()
+  static let status: Index<Shipment, Int> = { Index(name: "status") { $0.status } }()
+  static let weight: Index<Shipment, Double> = { Index(name: "weight") { $0.weight } }()
+
+  static let documentDescriptor = DocumentDescriptor<Shipment>(
+    name: "Shipment",
+    identifier: Shipment.barcode,
+    indices: []
+  )
+}
 //
 ///////
 
@@ -99,7 +93,15 @@ class DocumentStoreTestsOld: XCTestCase {
 //        .limited(upTo: 1)
 //        .delete()
 //
-//      documentStore!.read { in
+      let documentStore: DocumentStore! = nil
+      documentStore!.read(handler: { developers in print(developers) }) { transaction in
+        try transaction.fetch(matching:
+          Query<Developer>()
+            .filtered { \.age > 18 }
+        )
+      }
+
+//      documentStore!.read {
 //        try $0.fetchFirst(
 //          Query<Developer>()
 //            .filtered { $0.age > 18 && $0.age < 30 }
@@ -107,6 +109,7 @@ class DocumentStoreTestsOld: XCTestCase {
 //            .skipping(upTo: 3)
 //            .limited(upTo: 1)
 //        )
+//      }
 //
 //
 //        return try Query<Developer>()

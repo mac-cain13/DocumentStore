@@ -9,22 +9,36 @@
 import Foundation
 
 /// Index for a `Document` used in a `Query` to filter and order `Document`s in an efficient way.
-public struct Index<DocumentType: Document, ValueType: StorableValue>: Storable {
+public struct Index<DocumentType: Document, ValueType: IndexableValue> {
   public let storageInformation: StorageInformation<DocumentType, ValueType>
   public let resolver: (DocumentType) -> ValueType?
 
-  /// Create an `Index`.
+  /// Create an `Index`
   ///
   /// - Warning: Changing the name or ValueType of this `Index` will trigger a repopulation
   ///            of this index for all documents this `Index` is related to. This can be time 
   ///            consuming.
   ///
   /// - Parameters:
-  ///   - name: Unique unchangable (within one document) identifier
+  ///   - name: Unique (within one document) unchangable identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, resolver: @escaping (DocumentType) -> ValueType?) {
-    self.storageInformation = StorageInformation(propertyName: .userDefined(name), isOptional: true)
+    self.storageInformation = StorageInformation(propertyName: .userDefined(name), isOptional: true, sourceKeyPath: nil)
     self.resolver = resolver
+  }
+
+  /// Create an `Index` with a `KeyPath`
+  ///
+  /// - Warning: Changing the name or ValueType of this `Index` will trigger a repopulation
+  ///            of this index for all documents this `Index` is related to. This can be time
+  ///            consuming.
+  ///
+  /// - Parameters:
+  ///   - name: Unique (within one document) unchangable identifier
+  ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
+  public init(name: String, keyPath: KeyPath<DocumentType, ValueType>) {
+    self.storageInformation = StorageInformation(propertyName: .userDefined(name), isOptional: true, sourceKeyPath: keyPath)
+    self.resolver = { document in document[keyPath: keyPath] }
   }
 }
 

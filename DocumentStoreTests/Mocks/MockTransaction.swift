@@ -28,10 +28,11 @@ class MockTransaction: ReadWritableTransaction {
     fetchCalls += 1
     fetchLimitCallback?(query.limit)
 
+    let decoder = JSONDecoder()
     return [
-      try? DocumentType.deserializeDocument(from: Data()),
-      try? DocumentType.deserializeDocument(from: Data())
-      ].flatMap { $0 }
+      try? decoder.decode(DocumentType.self, from: Data()),
+      try? decoder.decode(DocumentType.self, from: Data())
+    ].flatMap { $0 }
   }
 
   @discardableResult

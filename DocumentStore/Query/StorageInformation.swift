@@ -51,20 +51,23 @@ enum PropertyName: Equatable, Validatable {
   }
 }
 
-public struct StorageInformation<DocumentType: Document, ValueType: StorableValue> {
+public struct StorageInformation<DocumentType: Document, ValueType: IndexableValue> {
   let propertyName: PropertyName
   let isOptional: Bool
+  let sourceKeyPath: KeyPath<DocumentType, ValueType>?
 }
 
 struct AnyStorageInformation<DocumentType: Document> {
   let propertyName: PropertyName
   let storageType: StorageType
   let isOptional: Bool
+  let sourceKeyPath: PartialKeyPath<DocumentType>?
 
   init<ValueType>(from storageInformation: StorageInformation<DocumentType, ValueType>) {
     self.propertyName = storageInformation.propertyName
     self.storageType = ValueType.storageType
     self.isOptional = storageInformation.isOptional
+    self.sourceKeyPath = storageInformation.sourceKeyPath
   }
 }
 
@@ -73,12 +76,14 @@ struct UntypedAnyStorageInformation: Equatable, Validatable {
   let propertyName: PropertyName
   let storageType: StorageType
   let isOptional: Bool
+  let sourceKeyPath: AnyKeyPath?
 
   init<DocumentType>(from storageInformation: AnyStorageInformation<DocumentType>) {
     self.documentName = DocumentType.documentDescriptor.name
     self.propertyName = storageInformation.propertyName
     self.storageType = storageInformation.storageType
     self.isOptional = storageInformation.isOptional
+    self.sourceKeyPath = storageInformation.sourceKeyPath
   }
 
   func validate() -> [ValidationIssue] {
@@ -89,6 +94,7 @@ struct UntypedAnyStorageInformation: Equatable, Validatable {
     return lhs.documentName == rhs.documentName &&
       lhs.propertyName == rhs.propertyName &&
       lhs.storageType == rhs.storageType &&
-      lhs.isOptional == rhs.isOptional
+      lhs.isOptional == rhs.isOptional &&
+      lhs.sourceKeyPath == rhs.sourceKeyPath
   }
 }

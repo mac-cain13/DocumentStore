@@ -93,9 +93,9 @@ public struct Query<DocumentType: Document> {
   ///
   /// - Parameter isIncluded: Closure that returns the `Predicate` to filter by
   /// - Returns: A `Query` that only matches `Document`s passing the predicate
-  public func filtered(using predicate: (DocumentType.Type) -> Predicate<DocumentType>) -> Query<DocumentType> {
+  public func filtered(using predicate: () -> Predicate<DocumentType>) -> Query<DocumentType> {
     var query = self
-    query.predicate = query.predicate && predicate(DocumentType.self)
+    query.predicate = query.predicate && predicate()
     return query
   }
 

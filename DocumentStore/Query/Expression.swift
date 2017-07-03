@@ -9,20 +9,28 @@
 import Foundation
 
 /// `Expression` that can be used to build a `Predicate`.
-public struct Expression<DocumentType: Document, ValueType: StorableValue> {
+public struct Expression<DocumentType: Document, ValueType: IndexableValue> {
   let foundationExpression: NSExpression
+
+  fileprivate init(foundationExpression: NSExpression) {
+    self.foundationExpression = foundationExpression
+  }
+
+  init(storageInformation: AnyStorageInformation<DocumentType>) {
+    foundationExpression = NSExpression(forKeyPath: storageInformation.propertyName.keyPath)
+  }
 
   /// Create an `Expression` for a constant value.
   ///
   /// - Parameter value: The value to represent
   public init(forConstantValue value: ValueType) {
-    foundationExpression = NSExpression(forConstantValue: value)
+    self.init(foundationExpression: NSExpression(forConstantValue: value))
   }
 
   /// Create an `Expression` for `StorageInformation`.
   ///
   /// - Parameter storageInformation: The `StorageInformation` to represent
-  public init(forStorageInformation storageInformation: StorageInformation<DocumentType, ValueType>) {
-    foundationExpression = NSExpression(forKeyPath: storageInformation.propertyName.keyPath)
+  public init(storageInformation: StorageInformation<DocumentType, ValueType>) {
+    self.init(foundationExpression: NSExpression(forKeyPath: storageInformation.propertyName.keyPath))
   }
 }

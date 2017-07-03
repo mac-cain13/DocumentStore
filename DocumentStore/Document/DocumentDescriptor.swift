@@ -29,6 +29,14 @@ public struct DocumentDescriptor<DocumentType: Document> {
     self.identifier = AnyIndex(from: identifier)
     self.indices = indices
   }
+
+  func findIndex(basedOn keyPath: PartialKeyPath<DocumentType>) -> AnyIndex<DocumentType>? {
+    if identifier.storageInformation.sourceKeyPath == keyPath {
+      return identifier
+    }
+
+    return indices.first { index in index.storageInformation.sourceKeyPath == keyPath }
+  }
 }
 
 /// Type eraser for `DocumentDescriptor` to make it possible to store them in for example an array.
@@ -65,6 +73,12 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
       .map { $0.propertyName.keyPath }
       .duplicates()
       .map { "DocumentDescriptor `\(name)` has multiple indices with `\($0)` as name, every index name must be unique." }
+
+    // Two indices may not use the same `KeyPath` (or else querying will break)
+    issues += ([identifier] + indices)
+      .flatMap { $0.sourceKeyPath }
+      .duplicates()
+      .map { "DocumentDescriptor `\(name)` has multiple indices using \($0) as the source key path, every index including the identifier must use a unique key path." }
 
     // Indices also should be valid
     issues += indices.flatMap { $0.validate() }

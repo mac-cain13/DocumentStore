@@ -26,29 +26,33 @@ public enum Order {
 public struct SortDescriptor<DocumentType: Document> {
   let foundationSortDescriptor: NSSortDescriptor
 
-  public init<StorableType: Storable>(forStorable storable: StorableType, order: Order) where StorableType.DocumentType == DocumentType {
-    self.foundationSortDescriptor = NSSortDescriptor(key: storable.storageInformation.propertyName.keyPath, ascending: order.isAscending)
-  }
-}
+//  public init<SortableType: Sortable>(forSortable sortable: SortableType, order: Order) where SortableType.DocumentType == DocumentType {
+//    self.foundationSortDescriptor = NSSortDescriptor(key: storable.storageInformation.propertyName.keyPath, ascending: order.isAscending)
+//  }
+//}
+//
+//public extension Sortable {
+//  // MARK: Sorting
+//
+//  /// `SortDescriptor` that orders on this `Index` ascending.
+//  ///
+//  /// Example: Ascending sorting is [1, 2, 3]
+//  ///
+//  /// - Returns: The `SortDescriptor` representing the ascending sorting
+//  public func ascending() -> SortDescriptor<DocumentType> {
+//    return SortDescriptor(forStorable: self, order: .ascending)
+//  }
+//
+//  /// `SortDescriptor` that orders on this `Index` descending.
+//  ///
+//  /// Example: Descending sorting is [3, 2, 1]
+//  ///
+//  /// - Returns: The `SortDescriptor` representing the descending sorting
+//  public func descending() -> SortDescriptor<DocumentType> {
+//    return SortDescriptor(forStorable: self, order: .descending)
+//  }
+//}
+//
+//extension Identifier: Sortable {
 
-public extension Index {
-  // MARK: Sorting
-
-  /// `SortDescriptor` that orders on this `Index` ascending.
-  ///
-  /// Example: Ascending sorting is [1, 2, 3]
-  ///
-  /// - Returns: The `SortDescriptor` representing the ascending sorting
-  public func ascending() -> SortDescriptor<DocumentType> {
-    return SortDescriptor(forStorable: self, order: .ascending)
-  }
-
-  /// `SortDescriptor` that orders on this `Index` descending.
-  ///
-  /// Example: Descending sorting is [3, 2, 1]
-  ///
-  /// - Returns: The `SortDescriptor` representing the descending sorting
-  public func descending() -> SortDescriptor<DocumentType> {
-    return SortDescriptor(forStorable: self, order: .descending)
-  }
 }
