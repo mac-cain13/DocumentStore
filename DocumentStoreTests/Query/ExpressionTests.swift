@@ -17,7 +17,7 @@ class ExpressionTests: XCTestCase {
   }
 
   func testInitializationWithIndex() {
-    let expression = Expression(forStorageInformation: MockDocument.isTest.storageInformation)
+    let expression = Expression<MockDocument, Bool>(forStorageInformation: MockDocument.isTest.storageInformation)
     XCTAssertEqual(expression.foundationExpression, NSExpression(forKeyPath: MockDocument.isTest.storageInformation.propertyName.keyPath))
   }
 }

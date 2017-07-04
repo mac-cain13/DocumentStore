@@ -13,37 +13,37 @@ class IndexTests: XCTestCase {
 
   // TODO: Should move to storageInformation tests
   func testValid() {
-    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
-    XCTAssertTrue(UntypedAnyStorageInformation(from: index.storageInformation).validate().isEmpty)
+    let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false })
+    XCTAssertTrue(AnyStorageInformation(from: index.storageInformation).validate().isEmpty)
   }
 
   func testEmptyIdentifier() {
-    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "", resolver: { _ in false }))
-    XCTAssertEqual(UntypedAnyStorageInformation(from: index.storageInformation).validate(), ["Name may not be empty."])
+    let index = Index<TestDocument, Bool>(name: "", resolver: { _ in false })
+    XCTAssertEqual(AnyStorageInformation(from: index.storageInformation).validate(), ["Name may not be empty."])
   }
 
   func testUnderscoreIdentifier() {
     for identifier in ["_", "_Index"] {
-      let index = AnyIndex(from: Index<TestDocument, Bool>(name: identifier, resolver: { _ in false }))
-      XCTAssertEqual(UntypedAnyStorageInformation(from: index.storageInformation).validate(), ["`\(identifier)` is an invalid name, names may not start with an `_`."])
+      let index = Index<TestDocument, Bool>(name: identifier, resolver: { _ in false })
+      XCTAssertEqual(AnyStorageInformation(from: index.storageInformation).validate(), ["`\(identifier)` is an invalid name, names may not start with an `_`."])
     }
   }
 
   func testEquatable() {
-    let boolStorageInfo = StorageInformation<TestDocument, Bool>(propertyName: .userDefined("TestIndex"), isOptional: true)
-    let untypedBoolStorageInfo = UntypedAnyStorageInformation(from: AnyStorageInformation(from: boolStorageInfo))
+    let boolStorageInfo = StorageInformation<TestDocument, Bool>(propertyName: .userDefined("TestIndex"), isOptional: true, sourceKeyPath: nil)
+    let untypedBoolStorageInfo = AnyStorageInformation(from: StorageInformation(from: boolStorageInfo))
     XCTAssertEqual(untypedBoolStorageInfo, untypedBoolStorageInfo)
 
-    let stringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("TestIndex"), isOptional: true)
-    let untypedStringStorageInfo = UntypedAnyStorageInformation(from: AnyStorageInformation(from: stringStorageInfo))
+    let stringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("TestIndex"), isOptional: true, sourceKeyPath: nil)
+    let untypedStringStorageInfo = AnyStorageInformation(from: StorageInformation(from: stringStorageInfo))
     XCTAssertNotEqual(untypedBoolStorageInfo, untypedStringStorageInfo)
 
-    let otherStringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("OtherTestIndex"), isOptional: true)
-    let untypedOtherStringStorageInfo = UntypedAnyStorageInformation(from: AnyStorageInformation(from: otherStringStorageInfo))
+    let otherStringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("OtherTestIndex"), isOptional: true, sourceKeyPath: nil)
+    let untypedOtherStringStorageInfo = AnyStorageInformation(from: StorageInformation(from: otherStringStorageInfo))
     XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherStringStorageInfo)
 
-    let otherDocumentStorageInfo = StorageInformation<OtherTestDocument, String>(propertyName: .userDefined("TestIndex"), isOptional: true)
-    let untypedOtherDocumentStorageInfo = UntypedAnyStorageInformation(from: AnyStorageInformation(from: otherDocumentStorageInfo))
+    let otherDocumentStorageInfo = StorageInformation<OtherTestDocument, String>(propertyName: .userDefined("TestIndex"), isOptional: true, sourceKeyPath: nil)
+    let untypedOtherDocumentStorageInfo = AnyStorageInformation(from: StorageInformation(from: otherDocumentStorageInfo))
     XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherDocumentStorageInfo)
   }
 }

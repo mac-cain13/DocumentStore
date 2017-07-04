@@ -26,7 +26,7 @@ public struct DocumentDescriptor<DocumentType: Document> {
   ///   - indices: List of all indices that should be created for the described `Document`
   public init<IdentifierValueType>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
     self.name = name
-    self.identifier = AnyIndex(from: identifier)
+    self.identifier = identifier.index
     self.indices = indices
   }
 
@@ -42,8 +42,8 @@ public struct DocumentDescriptor<DocumentType: Document> {
 /// Type eraser for `DocumentDescriptor` to make it possible to store them in for example an array.
 public struct AnyDocumentDescriptor: Validatable, Equatable {
   let name: String
-  let identifier: UntypedAnyStorageInformation
-  let indices: [UntypedAnyStorageInformation]
+  let identifier: AnyStorageInformation
+  let indices: [AnyStorageInformation]
 
   /// Type erase a `DocumentDescriptor`.
   ///
@@ -51,8 +51,8 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
   /// - SeeAlso: `DocumentDescriptorArrayBuilder`
   public init<DocumentType>(from descriptor: DocumentDescriptor<DocumentType>) {
     self.name = descriptor.name
-    self.identifier = UntypedAnyStorageInformation(from: descriptor.identifier.storageInformation)
-    self.indices = descriptor.indices.map { UntypedAnyStorageInformation(from: $0.storageInformation) }
+    self.identifier = AnyStorageInformation(from: descriptor.identifier.storageInformation)
+    self.indices = descriptor.indices.map { AnyStorageInformation(from: $0.storageInformation) }
   }
 
   func validate() -> [ValidationIssue] {

@@ -45,7 +45,6 @@
 		D57200181DE7826900C5E585 /* ExpressionComparisonOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57200171DE7826900C5E585 /* ExpressionComparisonOperator.swift */; };
 		D572001C1DE7871200C5E585 /* StorageInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572001B1DE7871200C5E585 /* StorageInformation.swift */; };
 		D572001E1DEB469500C5E585 /* MockDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572001D1DEB469500C5E585 /* MockDocument.swift */; };
-		D57200201DECCA9600C5E585 /* IndexArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D572001F1DECCA9600C5E585 /* IndexArrayBuilder.swift */; };
 		D57200221DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57200211DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift */; };
 		D57200241DECD6C100C5E585 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57200231DECD6C100C5E585 /* Identifier.swift */; };
 		D5796CA01DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */; };
@@ -136,7 +135,6 @@
 		D57200171DE7826900C5E585 /* ExpressionComparisonOperator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressionComparisonOperator.swift; sourceTree = "<group>"; };
 		D572001B1DE7871200C5E585 /* StorageInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageInformation.swift; sourceTree = "<group>"; };
 		D572001D1DEB469500C5E585 /* MockDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDocument.swift; sourceTree = "<group>"; };
-		D572001F1DECCA9600C5E585 /* IndexArrayBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexArrayBuilder.swift; sourceTree = "<group>"; };
 		D57200211DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDescriptorArrayBuilder.swift; sourceTree = "<group>"; };
 		D57200231DECD6C100C5E585 /* Identifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		D5796C9F1DDF8E34007BCFC2 /* NSPersistentContainerFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentContainerFactoryTests.swift; sourceTree = "<group>"; };
@@ -421,7 +419,6 @@
 			children = (
 				D57200061DE1BDF500C5E585 /* ExceptionHandler.swift */,
 				D5FCEF411DCFC7C20028364C /* Sequence+Duplicates.swift */,
-				D572001F1DECCA9600C5E585 /* IndexArrayBuilder.swift */,
 				D57200211DECCAAC00C5E585 /* DocumentDescriptorArrayBuilder.swift */,
 			);
 			path = Util;
@@ -623,7 +620,6 @@
 				D5160E691DD78EB5006C8177 /* CoreDataTransaction.swift in Sources */,
 				D5FCEF421DCFC7C20028364C /* Sequence+Duplicates.swift in Sources */,
 				D5160E6F1DD7935F006C8177 /* ReadWritableTransaction.swift in Sources */,
-				D57200201DECCA9600C5E585 /* IndexArrayBuilder.swift in Sources */,
 				D50219511DCD39FA00408ADC /* DocumentDescriptor.swift in Sources */,
 				D5FCEF441DD05E4D0028364C /* Constants.swift in Sources */,
 				D5CA60391F0A19570028E9D8 /* Expressable+ConstantValues.swift in Sources */,

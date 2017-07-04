@@ -16,15 +16,15 @@ public protocol Expressable {
   var expression: Expression<DocumentType, ValueType> { get }
 }
 
-extension Identifier: Expressable {
+extension Index: Expressable {
   public var expression: Expression<DocumentType, ValueType> {
-    return Expression(storageInformation: self.storageInformation)
+    return Expression(forStorageInformation: storageInformation)
   }
 }
 
-extension Index: Expressable {
+extension Identifier: Expressable {
   public var expression: Expression<DocumentType, ValueType> {
-    return Expression(storageInformation: self.storageInformation)
+    return Expression(forStorageInformation: index.storageInformation)
   }
 }
 

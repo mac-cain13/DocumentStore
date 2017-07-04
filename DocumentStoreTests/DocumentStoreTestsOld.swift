@@ -28,8 +28,8 @@ extension Developer: Document {
     name: "Developer",
     identifier: Identifier(keyPath: \.name),
     indices: [
-      AnyIndex(from: Index(name: "name", keyPath: \.name)),
-      AnyIndex(from: Index(name: "age", keyPath: \.age))
+      Index(name: "name", keyPath: \.name),
+      Index(name: "age", keyPath: \.age)
     ]
   )
 }
@@ -97,7 +97,7 @@ class DocumentStoreTestsOld: XCTestCase {
       documentStore!.read(handler: { developers in print(developers) }) { transaction in
         try transaction.fetch(matching:
           Query<Developer>()
-            .filtered { \.age > 18 }
+            .filtered { _ in \.age > 18 }
         )
       }
 

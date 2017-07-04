@@ -64,7 +64,7 @@ final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
 }
 
 private extension NSAttributeDescription {
-  convenience init(from storageInformation: UntypedAnyStorageInformation) {
+  convenience init(from storageInformation: AnyStorageInformation) {
     self.init()
 
     name = storageInformation.propertyName.keyPath

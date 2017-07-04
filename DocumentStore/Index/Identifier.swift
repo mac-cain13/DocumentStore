@@ -10,8 +10,7 @@ import Foundation
 
 /// Describes a unique `Identifier` for a `Document`, think of it as the primary key of the document.
 public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
-  public let storageInformation: StorageInformation<DocumentType, ValueType>
-  public let resolver: (DocumentType) -> ValueType?
+  let index: AnyIndex<DocumentType>
 
   /// Intialize an `Identifier`
   ///
@@ -20,8 +19,13 @@ public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
   ///
   /// - Parameter resolver: Given a `Document` the resolver should return the unique identifier
   public init(resolver: @escaping (DocumentType) -> ValueType) {
-    self.storageInformation = StorageInformation(propertyName: .libraryDefined(DocumentIdentifierAttributeName), isOptional: false, sourceKeyPath: nil)
-    self.resolver = resolver
+    let storageInformation = StorageInformation<DocumentType>(
+      propertyName: .libraryDefined(DocumentIdentifierAttributeName),
+      storageType: ValueType.storageType,
+      isOptional: false,
+      sourceKeyPath: nil
+    )
+    self.index = AnyIndex(storageInformation: storageInformation, resolver: resolver)
   }
 
   /// Intialize an `Identifier` with a `KeyPath`
@@ -31,7 +35,12 @@ public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
   ///
   /// - Parameter keyPath: Given a `Document` the key path should return the unique identifier
   public init(keyPath: KeyPath<DocumentType, ValueType>) {
-    self.storageInformation = StorageInformation(propertyName: .libraryDefined(DocumentIdentifierAttributeName), isOptional: false, sourceKeyPath: keyPath)
-    self.resolver = { document in document[keyPath: keyPath] }
+    let storageInformation = StorageInformation<DocumentType>(
+      propertyName: .libraryDefined(DocumentIdentifierAttributeName),
+      storageType: ValueType.storageType,
+      isOptional: false,
+      sourceKeyPath: keyPath
+    )
+    self.index = AnyIndex(storageInformation: storageInformation) { document in document[keyPath: keyPath] }
   }
 }

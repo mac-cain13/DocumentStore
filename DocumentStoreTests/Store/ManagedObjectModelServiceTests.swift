@@ -118,7 +118,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testModelIndexProperty() {
-    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
+    let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false })
     let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index])
 
     let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])
@@ -141,7 +141,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testModelLogging() {
-    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false }))
+    let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false })
     let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index])
 
     let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])

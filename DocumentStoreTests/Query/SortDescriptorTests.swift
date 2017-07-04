@@ -13,7 +13,7 @@ class SortDescriptorTests: XCTestCase {
 
   func testInitializer() {
     let nsSortDescriptor = NSSortDescriptor(key: "", ascending: false)
-    let sortDescriptor = SortDescriptor<MockDocument>(forStorable: MockDocument.isTest, order: Order.descending)
+    let sortDescriptor = SortDescriptor<MockDocument>(forStorageInformation: MockDocument.isTest.storageInformation, order: Order.descending)
     XCTAssertEqual(sortDescriptor.foundationSortDescriptor, nsSortDescriptor)
   }
 

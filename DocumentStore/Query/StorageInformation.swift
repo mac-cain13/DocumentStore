@@ -51,34 +51,21 @@ enum PropertyName: Equatable, Validatable {
   }
 }
 
-public struct StorageInformation<DocumentType: Document, ValueType: IndexableValue> {
-  let propertyName: PropertyName
-  let isOptional: Bool
-  let sourceKeyPath: KeyPath<DocumentType, ValueType>?
-}
-
-struct AnyStorageInformation<DocumentType: Document> {
+struct StorageInformation<DocumentType: Document> {
   let propertyName: PropertyName
   let storageType: StorageType
   let isOptional: Bool
   let sourceKeyPath: PartialKeyPath<DocumentType>?
-
-  init<ValueType>(from storageInformation: StorageInformation<DocumentType, ValueType>) {
-    self.propertyName = storageInformation.propertyName
-    self.storageType = ValueType.storageType
-    self.isOptional = storageInformation.isOptional
-    self.sourceKeyPath = storageInformation.sourceKeyPath
-  }
 }
 
-struct UntypedAnyStorageInformation: Equatable, Validatable {
+struct AnyStorageInformation: Equatable, Validatable {
   let documentName: String
   let propertyName: PropertyName
   let storageType: StorageType
   let isOptional: Bool
   let sourceKeyPath: AnyKeyPath?
 
-  init<DocumentType>(from storageInformation: AnyStorageInformation<DocumentType>) {
+  init<DocumentType>(from storageInformation: StorageInformation<DocumentType>) {
     self.documentName = DocumentType.documentDescriptor.name
     self.propertyName = storageInformation.propertyName
     self.storageType = storageInformation.storageType
@@ -90,7 +77,7 @@ struct UntypedAnyStorageInformation: Equatable, Validatable {
     return propertyName.validate()
   }
 
-  static func == (lhs: UntypedAnyStorageInformation, rhs: UntypedAnyStorageInformation) -> Bool {
+  static func == (lhs: AnyStorageInformation, rhs: AnyStorageInformation) -> Bool {
     return lhs.documentName == rhs.documentName &&
       lhs.propertyName == rhs.propertyName &&
       lhs.storageType == rhs.storageType &&

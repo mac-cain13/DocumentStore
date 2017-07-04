@@ -327,8 +327,8 @@ class CoreDataTransactionTests: XCTestCase {
 
   func testCountContextFailure() {
     var query = Query<TestDocument>()
-    let storageInfo = StorageInformation<TestDocument, Bool>(propertyName: .libraryDefined("error"), isOptional: true)
-    let left = Expression(forStorageInformation: storageInfo)
+    let storageInfo = StorageInformation<TestDocument>(propertyName: .libraryDefined("error"), storageType: Bool.storageType, isOptional: true, sourceKeyPath: nil)
+    let left = Expression<TestDocument, Bool>(forStorageInformation: storageInfo)
     let right = Expression<TestDocument, Bool>(forConstantValue: false)
     query.predicate = Predicate(left: left, right: right, comparisonOperator: .equalTo)
 
@@ -355,8 +355,8 @@ class CoreDataTransactionTests: XCTestCase {
 
   func testFetchContextFailure() {
     var query = Query<TestDocument>()
-    let storageInfo = StorageInformation<TestDocument, Bool>(propertyName: .libraryDefined("error"), isOptional: true)
-    let left = Expression(forStorageInformation: storageInfo)
+    let storageInfo = StorageInformation<TestDocument>(propertyName: .libraryDefined("error"), storageType: Bool.storageType, isOptional: true, sourceKeyPath: nil)
+    let left = Expression<TestDocument, Bool>(forStorageInformation: storageInfo)
     let right = Expression<TestDocument, Bool>(forConstantValue: false)
     query.predicate = Predicate(left: left, right: right, comparisonOperator: .equalTo)
 
@@ -383,8 +383,8 @@ class CoreDataTransactionTests: XCTestCase {
 
   func testDeleteContextFailure() {
     var query = Query<TestDocument>()
-    let storageInfo = StorageInformation<TestDocument, Bool>(propertyName: .libraryDefined("error"), isOptional: true)
-    let left = Expression(forStorageInformation: storageInfo)
+    let storageInfo = StorageInformation<TestDocument>(propertyName: .libraryDefined("error"), storageType: Bool.storageType, isOptional: true, sourceKeyPath: nil)
+    let left = Expression<TestDocument, Bool>(forStorageInformation: storageInfo)
     let right = Expression<TestDocument, Bool>(forConstantValue: false)
     query.predicate = Predicate(left: left, right: right, comparisonOperator: .equalTo)
 
@@ -418,7 +418,7 @@ private struct TestDocument: Document {
   }
 
   static let isTest = Index<TestDocument, Bool>(name: "isTest") { _ in true }
-  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [AnyIndex(from: TestDocument.isTest)])
+  static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [TestDocument.isTest])
 
   static let data = Data(bytes: [42])
   static let error = NSError(domain: "TestDomain", code: 42, userInfo: nil)

@@ -12,25 +12,16 @@ import Foundation
 public struct Expression<DocumentType: Document, ValueType: IndexableValue> {
   let foundationExpression: NSExpression
 
-  fileprivate init(foundationExpression: NSExpression) {
-    self.foundationExpression = foundationExpression
-  }
-
-  init(storageInformation: AnyStorageInformation<DocumentType>) {
+  init(forStorageInformation storageInformation: StorageInformation<DocumentType>) {
     foundationExpression = NSExpression(forKeyPath: storageInformation.propertyName.keyPath)
   }
+
+  // TODO: Add public inits for Index, Identifier and KeyPath
 
   /// Create an `Expression` for a constant value.
   ///
   /// - Parameter value: The value to represent
   public init(forConstantValue value: ValueType) {
-    self.init(foundationExpression: NSExpression(forConstantValue: value))
-  }
-
-  /// Create an `Expression` for `StorageInformation`.
-  ///
-  /// - Parameter storageInformation: The `StorageInformation` to represent
-  public init(storageInformation: StorageInformation<DocumentType, ValueType>) {
-    self.init(foundationExpression: NSExpression(forKeyPath: storageInformation.propertyName.keyPath))
+    foundationExpression = NSExpression(forConstantValue: value)
   }
 }

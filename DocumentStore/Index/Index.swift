@@ -9,10 +9,7 @@
 import Foundation
 
 /// Index for a `Document` used in a `Query` to filter and order `Document`s in an efficient way.
-public struct Index<DocumentType: Document, ValueType: IndexableValue> {
-  public let storageInformation: StorageInformation<DocumentType, ValueType>
-  public let resolver: (DocumentType) -> ValueType?
-
+public class Index<DocumentType: Document, ValueType: IndexableValue>: AnyIndex<DocumentType> {
   /// Create an `Index`
   ///
   /// - Warning: Changing the name or ValueType of this `Index` will trigger a repopulation
@@ -23,8 +20,13 @@ public struct Index<DocumentType: Document, ValueType: IndexableValue> {
   ///   - name: Unique (within one document) unchangable identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, resolver: @escaping (DocumentType) -> ValueType?) {
-    self.storageInformation = StorageInformation(propertyName: .userDefined(name), isOptional: true, sourceKeyPath: nil)
-    self.resolver = resolver
+    let storageInformation = StorageInformation<DocumentType>(
+      propertyName: PropertyName.userDefined(name),
+      storageType: ValueType.storageType,
+      isOptional: true,
+      sourceKeyPath: nil
+    )
+    super.init(storageInformation: storageInformation, resolver: resolver)
   }
 
   /// Create an `Index` with a `KeyPath`
@@ -37,27 +39,23 @@ public struct Index<DocumentType: Document, ValueType: IndexableValue> {
   ///   - name: Unique (within one document) unchangable identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, keyPath: KeyPath<DocumentType, ValueType>) {
-    self.storageInformation = StorageInformation(propertyName: .userDefined(name), isOptional: true, sourceKeyPath: keyPath)
-    self.resolver = { document in document[keyPath: keyPath] }
+    let storageInformation = StorageInformation(
+      propertyName: .userDefined(name),
+      storageType: ValueType.storageType,
+      isOptional: true,
+      sourceKeyPath: keyPath
+    )
+    super.init(storageInformation: storageInformation) { document in document[keyPath: keyPath] }
   }
 }
 
 /// Type eraser for `Index` to make it possible to store them in for example an array.
-public struct AnyIndex<DocumentType: Document> {
-  let storageInformation: AnyStorageInformation<DocumentType>
+public class AnyIndex<DocumentType: Document> {
+  let storageInformation: StorageInformation<DocumentType>
   let resolver: (DocumentType) -> Any?
 
-  /// Type erase an `Index`.
-  ///
-  /// - Parameter index: The `Index` to type erase
-  /// - SeeAlso: `IndexArrayBuilder`
-  public init<ValueType>(from index: Index<DocumentType, ValueType>) {
-    self.storageInformation = AnyStorageInformation(from: index.storageInformation)
-    self.resolver = index.resolver
-  }
-
-  init<ValueType>(from identifier: Identifier<DocumentType, ValueType>) {
-    self.storageInformation = AnyStorageInformation(from: identifier.storageInformation)
-    self.resolver = identifier.resolver
+  init(storageInformation: StorageInformation<DocumentType>, resolver: @escaping (DocumentType) -> Any?) {
+    self.storageInformation = storageInformation
+    self.resolver = resolver
   }
 }

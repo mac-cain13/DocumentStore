@@ -39,12 +39,11 @@ class DocumentDescriptorTests: XCTestCase {
   func testDuplicateIndexIdentifiers() {
     let name = "TestDocument"
     let duplicateIndex = "DuplicateIndex"
-    let indices = IndexArrayBuilder()
-      .append(Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }))
-      .append(Index<TestDocument, Int>(name: "OtherIndex", resolver: { _ in 0 }))
-      .append(Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }))
-      .array
-    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, identifier: Identifier { _ in return UUID().uuidString }, indices: indices)).validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, identifier: Identifier { _ in return UUID().uuidString }, indices: [
+      Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }),
+      Index<TestDocument, Int>(name: "OtherIndex", resolver: { _ in 0 }),
+      Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" })
+    ])).validate()
 
     XCTAssertEqual(issues.count, 1)
     XCTAssertEqual(
@@ -54,8 +53,8 @@ class DocumentDescriptorTests: XCTestCase {
   }
 
   func testInvalidIndex() {
-    let invalidIndex = AnyIndex(from: Index<TestDocument, Bool>(name: "_", resolver: { _ in false }))
-    let indexIssues = UntypedAnyStorageInformation(from: invalidIndex.storageInformation).validate()
+    let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false })
+    let indexIssues = AnyStorageInformation(from: invalidIndex.storageInformation).validate()
 
     let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [invalidIndex])).validate()
 
@@ -65,16 +64,15 @@ class DocumentDescriptorTests: XCTestCase {
 
   func testMultipleIssues() {
     let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false })
-    let indexIssues = UntypedAnyStorageInformation(from: AnyIndex(from: invalidIndex).storageInformation).validate()
+    let indexIssues = AnyStorageInformation(from: invalidIndex.storageInformation).validate()
 
     let name = "_"
     let duplicateIndex = "DuplicateIndex"
-    let indices = IndexArrayBuilder()
-      .append(Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }))
-      .append(invalidIndex)
-      .append(Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" }))
-      .array
-    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, identifier: Identifier { _ in return UUID().uuidString }, indices: indices)).validate()
+    let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: name, identifier: Identifier { _ in return UUID().uuidString }, indices: [
+      Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }),
+      invalidIndex,
+      Index<TestDocument, String>(name: duplicateIndex, resolver: { _ in "" })
+    ])).validate()
 
     XCTAssertEqual(issues.count, 3)
     XCTAssertEqual(
@@ -97,7 +95,7 @@ class DocumentDescriptorTests: XCTestCase {
     let otherIdentifierDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "OtherTestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
     XCTAssertNotEqual(descriptor, otherIdentifierDescriptor)
 
-    let index = AnyIndex(from: Index<TestDocument, Bool>(name: "") { _ in false })
+    let index = Index<TestDocument, Bool>(name: "") { _ in false }
     let otherIndexDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index]))
     XCTAssertNotEqual(descriptor, otherIndexDescriptor)
   }
