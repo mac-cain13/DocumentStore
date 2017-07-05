@@ -30,20 +30,20 @@ class IndexTests: XCTestCase {
   }
 
   func testEquatable() {
-    let boolStorageInfo = StorageInformation<TestDocument, Bool>(propertyName: .userDefined("TestIndex"), isOptional: true, sourceKeyPath: nil)
-    let untypedBoolStorageInfo = AnyStorageInformation(from: StorageInformation(from: boolStorageInfo))
+    let boolStorageInfo = StorageInformation<TestDocument>(propertyName: .userDefined("TestIndex"), storageType: Bool.storageType, isOptional: true, sourceKeyPath: nil)
+    let untypedBoolStorageInfo = AnyStorageInformation(from: boolStorageInfo)
     XCTAssertEqual(untypedBoolStorageInfo, untypedBoolStorageInfo)
 
-    let stringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("TestIndex"), isOptional: true, sourceKeyPath: nil)
-    let untypedStringStorageInfo = AnyStorageInformation(from: StorageInformation(from: stringStorageInfo))
+    let stringStorageInfo = StorageInformation<TestDocument>(propertyName: .userDefined("TestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
+    let untypedStringStorageInfo = AnyStorageInformation(from: stringStorageInfo)
     XCTAssertNotEqual(untypedBoolStorageInfo, untypedStringStorageInfo)
 
-    let otherStringStorageInfo = StorageInformation<TestDocument, String>(propertyName: .userDefined("OtherTestIndex"), isOptional: true, sourceKeyPath: nil)
-    let untypedOtherStringStorageInfo = AnyStorageInformation(from: StorageInformation(from: otherStringStorageInfo))
+    let otherStringStorageInfo = StorageInformation<TestDocument>(propertyName: .userDefined("OtherTestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
+    let untypedOtherStringStorageInfo = AnyStorageInformation(from: otherStringStorageInfo)
     XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherStringStorageInfo)
 
-    let otherDocumentStorageInfo = StorageInformation<OtherTestDocument, String>(propertyName: .userDefined("TestIndex"), isOptional: true, sourceKeyPath: nil)
-    let untypedOtherDocumentStorageInfo = AnyStorageInformation(from: StorageInformation(from: otherDocumentStorageInfo))
+    let otherDocumentStorageInfo = StorageInformation<OtherTestDocument>(propertyName: .userDefined("TestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
+    let untypedOtherDocumentStorageInfo = AnyStorageInformation(from: otherDocumentStorageInfo)
     XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherDocumentStorageInfo)
   }
 }
