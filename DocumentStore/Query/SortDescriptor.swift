@@ -32,12 +32,12 @@ public struct SortDescriptor<DocumentType: Document> {
   ///   - index: `AnyIndex` to sort on
   ///   - order: `Order` used to sort the `AnyIndex`
   /// - Returns: The `SortDescriptor` representing the ascending sorting
-  public init(forIndex index: AnyIndex<DocumentType>, order: Order) {
+  public init(forIndex index: PartialIndex<DocumentType>, order: Order) {
     self.foundationSortDescriptor = NSSortDescriptor(key: index.storageInformation.propertyName.keyPath, ascending: order.isAscending)
   }
 }
 
-public extension AnyIndex {
+public extension PartialIndex {
   // MARK: Sorting
 
   /// `SortDescriptor` that orders on this `Index` ascending.

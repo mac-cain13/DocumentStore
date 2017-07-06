@@ -10,8 +10,8 @@ import Foundation
 
 /// Description of a `Document` that among other things identifies it.
 public class DocumentDescriptor<DocumentType: Document>: AnyDocumentDescriptor {
-  private let typedIdentifier: AnyIndex<DocumentType>
-  private let typedIndices: [AnyIndex<DocumentType>]
+  private let typedIdentifier: PartialIndex<DocumentType>
+  private let typedIndices: [PartialIndex<DocumentType>]
 
   /// Create a description of a `Document`
   ///
@@ -23,14 +23,14 @@ public class DocumentDescriptor<DocumentType: Document>: AnyDocumentDescriptor {
   ///   - name: Unique (within one store) unchangable name of the described `Document`
   ///   - identifier: Unique `Identifier` (for this type of `Document`), used to identify the document
   ///   - indices: List of all indices that should be created for the described `Document`
-  public init<IdentifierValueType>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
+  public init<IdentifierValueType>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [PartialIndex<DocumentType>]) {
     self.typedIdentifier = identifier.index
     self.typedIndices = indices
 
     super.init(name: name, identifier: identifier.index, indices: indices)
   }
 
-  func findIndex(basedOn keyPath: PartialKeyPath<DocumentType>) -> AnyIndex<DocumentType>? {
+  func findIndex(basedOn keyPath: PartialKeyPath<DocumentType>) -> PartialIndex<DocumentType>? {
     if typedIdentifier.storageInformation.sourceKeyPath == keyPath {
       return typedIdentifier
     }
@@ -42,10 +42,10 @@ public class DocumentDescriptor<DocumentType: Document>: AnyDocumentDescriptor {
 /// Type eraser for `DocumentDescriptor` to make it possible to store them in for example an array.
 public class AnyDocumentDescriptor: Validatable, Equatable {
   let name: String
-  let identifier: TotallyAnyIndex
-  let indices: [TotallyAnyIndex]
+  let identifier: AnyIndex
+  let indices: [AnyIndex]
 
-  init(name: String, identifier: TotallyAnyIndex, indices: [TotallyAnyIndex]) {
+  init(name: String, identifier: AnyIndex, indices: [AnyIndex]) {
     self.name = name
     self.identifier = identifier
     self.indices = indices

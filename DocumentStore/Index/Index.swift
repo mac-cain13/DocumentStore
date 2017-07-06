@@ -9,7 +9,7 @@
 import Foundation
 
 /// Index for a `Document` used in a `Query` to filter and order `Document`s in an efficient way.
-public class Index<DocumentType: Document, ValueType: IndexableValue>: AnyIndex<DocumentType> {
+public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIndex<DocumentType> {
   /// Create an `Index`
   ///
   /// - Warning: Changing the name or ValueType of this `Index` will trigger a repopulation
@@ -68,9 +68,9 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: AnyIndex<
 }
 
 /// Type eraser for `Index` to make it possible to store them in for example an array.
-public class AnyIndex<DocumentType: Document>: TotallyAnyIndex {}
+public class PartialIndex<DocumentType: Document>: AnyIndex {}
 
-public class TotallyAnyIndex {
+public class AnyIndex {
   let storageInformation: AnyStorageInformation
   let resolver: (Any) -> Any?
 

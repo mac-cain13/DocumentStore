@@ -12,7 +12,7 @@ import Foundation
 public struct Expression<DocumentType: Document, ValueType: IndexableValue> {
   let foundationExpression: NSExpression
 
-  init(forIndex index: AnyIndex<DocumentType>) {
+  init(forIndex index: PartialIndex<DocumentType>) {
     foundationExpression = NSExpression(forKeyPath: index.storageInformation.propertyName.keyPath)
   }
 
