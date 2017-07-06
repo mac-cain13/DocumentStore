@@ -20,12 +20,17 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: AnyIndex<
   ///   - name: Unique (within one document) unchangable identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, resolver: @escaping (DocumentType) -> ValueType?) {
-    let storageInformation = StorageInformation<DocumentType>(
+    let storageInformation = AnyStorageInformation(
+      documentName: DocumentType.documentDescriptor.name,
       propertyName: PropertyName.userDefined(name),
       storageType: ValueType.storageType,
       isOptional: true,
       sourceKeyPath: nil
     )
+    let resolver: (Any) -> Any? = {
+      guard let document = $0 as? DocumentType else { fatalError("Index resolver type violation.") }
+      return resolver(document)
+    }
     super.init(storageInformation: storageInformation, resolver: resolver)
   }
 
@@ -39,22 +44,37 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: AnyIndex<
   ///   - name: Unique (within one document) unchangable identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, keyPath: KeyPath<DocumentType, ValueType>) {
-    let storageInformation = StorageInformation(
+    let storageInformation = AnyStorageInformation(
+      documentName: DocumentType.documentDescriptor.name,
       propertyName: .userDefined(name),
       storageType: ValueType.storageType,
       isOptional: true,
       sourceKeyPath: keyPath
     )
-    super.init(storageInformation: storageInformation) { document in document[keyPath: keyPath] }
+    let resolver: (Any) -> Any? = {
+      guard let document = $0 as? DocumentType else { fatalError("Index resolver type violation.") }
+      return document[keyPath: keyPath]
+    }
+    super.init(storageInformation: storageInformation, resolver: resolver)
+  }
+
+  init(storageInformation: AnyStorageInformation, resolver: @escaping (DocumentType) -> ValueType?) {
+    let resolver: (Any) -> Any? = {
+      guard let document = $0 as? DocumentType else { fatalError("Index resolver type violation.") }
+      return resolver(document)
+    }
+    super.init(storageInformation: storageInformation, resolver: resolver)
   }
 }
 
 /// Type eraser for `Index` to make it possible to store them in for example an array.
-public class AnyIndex<DocumentType: Document> {
-  let storageInformation: StorageInformation<DocumentType>
-  let resolver: (DocumentType) -> Any?
+public class AnyIndex<DocumentType: Document>: TotallyAnyIndex {}
 
-  init(storageInformation: StorageInformation<DocumentType>, resolver: @escaping (DocumentType) -> Any?) {
+public class TotallyAnyIndex {
+  let storageInformation: AnyStorageInformation
+  let resolver: (Any) -> Any?
+
+  init(storageInformation: AnyStorageInformation, resolver: @escaping (Any) -> Any?) {
     self.storageInformation = storageInformation
     self.resolver = resolver
   }

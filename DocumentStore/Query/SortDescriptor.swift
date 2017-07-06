@@ -33,11 +33,7 @@ public struct SortDescriptor<DocumentType: Document> {
   ///   - order: `Order` used to sort the `AnyIndex`
   /// - Returns: The `SortDescriptor` representing the ascending sorting
   public init(forIndex index: AnyIndex<DocumentType>, order: Order) {
-    self.init(forStorageInformation: index.storageInformation, order: order)
-  }
-
-  init(forStorageInformation storageInformation: StorageInformation<DocumentType>, order: Order) {
-    self.foundationSortDescriptor = NSSortDescriptor(key: storageInformation.propertyName.keyPath, ascending: order.isAscending)
+    self.foundationSortDescriptor = NSSortDescriptor(key: index.storageInformation.propertyName.keyPath, ascending: order.isAscending)
   }
 }
 
@@ -50,7 +46,7 @@ public extension AnyIndex {
   ///
   /// - Returns: The `SortDescriptor` representing the ascending sorting
   public func ascending() -> SortDescriptor<DocumentType> {
-    return SortDescriptor(forStorageInformation: storageInformation, order: .ascending)
+    return SortDescriptor(forIndex: self, order: .ascending)
   }
 
   /// `SortDescriptor` that orders on this `Index` descending.
@@ -59,6 +55,24 @@ public extension AnyIndex {
   ///
   /// - Returns: The `SortDescriptor` representing the descending sorting
   public func descending() -> SortDescriptor<DocumentType> {
-    return SortDescriptor(forStorageInformation: storageInformation, order: .descending)
+    return SortDescriptor(forIndex: self, order: .descending)
+  }
+}
+
+public extension KeyPath where Root: Document, Value: IndexableValue {
+  public func ascending() -> SortDescriptor<Root> {
+    guard let index = Root.documentDescriptor.findIndex(basedOn: self) else {
+      fatalError("Using an unindexed KeyPath as a sort descriptor is not supported.")
+    }
+
+    return index.ascending()
+  }
+
+  public func descending() -> SortDescriptor<Root> {
+    guard let index = Root.documentDescriptor.findIndex(basedOn: self) else {
+      fatalError("Using an unindexed KeyPath as a sort descriptor is not supported.")
+    }
+
+    return index.descending()
   }
 }

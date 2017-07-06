@@ -51,27 +51,12 @@ enum PropertyName: Equatable, Validatable {
   }
 }
 
-struct StorageInformation<DocumentType: Document> {
-  let propertyName: PropertyName
-  let storageType: StorageType
-  let isOptional: Bool
-  let sourceKeyPath: PartialKeyPath<DocumentType>?
-}
-
 struct AnyStorageInformation: Equatable, Validatable {
   let documentName: String
   let propertyName: PropertyName
   let storageType: StorageType
   let isOptional: Bool
   let sourceKeyPath: AnyKeyPath?
-
-  init<DocumentType>(from storageInformation: StorageInformation<DocumentType>) {
-    self.documentName = DocumentType.documentDescriptor.name
-    self.propertyName = storageInformation.propertyName
-    self.storageType = storageInformation.storageType
-    self.isOptional = storageInformation.isOptional
-    self.sourceKeyPath = storageInformation.sourceKeyPath
-  }
 
   func validate() -> [ValidationIssue] {
     return propertyName.validate()

@@ -98,6 +98,7 @@ class DocumentStoreTestsOld: XCTestCase {
         try transaction.fetch(matching:
           Query<Developer>()
             .filtered { _ in \.age > 18 }
+            .sorted { _ in (\Developer.age).ascending() }
         )
       }
 

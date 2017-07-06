@@ -14,7 +14,7 @@ private extension KeyPath where Root: Document, Value: IndexableValue {
       fatalError("Using an unindexed KeyPath as an expression is not supported.")
     }
 
-    return Expression<Root, Value>(forStorageInformation: index.storageInformation)
+    return Expression<Root, Value>(forIndex: index)
   }
 }
 

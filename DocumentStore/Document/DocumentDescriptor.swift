@@ -9,10 +9,9 @@
 import Foundation
 
 /// Description of a `Document` that among other things identifies it.
-public struct DocumentDescriptor<DocumentType: Document> {
-  let name: String
-  let identifier: AnyIndex<DocumentType>
-  let indices: [AnyIndex<DocumentType>]
+public class DocumentDescriptor<DocumentType: Document>: AnyDocumentDescriptor {
+  private let typedIdentifier: AnyIndex<DocumentType>
+  private let typedIndices: [AnyIndex<DocumentType>]
 
   /// Create a description of a `Document`
   ///
@@ -25,34 +24,31 @@ public struct DocumentDescriptor<DocumentType: Document> {
   ///   - identifier: Unique `Identifier` (for this type of `Document`), used to identify the document
   ///   - indices: List of all indices that should be created for the described `Document`
   public init<IdentifierValueType>(name: String, identifier: Identifier<DocumentType, IdentifierValueType>, indices: [AnyIndex<DocumentType>]) {
-    self.name = name
-    self.identifier = identifier.index
-    self.indices = indices
+    self.typedIdentifier = identifier.index
+    self.typedIndices = indices
+
+    super.init(name: name, identifier: identifier.index, indices: indices)
   }
 
   func findIndex(basedOn keyPath: PartialKeyPath<DocumentType>) -> AnyIndex<DocumentType>? {
-    if identifier.storageInformation.sourceKeyPath == keyPath {
-      return identifier
+    if typedIdentifier.storageInformation.sourceKeyPath == keyPath {
+      return typedIdentifier
     }
 
-    return indices.first { index in index.storageInformation.sourceKeyPath == keyPath }
+    return typedIndices.first { index in index.storageInformation.sourceKeyPath == keyPath }
   }
 }
 
 /// Type eraser for `DocumentDescriptor` to make it possible to store them in for example an array.
-public struct AnyDocumentDescriptor: Validatable, Equatable {
+public class AnyDocumentDescriptor: Validatable, Equatable {
   let name: String
-  let identifier: AnyStorageInformation
-  let indices: [AnyStorageInformation]
+  let identifier: TotallyAnyIndex
+  let indices: [TotallyAnyIndex]
 
-  /// Type erase a `DocumentDescriptor`.
-  ///
-  /// - Parameter descriptor: The `DocumentDescriptor` to type erase
-  /// - SeeAlso: `DocumentDescriptorArrayBuilder`
-  public init<DocumentType>(from descriptor: DocumentDescriptor<DocumentType>) {
-    self.name = descriptor.name
-    self.identifier = AnyStorageInformation(from: descriptor.identifier.storageInformation)
-    self.indices = descriptor.indices.map { AnyStorageInformation(from: $0.storageInformation) }
+  init(name: String, identifier: TotallyAnyIndex, indices: [TotallyAnyIndex]) {
+    self.name = name
+    self.identifier = identifier
+    self.indices = indices
   }
 
   func validate() -> [ValidationIssue] {
@@ -70,23 +66,25 @@ public struct AnyDocumentDescriptor: Validatable, Equatable {
 
     // Two indices may not have the same identifier
     issues += indices
-      .map { $0.propertyName.keyPath }
+      .map { $0.storageInformation.propertyName.keyPath }
       .duplicates()
       .map { "DocumentDescriptor `\(name)` has multiple indices with `\($0)` as name, every index name must be unique." }
 
     // Two indices may not use the same `KeyPath` (or else querying will break)
     issues += ([identifier] + indices)
-      .flatMap { $0.sourceKeyPath }
+      .flatMap { $0.storageInformation.sourceKeyPath }
       .duplicates()
       .map { "DocumentDescriptor `\(name)` has multiple indices using \($0) as the source key path, every index including the identifier must use a unique key path." }
 
     // Indices also should be valid
-    issues += indices.flatMap { $0.validate() }
+    issues += indices.flatMap { $0.storageInformation.validate() }
 
     return issues
   }
 
   public static func == (lhs: AnyDocumentDescriptor, rhs: AnyDocumentDescriptor) -> Bool {
-    return lhs.name == rhs.name && lhs.indices == rhs.indices
+    let lhsStorageInformation = lhs.indices.map { $0.storageInformation }
+    let rhsStorageInformation = rhs.indices.map { $0.storageInformation }
+    return lhs.name == rhs.name && lhsStorageInformation == rhsStorageInformation
   }
 }

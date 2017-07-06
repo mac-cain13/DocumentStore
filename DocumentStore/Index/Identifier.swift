@@ -10,7 +10,7 @@ import Foundation
 
 /// Describes a unique `Identifier` for a `Document`, think of it as the primary key of the document.
 public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
-  let index: AnyIndex<DocumentType>
+  let index: Index<DocumentType, ValueType>
 
   /// Intialize an `Identifier`
   ///
@@ -19,13 +19,14 @@ public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
   ///
   /// - Parameter resolver: Given a `Document` the resolver should return the unique identifier
   public init(resolver: @escaping (DocumentType) -> ValueType) {
-    let storageInformation = StorageInformation<DocumentType>(
+    let storageInformation = AnyStorageInformation(
+      documentName: DocumentType.documentDescriptor.name,
       propertyName: .libraryDefined(DocumentIdentifierAttributeName),
       storageType: ValueType.storageType,
       isOptional: false,
       sourceKeyPath: nil
     )
-    self.index = AnyIndex(storageInformation: storageInformation, resolver: resolver)
+    self.index = Index(storageInformation: storageInformation, resolver: resolver)
   }
 
   /// Intialize an `Identifier` with a `KeyPath`
@@ -35,12 +36,13 @@ public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
   ///
   /// - Parameter keyPath: Given a `Document` the key path should return the unique identifier
   public init(keyPath: KeyPath<DocumentType, ValueType>) {
-    let storageInformation = StorageInformation<DocumentType>(
+    let storageInformation = AnyStorageInformation(
+      documentName: DocumentType.documentDescriptor.name,
       propertyName: .libraryDefined(DocumentIdentifierAttributeName),
       storageType: ValueType.storageType,
       isOptional: false,
       sourceKeyPath: keyPath
     )
-    self.index = AnyIndex(storageInformation: storageInformation) { document in document[keyPath: keyPath] }
+    self.index = Index(storageInformation: storageInformation) { document in document[keyPath: keyPath] }
   }
 }

@@ -44,13 +44,13 @@ final class ManagedObjectModelServiceImpl: ManagedObjectModelService {
       .map { documentDescriptor in
         logger.log(level: .trace, message: "Creating entity `\(documentDescriptor.name)`...")
 
-        logger.log(level: .trace, message: "  Creating attribute `\(documentDescriptor.identifier.propertyName.keyPath)` of type \(documentDescriptor.identifier.storageType)...")
-        let identifierAttribute = NSAttributeDescription(from: documentDescriptor.identifier)
+        logger.log(level: .trace, message: "  Creating attribute `\(documentDescriptor.identifier.storageInformation.propertyName.keyPath)` of type \(documentDescriptor.identifier.storageInformation.storageType)...")
+        let identifierAttribute = NSAttributeDescription(from: documentDescriptor.identifier.storageInformation)
 
         let indexAttributes = documentDescriptor.indices
-          .map { storageInformation -> NSAttributeDescription in
-            logger.log(level: .trace, message: "  Creating attribute `\(storageInformation.propertyName.keyPath)` of type \(storageInformation.storageType)...")
-            return NSAttributeDescription(from: storageInformation)
+          .map { index -> NSAttributeDescription in
+            logger.log(level: .trace, message: "  Creating attribute `\(index.storageInformation.propertyName.keyPath)` of type \(index.storageInformation.storageType)...")
+            return NSAttributeDescription(from: index.storageInformation)
         }
 
         let entity = NSEntityDescription()

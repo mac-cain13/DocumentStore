@@ -12,11 +12,19 @@ import Foundation
 public struct Expression<DocumentType: Document, ValueType: IndexableValue> {
   let foundationExpression: NSExpression
 
-  init(forStorageInformation storageInformation: StorageInformation<DocumentType>) {
-    foundationExpression = NSExpression(forKeyPath: storageInformation.propertyName.keyPath)
+  init(forIndex index: AnyIndex<DocumentType>) {
+    foundationExpression = NSExpression(forKeyPath: index.storageInformation.propertyName.keyPath)
   }
 
-  // TODO: Add public inits for Index, Identifier and KeyPath
+  // FIXME: Add Swiftdoc
+  public init(forIndex index: Index<DocumentType, ValueType>) {
+    foundationExpression = NSExpression(forKeyPath: index.storageInformation.propertyName.keyPath)
+  }
+
+  // FIXME: Add Swiftdoc
+  public init(forIdentifier identifier: Identifier<DocumentType, ValueType>) {
+    self.init(forIndex: identifier.index)
+  }
 
   /// Create an `Expression` for a constant value.
   ///

@@ -18,13 +18,13 @@ public protocol Expressable {
 
 extension Index: Expressable {
   public var expression: Expression<DocumentType, ValueType> {
-    return Expression(forStorageInformation: storageInformation)
+    return Expression(forIndex: self)
   }
 }
 
 extension Identifier: Expressable {
   public var expression: Expression<DocumentType, ValueType> {
-    return Expression(forStorageInformation: index.storageInformation)
+    return Expression(forIdentifier: self)
   }
 }
 

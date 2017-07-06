@@ -11,17 +11,17 @@ import CoreData
 
 class CoreDataTransaction: ReadWritableTransaction {
   private let context: NSManagedObjectContext
-  private let documentDescriptors: ValidatedDocumentDescriptors
+  private let validatedDocumentDescriptors: ValidatedDocumentDescriptors
   private let logger: Logger
 
   init(context: NSManagedObjectContext, documentDescriptors: ValidatedDocumentDescriptors, logTo logger: Logger) {
     self.context = context
-    self.documentDescriptors = documentDescriptors
+    self.validatedDocumentDescriptors = documentDescriptors
     self.logger = logger
   }
 
   private func validateUseOfDocumentType<DocumentType: Document>(_: DocumentType.Type) throws {
-    guard documentDescriptors.documentDescriptors.contains(AnyDocumentDescriptor(from: DocumentType.documentDescriptor)) else {
+    guard validatedDocumentDescriptors.documentDescriptors.contains(DocumentType.documentDescriptor) else {
       let error = DocumentStoreError(
         kind: .documentDescriptionNotRegistered,
         message: "The document description with identifier '\(DocumentType.documentDescriptor.name)' is not registered with the DocumentStore this transaction is associated with, please pass all DocumentDescriptions that are used to the DocumentStore initializer.",
