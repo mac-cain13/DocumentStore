@@ -28,6 +28,16 @@ extension Identifier: Expressable {
   }
 }
 
+extension KeyPath where Root: Document, Value: IndexableValue {
+  var expressionOrFatalError: Expression<Root, Value> {
+    guard let index = Root.documentDescriptor.findIndex(basedOn: self) else {
+      fatalError("Using an unindexed KeyPath as an expression is not supported.")
+    }
+
+    return Expression<Root, Value>(forIndex: index)
+  }
+}
+
 // MARK: Compare `Expressable`s to each other
 
 /// Equal operator.

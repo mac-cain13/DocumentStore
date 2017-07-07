@@ -16,12 +16,20 @@ public struct Expression<DocumentType: Document, ValueType: IndexableValue> {
     foundationExpression = NSExpression(forKeyPath: index.storageInformation.propertyName.keyPath)
   }
 
-  // FIXME: Add Swiftdoc
+  /// `Expression` that expresses the `Index` to use in a `Predicate`.
+  ///
+  /// - Parameters:
+  ///   - index: `Index` to express
+  /// - Returns: An `Expression` representing the given index
   public init(forIndex index: Index<DocumentType, ValueType>) {
     foundationExpression = NSExpression(forKeyPath: index.storageInformation.propertyName.keyPath)
   }
 
-  // FIXME: Add Swiftdoc
+  /// `Expression` that expresses the `Identifier` to use in a `Predicate`.
+  ///
+  /// - Parameters:
+  ///   - identifier: `Identifier` to express
+  /// - Returns: An `Expression` representing the given identifier
   public init(forIdentifier identifier: Identifier<DocumentType, ValueType>) {
     self.init(forIndex: identifier.index)
   }

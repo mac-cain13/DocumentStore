@@ -58,7 +58,7 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIn
     super.init(storageInformation: storageInformation, resolver: resolver)
   }
 
-  init(name: PropertyName, optional: Bool, resolver: @escaping (DocumentType) -> ValueType?) {
+  init(storageInformation: StorageInformation, resolver: @escaping (DocumentType) -> ValueType?) {
     let resolver: (Any) -> Any? = {
       guard let document = $0 as? DocumentType else { fatalError("Index resolver type violation.") }
       return resolver(document)
