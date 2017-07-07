@@ -20,7 +20,7 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIn
   ///   - name: Unique (within one document) unchangable identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, resolver: @escaping (DocumentType) -> ValueType?) {
-    let storageInformation = AnyStorageInformation(
+    let storageInformation = StorageInformation(
       documentName: DocumentType.documentDescriptor.name,
       propertyName: PropertyName.userDefined(name),
       storageType: ValueType.storageType,
@@ -44,7 +44,7 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIn
   ///   - name: Unique (within one document) unchangable identifier
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, keyPath: KeyPath<DocumentType, ValueType>) {
-    let storageInformation = AnyStorageInformation(
+    let storageInformation = StorageInformation(
       documentName: DocumentType.documentDescriptor.name,
       propertyName: .userDefined(name),
       storageType: ValueType.storageType,
@@ -58,7 +58,7 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIn
     super.init(storageInformation: storageInformation, resolver: resolver)
   }
 
-  init(storageInformation: AnyStorageInformation, resolver: @escaping (DocumentType) -> ValueType?) {
+  init(name: PropertyName, optional: Bool, resolver: @escaping (DocumentType) -> ValueType?) {
     let resolver: (Any) -> Any? = {
       guard let document = $0 as? DocumentType else { fatalError("Index resolver type violation.") }
       return resolver(document)
@@ -71,10 +71,10 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIn
 public class PartialIndex<DocumentType: Document>: AnyIndex {}
 
 public class AnyIndex {
-  let storageInformation: AnyStorageInformation
+  let storageInformation: StorageInformation
   let resolver: (Any) -> Any?
 
-  init(storageInformation: AnyStorageInformation, resolver: @escaping (Any) -> Any?) {
+  init(storageInformation: StorageInformation, resolver: @escaping (Any) -> Any?) {
     self.storageInformation = storageInformation
     self.resolver = resolver
   }

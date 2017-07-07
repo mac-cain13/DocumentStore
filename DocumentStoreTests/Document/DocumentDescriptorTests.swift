@@ -54,7 +54,7 @@ class DocumentDescriptorTests: XCTestCase {
 
   func testInvalidIndex() {
     let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false })
-    let indexIssues = AnyStorageInformation(from: invalidIndex.storageInformation).validate()
+    let indexIssues = StorageInformation(from: invalidIndex.storageInformation).validate()
 
     let issues = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [invalidIndex])).validate()
 
@@ -64,7 +64,7 @@ class DocumentDescriptorTests: XCTestCase {
 
   func testMultipleIssues() {
     let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false })
-    let indexIssues = AnyStorageInformation(from: invalidIndex.storageInformation).validate()
+    let indexIssues = StorageInformation(from: invalidIndex.storageInformation).validate()
 
     let name = "_"
     let duplicateIndex = "DuplicateIndex"

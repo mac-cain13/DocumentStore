@@ -19,7 +19,7 @@ public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
   ///
   /// - Parameter resolver: Given a `Document` the resolver should return the unique identifier
   public init(resolver: @escaping (DocumentType) -> ValueType) {
-    let storageInformation = AnyStorageInformation(
+    let storageInformation = StorageInformation(
       documentName: DocumentType.documentDescriptor.name,
       propertyName: .libraryDefined(DocumentIdentifierAttributeName),
       storageType: ValueType.storageType,
@@ -36,7 +36,7 @@ public struct Identifier<DocumentType: Document, ValueType: IndexableValue> {
   ///
   /// - Parameter keyPath: Given a `Document` the key path should return the unique identifier
   public init(keyPath: KeyPath<DocumentType, ValueType>) {
-    let storageInformation = AnyStorageInformation(
+    let storageInformation = StorageInformation(
       documentName: DocumentType.documentDescriptor.name,
       propertyName: .libraryDefined(DocumentIdentifierAttributeName),
       storageType: ValueType.storageType,

@@ -50,23 +50,3 @@ enum PropertyName: Equatable, Validatable {
     }
   }
 }
-
-struct AnyStorageInformation: Equatable, Validatable {
-  let documentName: String
-  let propertyName: PropertyName
-  let storageType: StorageType
-  let isOptional: Bool
-  let sourceKeyPath: AnyKeyPath?
-
-  func validate() -> [ValidationIssue] {
-    return propertyName.validate()
-  }
-
-  static func == (lhs: AnyStorageInformation, rhs: AnyStorageInformation) -> Bool {
-    return lhs.documentName == rhs.documentName &&
-      lhs.propertyName == rhs.propertyName &&
-      lhs.storageType == rhs.storageType &&
-      lhs.isOptional == rhs.isOptional &&
-      lhs.sourceKeyPath == rhs.sourceKeyPath
-  }
-}
