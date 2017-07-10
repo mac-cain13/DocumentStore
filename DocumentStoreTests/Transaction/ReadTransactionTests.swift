@@ -43,18 +43,10 @@ class ReadTransactionTests: XCTestCase {
   }
 }
 
-private struct TestDocument: Document {
+private struct TestDocument: Codable, Document {
   static let documentDescriptor = DocumentDescriptor<TestDocument>(
     name: "",
     identifier: Identifier { _ in return UUID().uuidString },
     indices: []
   )
-
-  func serializeDocument() throws -> Data {
-    return Data()
-  }
-
-  static func deserializeDocument(from data: Data) throws -> TestDocument {
-    return TestDocument()
-  }
 }

@@ -93,14 +93,14 @@ class DocumentStoreTestsOld: XCTestCase {
 //        .limited(upTo: 1)
 //        .delete()
 //
-      let documentStore: DocumentStore! = nil
-      documentStore!.read(handler: { developers in print(developers) }) { transaction in
-        try transaction.fetch(matching:
-          Query<Developer>()
-            .filtered { _ in \.age > 18 }
-            .sorted { _ in (\Developer.age).ascending() }
-        )
-      }
+//      let documentStore: DocumentStore! = nil
+//      documentStore!.read(handler: { developers in print(developers) }) { transaction in
+//        try transaction.fetch(matching:
+//          Query<Developer>()
+//            .filtered { _ in \.age > 18 }
+//            .sorted { _ in (\Developer.age).ascending() }
+//        )
+//      }
 
 //      documentStore!.read {
 //        try $0.fetchFirst(

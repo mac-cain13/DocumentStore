@@ -21,7 +21,7 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIn
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, resolver: @escaping (DocumentType) -> ValueType?) {
     let storageInformation = StorageInformation(
-      documentName: DocumentType.documentDescriptor.name,
+      documentNameResolver: { DocumentType.documentDescriptor.name },
       propertyName: PropertyName.userDefined(name),
       storageType: ValueType.storageType,
       isOptional: true,
@@ -45,7 +45,7 @@ public class Index<DocumentType: Document, ValueType: IndexableValue>: PartialIn
   ///   - resolver: Resolver to get the value for this `Index` from a `Document` instance
   public init(name: String, keyPath: KeyPath<DocumentType, ValueType>) {
     let storageInformation = StorageInformation(
-      documentName: DocumentType.documentDescriptor.name,
+      documentNameResolver: { DocumentType.documentDescriptor.name },
       propertyName: .userDefined(name),
       storageType: ValueType.storageType,
       isOptional: true,

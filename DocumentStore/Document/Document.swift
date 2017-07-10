@@ -12,4 +12,17 @@ import Foundation
 public protocol Document: Codable {
   /// Description that indentifies the document and determens how it should be indexed.
   static var documentDescriptor: DocumentDescriptor<Self> { get }
+
+  static func encode(_ document: Self) throws -> Data
+  static func decode(from data: Data) throws -> Self
+}
+
+public extension Document {
+  static func encode(_ document: Self) throws -> Data {
+    return try JSONEncoder().encode(document)
+  }
+
+  static func decode(from data: Data) throws -> Self {
+    return try JSONDecoder().decode(Self.self, from: data)
+  }
 }

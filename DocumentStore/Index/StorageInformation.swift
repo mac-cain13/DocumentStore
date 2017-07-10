@@ -9,11 +9,15 @@
 import Foundation
 
 struct StorageInformation: Equatable, Validatable {
-  let documentName: String
+  let documentNameResolver: () -> String
   let propertyName: PropertyName
   let storageType: StorageType
   let isOptional: Bool
   let sourceKeyPath: AnyKeyPath?
+
+  var documentName: String {
+    return documentNameResolver()
+  }
 
   func validate() -> [ValidationIssue] {
     return propertyName.validate()

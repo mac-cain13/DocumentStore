@@ -14,37 +14,39 @@ class IndexTests: XCTestCase {
   // TODO: Should move to storageInformation tests
   func testValid() {
     let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false })
-    XCTAssertTrue(StorageInformation(from: index.storageInformation).validate().isEmpty)
+    XCTAssertTrue(index.storageInformation.validate().isEmpty)
   }
 
   func testEmptyIdentifier() {
     let index = Index<TestDocument, Bool>(name: "", resolver: { _ in false })
-    XCTAssertEqual(StorageInformation(from: index.storageInformation).validate(), ["Name may not be empty."])
+    XCTAssertEqual(index.storageInformation.validate(), ["Name may not be empty."])
   }
 
   func testUnderscoreIdentifier() {
     for identifier in ["_", "_Index"] {
       let index = Index<TestDocument, Bool>(name: identifier, resolver: { _ in false })
-      XCTAssertEqual(StorageInformation(from: index.storageInformation).validate(), ["`\(identifier)` is an invalid name, names may not start with an `_`."])
+      XCTAssertEqual(index.storageInformation.validate(), ["`\(identifier)` is an invalid name, names may not start with an `_`."])
     }
   }
 
   func testEquatable() {
-    let boolStorageInfo = StorageInformation<TestDocument>(propertyName: .userDefined("TestIndex"), storageType: Bool.storageType, isOptional: true, sourceKeyPath: nil)
-    let untypedBoolStorageInfo = StorageInformation(from: boolStorageInfo)
-    XCTAssertEqual(untypedBoolStorageInfo, untypedBoolStorageInfo)
+    let boolStorageInfo = StorageInformation(documentNameResolver: { TestDocument.documentDescriptor.name }, propertyName: .userDefined("TestIndex"), storageType: Bool.storageType, isOptional: true, sourceKeyPath: nil)
+    XCTAssertEqual(boolStorageInfo, boolStorageInfo)
 
-    let stringStorageInfo = StorageInformation<TestDocument>(propertyName: .userDefined("TestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
-    let untypedStringStorageInfo = StorageInformation(from: stringStorageInfo)
-    XCTAssertNotEqual(untypedBoolStorageInfo, untypedStringStorageInfo)
+    let stringStorageInfo = StorageInformation(documentNameResolver: { TestDocument.documentDescriptor.name }, propertyName: .userDefined("TestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
+    XCTAssertEqual(stringStorageInfo, stringStorageInfo)
+    XCTAssertNotEqual(stringStorageInfo, boolStorageInfo)
 
-    let otherStringStorageInfo = StorageInformation<TestDocument>(propertyName: .userDefined("OtherTestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
-    let untypedOtherStringStorageInfo = StorageInformation(from: otherStringStorageInfo)
-    XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherStringStorageInfo)
+    let otherStringStorageInfo = StorageInformation(documentNameResolver: { TestDocument.documentDescriptor.name }, propertyName: .userDefined("OtherTestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
+    XCTAssertEqual(otherStringStorageInfo, otherStringStorageInfo)
+    XCTAssertNotEqual(otherStringStorageInfo, boolStorageInfo)
+    XCTAssertNotEqual(otherStringStorageInfo, stringStorageInfo)
 
-    let otherDocumentStorageInfo = StorageInformation<OtherTestDocument>(propertyName: .userDefined("TestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
-    let untypedOtherDocumentStorageInfo = StorageInformation(from: otherDocumentStorageInfo)
-    XCTAssertNotEqual(untypedStringStorageInfo, untypedOtherDocumentStorageInfo)
+    let otherDocumentStorageInfo = StorageInformation(documentNameResolver: { OtherTestDocument.documentDescriptor.name }, propertyName: .userDefined("TestIndex"), storageType: String.storageType, isOptional: true, sourceKeyPath: nil)
+    XCTAssertEqual(otherDocumentStorageInfo, otherDocumentStorageInfo)
+    XCTAssertNotEqual(otherDocumentStorageInfo, boolStorageInfo)
+    XCTAssertNotEqual(otherDocumentStorageInfo, stringStorageInfo)
+    XCTAssertNotEqual(otherDocumentStorageInfo, otherStringStorageInfo)
   }
 }
 

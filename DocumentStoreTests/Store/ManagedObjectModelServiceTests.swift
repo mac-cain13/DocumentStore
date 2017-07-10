@@ -28,7 +28,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
 
   func testValidateValid() {
     do {
-      let descriptors = [AnyDocumentDescriptor(from: TestDocument.documentDescriptor)]
+      let descriptors = [TestDocument.documentDescriptor]
       let validated = try managedObjectModelService.validate(descriptors, logTo: NoLogger())
       XCTAssertEqual(validated.documentDescriptors, descriptors)
     } catch {
@@ -37,7 +37,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateBubblesDescriptorErrors() {
-    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
+    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
@@ -57,10 +57,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
     let issues = ["Multiple DocumentDescriptors have `\(TestDocument.documentDescriptor.name)` as name, every document descriptor must have an unique name."]
 
     do {
-      let descriptors = DocumentDescriptorArrayBuilder()
-        .append(TestDocument.documentDescriptor)
-        .append(TestDocument.documentDescriptor)
-        .array
+      let descriptors = [TestDocument.documentDescriptor, TestDocument.documentDescriptor]
       let validated = try managedObjectModelService.validate(descriptors, logTo: NoLogger())
       XCTAssertEqual(validated.documentDescriptors, descriptors)
     } catch let error as DocumentStoreError {
@@ -73,7 +70,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateLogging() {
-    let invalidDescriptor = AnyDocumentDescriptor(from: DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: []))
+    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
@@ -100,7 +97,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testModelDocumentDataProperty() {
-    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: TestDocument.documentDescriptor)])
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [TestDocument.documentDescriptor])
     let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
     XCTAssertEqual(model.entities.count, 1)
 
@@ -121,7 +118,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
     let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false })
     let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index])
 
-    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [documentDescriptor])
     let model = managedObjectModelService.generateModel(from: descriptors, logTo: NoLogger())
     XCTAssertEqual(model.entities.count, 1)
 
@@ -144,7 +141,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
     let index = Index<TestDocument, Bool>(name: "TestIndex", resolver: { _ in false })
     let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [index])
 
-    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [AnyDocumentDescriptor(from: documentDescriptor)])
+    let descriptors = ValidatedDocumentDescriptors(documentDescriptors: [documentDescriptor])
     let logger = MockLogger()
     _ = managedObjectModelService.generateModel(from: descriptors, logTo: logger)
 
