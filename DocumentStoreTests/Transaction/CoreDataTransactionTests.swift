@@ -424,15 +424,15 @@ private struct TestDocument: Document {
   static var deserializationResult = DeserializationResult.succeeds
   var serializationSucceeds = true
 
-  func serializeDocument() throws -> Data {
-    if serializationSucceeds {
+  static func encode(_ document: TestDocument) throws -> Data {
+    if document.serializationSucceeds {
       return TestDocument.data
     } else {
       throw TestDocument.error
     }
   }
 
-  static func deserializeDocument(from data: Data) throws -> TestDocument {
+  static func decode(from data: Data) throws -> TestDocument {
     switch deserializationResult {
     case .succeeds:
       return TestDocument()
