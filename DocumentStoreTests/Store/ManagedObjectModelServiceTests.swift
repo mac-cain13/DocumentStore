@@ -160,7 +160,7 @@ private func errorMessage(with issues: [ValidationIssue]) -> String {
   return "One or more document descriptors are invalid:\n - " + issues.joined(separator: "\n - ")
 }
 
-private struct TestDocument: Document {
+private struct TestDocument: Document, Codable {
   static var documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {

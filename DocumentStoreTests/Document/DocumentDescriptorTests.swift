@@ -101,7 +101,7 @@ class DocumentDescriptorTests: XCTestCase {
   }
 }
 
-private struct TestDocument: Document {
+private struct TestDocument: Document, Codable {
   static var documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {
@@ -113,7 +113,7 @@ private struct TestDocument: Document {
   }
 }
 
-private struct OtherTestDocument: Document {
+private struct OtherTestDocument: Document, Codable {
   static var documentDescriptor = DocumentDescriptor<OtherTestDocument>(name: "OtherTestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 
   func serializeDocument() throws -> Data {

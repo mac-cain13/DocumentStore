@@ -47,7 +47,7 @@ extension Developer: Document {
 //}
 
 //
-struct Shipment: Document {
+struct Shipment: Document, Codable {
   let barcode: String
   let status: Int
   let weight: Double

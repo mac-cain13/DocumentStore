@@ -9,7 +9,7 @@
 import Foundation
 @testable import DocumentStore
 
-struct MockDocument: Document {
+struct MockDocument: Document, Codable {
   static let isTest = Index<MockDocument, Bool>(name: "") { _ in false }
   static let documentDescriptor = DocumentDescriptor<MockDocument>(name: "", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
 

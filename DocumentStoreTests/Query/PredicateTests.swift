@@ -110,7 +110,7 @@ class PredicateTests: XCTestCase {
   }
 }
 
-private struct TestDocument: Document {
+private struct TestDocument: Document, Codable {
   static let isTest = Index<TestDocument, Bool>(name: "") { _ in false }
   static let isTestString = Index<TestDocument, String>(name: "") { _ in "" }
   static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "", identifier: Identifier { _ in return UUID().uuidString }, indices: [])

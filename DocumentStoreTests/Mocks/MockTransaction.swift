@@ -29,10 +29,9 @@ class MockTransaction: ReadWritableTransaction {
     fetchLimitCallback?(query.limit)
 
     guard let data = "{}".data(using: .utf8) else { fatalError("Failed to create data") }
-    let decoder = JSONDecoder()
     return [
-      try? decoder.decode(DocumentType.self, from: data),
-      try? decoder.decode(DocumentType.self, from: data)
+      try? DocumentType.decode(from: data),
+      try? DocumentType.decode(from: data)
     ].flatMap { $0 }
   }
 
