@@ -57,13 +57,13 @@ class DocumentStoreTests: XCTestCase {
   }
 
   func testUnderscoreIdentifier() {
-    for identifier in ["_", "_Something"] {
+    for identifier in [DocumentStoreReservedPrefix, "\(DocumentStoreReservedPrefix).Something"] {
       do {
         let _ = try DocumentStore(identifier: identifier, documentDescriptors: [])
         XCTFail("Expected error")
       } catch let error as DocumentStoreError {
         XCTAssertEqual(error.kind, .storeIdentifierInvalid)
-        XCTAssertEqual(error.message, "`\(identifier)` is an invalid DocumentStore identifier, identifiers may not start with an `_`.")
+        XCTAssertEqual(error.message, "`\(identifier)` is an invalid DocumentStore identifier, identifiers may not start with `\(DocumentStoreReservedPrefix)`.")
         XCTAssertNil(error.underlyingError)
       } catch {
         XCTFail("Unexpected error type")

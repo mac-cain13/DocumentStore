@@ -25,13 +25,13 @@ class DocumentDescriptorTests: XCTestCase {
   }
 
   func testUnderscoreIdentifier() {
-    for identifier in ["_", "_Something"] {
+    for identifier in [DocumentStoreReservedPrefix, "\(DocumentStoreReservedPrefix).Something"] {
       let issues = DocumentDescriptor<TestDocument>(name: identifier, identifier: Identifier { _ in return UUID().uuidString }, indices: []).validate()
 
       XCTAssertEqual(issues.count, 1)
       XCTAssertEqual(
         issues.first,
-        "`\(identifier)` is an invalid DocumentDescriptor name, names may not start with an `_`."
+        "`\(identifier)` is an invalid DocumentDescriptor name, names may not start with `\(DocumentStoreReservedPrefix)`."
       )
     }
   }
@@ -63,10 +63,10 @@ class DocumentDescriptorTests: XCTestCase {
   }
 
   func testMultipleIssues() {
-    let invalidIndex = Index<TestDocument, Bool>(name: "_", resolver: { _ in false })
+    let invalidIndex = Index<TestDocument, Bool>(name: DocumentStoreReservedPrefix, resolver: { _ in false })
     let indexIssues = invalidIndex.storageInformation.validate()
 
-    let name = "_"
+    let name = DocumentStoreReservedPrefix
     let duplicateIndex = "DuplicateIndex"
     let issues = DocumentDescriptor<TestDocument>(name: name, identifier: Identifier { _ in return UUID().uuidString }, indices: [
       Index<TestDocument, Bool>(name: duplicateIndex, resolver: { _ in false }),
@@ -78,7 +78,7 @@ class DocumentDescriptorTests: XCTestCase {
     XCTAssertEqual(
       issues,
       [
-        "`\(name)` is an invalid DocumentDescriptor name, names may not start with an `_`.",
+        "`\(DocumentStoreReservedPrefix)` is an invalid DocumentDescriptor name, names may not start with `\(DocumentStoreReservedPrefix)`.",
         "DocumentDescriptor `\(name)` has multiple indices with `\(duplicateIndex)` as name, every index name must be unique."
       ] + indexIssues
     )

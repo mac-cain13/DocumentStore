@@ -35,8 +35,9 @@ public final class DocumentStore {
       throw DocumentStoreError(kind: .storeIdentifierInvalid, message: "The DocumentStore identifier may not be empty.", underlyingError: nil)
     }
 
-    if identifier.characters.first == "_" {
-      throw DocumentStoreError(kind: .storeIdentifierInvalid, message: "`\(identifier)` is an invalid DocumentStore identifier, identifiers may not start with an `_`.", underlyingError: nil)
+    // Identifier may not start with the reserved prefix
+    if identifier.starts(with: DocumentStoreReservedPrefix) {
+      throw DocumentStoreError(kind: .storeIdentifierInvalid, message: "`\(identifier)` is an invalid DocumentStore identifier, identifiers may not start with `\(DocumentStoreReservedPrefix)`.", underlyingError: nil)
     }
 
     // Validate document descriptors

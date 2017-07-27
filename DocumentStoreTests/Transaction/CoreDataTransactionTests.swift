@@ -39,7 +39,9 @@ class CoreDataTransactionTests: XCTestCase {
     model.entities = [entity]
 
     container = NSPersistentContainer(name: UUID().uuidString, managedObjectModel: model)
-    container.loadPersistentStores { (_, _) in }
+    container.loadPersistentStores { (_, error) in
+      if let error = error { fatalError(error.localizedDescription) }
+    }
     context = container.newBackgroundContext()
     logger = MockLogger()
 
@@ -295,9 +297,9 @@ class CoreDataTransactionTests: XCTestCase {
       XCTAssertEqual(context.deletedObjects.count, 0)
       XCTAssertEqual(logger.loggedMessages.count, 2)
       XCTAssertEqual(logger.loggedMessages.first?.level, .error)
-      XCTAssertEqual(logger.loggedMessages.first?.message, "Encountered corrupt \'_documentData\' attribute. (DocumentStoreError #5: Failed to retrieve \'_documentData\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
+      XCTAssertEqual(logger.loggedMessages.first?.message, "Encountered corrupt \'\(DocumentDataAttributeName)\' attribute. (DocumentStoreError #5: Failed to retrieve \'\(DocumentDataAttributeName)\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
       XCTAssertEqual(logger.loggedMessages.last?.level, .warn)
-      XCTAssertEqual(logger.loggedMessages.last?.message, "Deserializing \'TestDocument\' document failed, recovering with \'skipDocument\' resolution. (DocumentStoreError #5: Failed to retrieve \'_documentData\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
+      XCTAssertEqual(logger.loggedMessages.last?.message, "Deserializing \'TestDocument\' document failed, recovering with \'skipDocument\' resolution. (DocumentStoreError #5: Failed to retrieve \'\(DocumentDataAttributeName)\' attribute contents and cast it to `Data` for a \'TestDocument\' document. This is an error in the DocumentStore library, please report this issue.)")
     } catch {
       XCTFail("Unexpected error type")
     }
@@ -414,7 +416,7 @@ private struct TestDocument: Document {
     case otherError
   }
 
-  static let errorIndex = Index<TestDocument, Bool>(name: "error") { _ in false }
+  static let errorIndex = Index<TestDocument, Bool>(name: "errorIndex") { _ in false }
   static let isTest = Index<TestDocument, Bool>(name: "isTest") { _ in true }
   static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [TestDocument.isTest])
 

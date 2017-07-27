@@ -59,9 +59,9 @@ public class AnyDocumentDescriptor: Validatable, Equatable {
       issues.append("DocumentDescriptor names may not be empty.")
     }
 
-    // Name may not start with `_`
-    if name.characters.first == "_" {
-      issues.append("`\(name)` is an invalid DocumentDescriptor name, names may not start with an `_`.")
+    // Name may not start with the reserved prefix
+    if name.starts(with: DocumentStoreReservedPrefix) {
+      issues.append("`\(name)` is an invalid DocumentDescriptor name, names may not start with `\(DocumentStoreReservedPrefix)`.")
     }
 
     // Two indices may not have the same identifier

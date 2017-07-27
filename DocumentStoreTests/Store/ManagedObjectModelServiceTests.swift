@@ -37,7 +37,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateBubblesDescriptorErrors() {
-    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
+    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: DocumentStoreReservedPrefix, identifier: Identifier { _ in return UUID().uuidString }, indices: [])
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
@@ -70,7 +70,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
   }
 
   func testValidateLogging() {
-    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: "_", identifier: Identifier { _ in return UUID().uuidString }, indices: [])
+    let invalidDescriptor = DocumentDescriptor<TestDocument>(name: DocumentStoreReservedPrefix, identifier: Identifier { _ in return UUID().uuidString }, indices: [])
     let issues = invalidDescriptor.validate()
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 

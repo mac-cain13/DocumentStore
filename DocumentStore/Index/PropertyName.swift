@@ -31,9 +31,9 @@ enum PropertyName: Equatable, Validatable {
       return [ValidationIssue("Name may not be empty.")]
     }
 
-    // Name may not start with `_`
-    if name.characters.first == "_" {
-      return [ValidationIssue("`\(name)` is an invalid name, names may not start with an `_`.")]
+    // Name may not start with the reserved prefix
+    if name.starts(with: DocumentStoreReservedPrefix) {
+      return [ValidationIssue("`\(name)` is an invalid name, names may not start with `\(DocumentStoreReservedPrefix)`.")]
     }
 
     return []

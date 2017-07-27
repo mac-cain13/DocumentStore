@@ -23,9 +23,9 @@ class IndexTests: XCTestCase {
   }
 
   func testUnderscoreIdentifier() {
-    for identifier in ["_", "_Index"] {
+    for identifier in ["_DocumentStore", "_DocumentStore.Index"] {
       let index = Index<TestDocument, Bool>(name: identifier, resolver: { _ in false })
-      XCTAssertEqual(index.storageInformation.validate(), ["`\(identifier)` is an invalid name, names may not start with an `_`."])
+      XCTAssertEqual(index.storageInformation.validate(), ["`\(identifier)` is an invalid name, names may not start with `\(DocumentStoreReservedPrefix)`."])
     }
   }
 
