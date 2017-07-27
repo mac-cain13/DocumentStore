@@ -14,7 +14,7 @@ class ConstantsTests: XCTestCase {
   func testDocumentDataAttributeName() {
     XCTAssertEqual(
       DocumentDataAttributeName,
-      "_DocumentStore.documentData",
+      "_DocumentStore_documentData",
       "Unexpected constant values, changing constants will break existing users DocumentStores!"
     )
   }
@@ -22,7 +22,7 @@ class ConstantsTests: XCTestCase {
   func testDocumentIdentifierAttributeName() {
     XCTAssertEqual(
       DocumentIdentifierAttributeName,
-      "_DocumentStore.documentIdentifier",
+      "_DocumentStore_documentIdentifier",
       "Unexpected constant values, changing constants will break existing users DocumentStores!"
     )
   }
