@@ -73,8 +73,8 @@ class QueryNSFetchRequestTests: XCTestCase {
   }
 
   func testFetchRequestSortDescriptors() {
-    let sortDescriptor = TestDocument.isTest.ascending()
-    let sortedQuery = query.sorted { _ in sortDescriptor }
+    let sortDescriptor = SortDescriptor(index: TestDocument.isTest, order: .ascending)
+    let sortedQuery = query.sorted(by: sortDescriptor)
     let request: NSFetchRequest<NSManagedObject> = sortedQuery.fetchRequest()
 
     guard let sortDescriptors = request.sortDescriptors else {

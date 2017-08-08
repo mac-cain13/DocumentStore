@@ -356,7 +356,7 @@ private class MockSaveErrorTransaction: ReadWritableTransaction {
     return []
   }
 
-  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool {
+  func insert<DocumentType: Document>(document: DocumentType, mode: InsertMode) throws -> Bool {
     return true
   }
 

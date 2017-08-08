@@ -114,7 +114,7 @@ public final class DocumentStore {
       context.mergePolicy = NSMergePolicy.overwrite
 
       do {
-        try context.setQueryGenerationFrom(NSQueryGenerationToken.current)
+        try context.setQueryGenerationFrom(.current)
       } catch let error {
         logger.log(level: .warn, message: "Failed to pin transaction, this could lead to inconsistent read operations.", error: error)
       }

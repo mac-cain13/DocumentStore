@@ -107,14 +107,14 @@ class CoreDataTransaction: ReadWritableTransaction {
     }
   }
 
-  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool {
+  func insert<DocumentType: Document>(document: DocumentType, mode: InsertMode) throws -> Bool {
     try validateUseOfDocumentType(DocumentType.self)
 
     let identifierValue = DocumentType.documentDescriptor.identifier.resolver(document)
     let currentManagedObject = try fetchManagedObject(for: document, with: identifierValue)
 
     let managedObject: NSManagedObject
-    switch (saveMode, currentManagedObject) {
+    switch (mode, currentManagedObject) {
     case (.replaceOnly, .none), (.addOnly, .some):
       return false
     case (.replaceOnly, let .some(currentManagedObject)), (.addOrReplace, let .some(currentManagedObject)):

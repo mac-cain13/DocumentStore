@@ -11,60 +11,32 @@ import DocumentStore
 
 ////////
 
-//let documentStore = try? DocumentStore(
-//  identifier: "TestDocumentStore",
-//  documentDescriptors: DescriptorList()
-//    .add(Developer.documentDescriptor)
-//    .add(Shipment.documentDescriptor)
-//)
-//
-struct Developer: Codable {
+let documentStore: DocumentStore! = try? DocumentStore(identifier: "MyStore",
+                                                       documentDescriptors: [Message.documentDescriptor])
+
+struct Message: Document, Codable {
+  static let documentDescriptor = DocumentDescriptor<Message>(name: "Message",
+                                                              identifier: Identifier(keyPath: \.id),
+                                                              indices: [
+                                                                Index(name: "senderName", keyPath: \.sender.name),
+                                                                Index(name: "receiverName", keyPath: \.receiver.name),
+                                                                Index(name: "sentDate", keyPath: \.sentDate)
+                                                              ])
+
+  let id: Int
+  let read: Bool
+  let sentDate: Date
+  let sender: Person
+  let receiver: Person
+  let subject: String?
+  let text: String
+}
+
+struct Person: Codable {
+  let id: Int
   let name: String
-  let age: Int
 }
 
-extension Developer: Document {
-  static let documentDescriptor = DocumentDescriptor<Developer>(
-    name: "Developer",
-    identifier: Identifier(keyPath: \.name),
-    indices: [
-      Index(name: "name", keyPath: \.name),
-      Index(name: "age", keyPath: \.age)
-    ]
-  )
-}
-
-// Shorthands for keypath initializers
-//extension Developer: Document {
-//  static let documentDescriptor = DocumentDescriptor<Developer>(
-//    name: "Developer",
-//    identifier: \.name,
-//    indices: [
-//      AnyIndex(name: "name", keyPath: \.name),
-//      AnyIndex(name: "age", keyPath: \.age)
-//    ]
-//  )
-//}
-
-//
-struct Shipment: Document, Codable {
-  let barcode: String
-  let status: Int
-  let weight: Double
-}
-
-extension Shipment {
-  static let barcode: Identifier<Shipment, String> = { Identifier() { $0.barcode } }()
-  static let status: Index<Shipment, Int> = { Index(name: "status") { $0.status } }()
-  static let weight: Index<Shipment, Double> = { Index(name: "weight") { $0.weight } }()
-
-  static let documentDescriptor = DocumentDescriptor<Shipment>(
-    name: "Shipment",
-    identifier: Shipment.barcode,
-    indices: []
-  )
-}
-//
 ///////
 
 class DocumentStoreTestsOld: XCTestCase {
@@ -79,7 +51,39 @@ class DocumentStoreTestsOld: XCTestCase {
 
     func testExample() {
 
-//      let rswiftDeveloper = Developer(name: "Mathijs", age: 29)
+      let message = Message(id: 1, read: false, sentDate: Date(), sender: Person(id: 1, name: "John Appleseed"), receiver: Person(id: 2, name: "Jane Bananaseed"), subject: nil, text: "Hi!\nHow about dinner?")
+
+      documentStore.write(handler: { result in
+        if case let .failure(error) = result {
+          fatalError("\(error)")
+        }
+      }) { transaction in
+        try transaction.insert(document: message, mode: .addOrReplace)
+        return .saveChanges
+      }
+
+      /* Promise version */
+      //      documentStore.write { transaction in
+      //        try transaction.insert(document: message, mode: .addOrReplace)
+      //        return .saveChanges
+      //      }
+      //      .then {
+      //        // Hooray!
+      //      }
+      //      .trap { error in
+      //        fatalError("\(error)")
+      //      }
+
+      let newestMessageQuery = Query<Message>()
+        .sorted(by: \Message.sentDate, order: .ascending)
+
+      documentStore.read(handler: { result in
+        if case let .success(.some(message)) = result {
+          print(message.id)
+        }
+      }) { try $0.fetchFirst(matching: newestMessageQuery) }
+
+
 
 //      documentStore.write(handler: { _ in }) { transaction in
 //        try transaction.add(document: rswiftDeveloper)
@@ -92,7 +96,7 @@ class DocumentStoreTestsOld: XCTestCase {
 //        .skipping(upTo: 3)
 //        .limited(upTo: 1)
 //        .delete()
-//
+
 //      let documentStore: DocumentStore! = nil
 //      documentStore!.read(handler: { developers in print(developers) }) { transaction in
 //        try transaction.fetch(matching:

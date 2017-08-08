@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum SaveMode {
+public enum InsertMode {
   case addOrReplace
   case addOnly
   case replaceOnly
@@ -16,7 +16,7 @@ public enum SaveMode {
 
 protocol ReadWritableTransaction: ReadableTransaction {
   @discardableResult
-  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool
+  func insert<DocumentType: Document>(document: DocumentType, mode: InsertMode) throws -> Bool
 
   @discardableResult
   func delete<DocumentType>(matching query: Query<DocumentType>) throws -> Int

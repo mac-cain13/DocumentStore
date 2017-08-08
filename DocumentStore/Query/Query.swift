@@ -111,10 +111,22 @@ public struct Query<DocumentType: Document> {
   ///
   /// - Parameter sortDescriptor: Closure that returns the `SortDescriptor` to order by
   /// - Returns: A `Query` where matching `Document`s are ordered by the `SortDescriptor`
-  public func sorted(by sortDescriptor: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> Query<DocumentType> {
+  public func sorted(by sortDescriptor: SortDescriptor<DocumentType>) -> Query<DocumentType> {
     var query = self
-    query.sortDescriptors = [sortDescriptor(DocumentType.self)]
+    query.sortDescriptors = [sortDescriptor]
     return query
+  }
+
+  // TODO: Document
+  public func sorted(by index: PartialIndex<DocumentType>, order: Order) -> Query<DocumentType> {
+    let sortDescriptor = SortDescriptor(index: index, order: order)
+    return sorted(by: sortDescriptor)
+  }
+
+  // TODO: Document
+  public func sorted(by keyPath: PartialKeyPath<DocumentType>, order: Order) -> Query<DocumentType> {
+    let sortDescriptor = SortDescriptor(keyPath: keyPath, order: order)
+    return sorted(by: sortDescriptor)
   }
 
   /// Apply a subsequent sorting to the `Document`s matching this `Query` leaving previous sorting
@@ -127,9 +139,21 @@ public struct Query<DocumentType: Document> {
   ///
   /// - Parameter closure: Closure that returns the `SortDescriptor` to sort by
   /// - Returns: A `Query` that sorts `Document`s subsequently by the given `SortDescriptor`
-  public func thenSorted(by closure: (DocumentType.Type) -> SortDescriptor<DocumentType>) -> Query<DocumentType> {
+  public func thenSorted(by sortDescriptor: SortDescriptor<DocumentType>) -> Query<DocumentType> {
     var query = self
-    query.sortDescriptors.append(closure(DocumentType.self))
+    query.sortDescriptors.append(sortDescriptor)
     return query
+  }
+
+  // TODO: Document
+  public func thenSorted(by index: PartialIndex<DocumentType>, order: Order) -> Query<DocumentType> {
+    let sortDescriptor = SortDescriptor(index: index, order: order)
+    return thenSorted(by: sortDescriptor)
+  }
+
+  // TODO: Document
+  public func thenSorted(by keyPath: PartialKeyPath<DocumentType>, order: Order) -> Query<DocumentType> {
+    let sortDescriptor = SortDescriptor(keyPath: keyPath, order: order)
+    return thenSorted(by: sortDescriptor)
   }
 }

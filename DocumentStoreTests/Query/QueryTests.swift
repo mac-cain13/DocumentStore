@@ -69,22 +69,22 @@ class QueryTests: XCTestCase {
 
   func testSorted() {
 
-    let sortDescriptor = TestDocument.isTest.ascending()
-    var orderedQuery = query.sorted { _ in sortDescriptor }
+    let sortDescriptor = SortDescriptor(index: TestDocument.isTest, order: .ascending)
+    var orderedQuery = query.sorted(by: sortDescriptor)
     XCTAssertEqual(orderedQuery.sortDescriptors.map { $0.foundationSortDescriptor }, [sortDescriptor.foundationSortDescriptor])
 
-    let otherSortDescriptor = TestDocument.isTest.descending()
-    orderedQuery = orderedQuery.sorted { _ in otherSortDescriptor }
+    let otherSortDescriptor = SortDescriptor(index: TestDocument.isTest, order: .descending)
+    orderedQuery = orderedQuery.sorted(by: otherSortDescriptor)
     XCTAssertEqual(orderedQuery.sortDescriptors.map { $0.foundationSortDescriptor }, [otherSortDescriptor.foundationSortDescriptor])
   }
 
   func testThenSorted() {
-    let appendedSortDescriptor = TestDocument.isTest.ascending()
+    let appendedSortDescriptor = SortDescriptor(index: TestDocument.isTest, order: .ascending)
 
     var query = self.query
-    query.sortDescriptors = [TestDocument.isTest.descending()]
+    query.sortDescriptors = [SortDescriptor(index: TestDocument.isTest, order: .descending)]
 
-    let sortedQuery = query.thenSorted { _ in appendedSortDescriptor }
+    let sortedQuery = query.thenSorted(by: appendedSortDescriptor)
     let allSortDescriptors = query.sortDescriptors + [appendedSortDescriptor]
     XCTAssertEqual(sortedQuery.sortDescriptors.map { $0.foundationSortDescriptor }, allSortDescriptors.map { $0.foundationSortDescriptor })
   }

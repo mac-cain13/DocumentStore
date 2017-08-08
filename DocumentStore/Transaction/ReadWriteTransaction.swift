@@ -18,8 +18,8 @@ public class ReadWriteTransaction: ReadTransaction, ReadWritableTransaction {
   }
 
   @discardableResult
-  public func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode = .addOrReplace) throws -> Bool {
-    return try transaction.save(document: document, saveMode: saveMode)
+  public func insert<DocumentType: Document>(document: DocumentType, mode: InsertMode = .addOrReplace) throws -> Bool {
+    return try transaction.insert(document: document, mode: mode)
   }
 
   /// Delete all `Document`s matching the given `Query`.

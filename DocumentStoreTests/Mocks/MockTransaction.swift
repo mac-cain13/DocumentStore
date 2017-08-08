@@ -46,7 +46,7 @@ class MockTransaction: ReadWritableTransaction {
     return true
   }
 
-  func save<DocumentType: Document>(document: DocumentType, saveMode: SaveMode) throws -> Bool {
+  func insert<DocumentType: Document>(document: DocumentType, mode: InsertMode) throws -> Bool {
     saveCalls += 1
     return true
   }
