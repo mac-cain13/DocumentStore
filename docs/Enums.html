@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Enums  Reference</title>
+    <title>Enumerations  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset="utf-8">
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
 
+    <a name="//apple_ref/swift/Section/Enumerations" class="dashAnchor"></a>
 
-    <a title="Enums  Reference"></a>
+    <a title="Enumerations  Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -20,6 +24,12 @@
           DocumentStore Docs
         </a>
         
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
       </p>
     
         <p class="header-col header-col--secondary">
@@ -34,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="index.html">DocumentStore Reference</a>
       <img class="carat" src="img/carat.png" />
-      Enums  Reference
+      Enumerations  Reference
     </p>
 
     <div class="content-wrapper">
@@ -44,10 +54,28 @@
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:13DocumentStore8AnyIndexC">AnyIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/DocumentDescriptor.html">DocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/DocumentStore.html">DocumentStore</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/DocumentStore/CommitAction.html">– CommitAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Index.html">Index</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/NoLogger.html">NoLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:13DocumentStore12PartialIndexC">PartialIndex</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/ReadTransaction.html">ReadTransaction</a>
@@ -58,13 +86,25 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Enums.html">Enums</a>
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/IndexStorageType.html">IndexStorageType</a>
+                <a class="nav-group-task-link" href="Enums/ExpressionComparisonOperator.html">ExpressionComparisonOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/InsertMode.html">InsertMode</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/LogLevel.html">LogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/LogicalPredicateOperator.html">LogicalPredicateOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Order.html">Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/StorageType.html">StorageType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/TransactionError.html">TransactionError</a>
@@ -98,34 +138,97 @@
             <a class="nav-group-name-link" href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/!(_:).html">!(_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVy0A4TypeQzGxAA11ExpressableRzSb05ValueD0RtzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/!=(_:_:).html">!=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGAeA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&amp;&amp;(_:_:).html">&amp;&amp;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGs7KeyPathCyxSbGAA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&lt;(_:_:).html">&lt;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&lt;=(_:_:).html">&lt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/==(_:_:).html">==(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&gt;(_:_:).html">&gt;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&gt;=(_:_:).html">&gt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2aaoiyAA9PredicateVyxGAESg_AEtAA0A0RzlF">&amp;&amp;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/||(_:_:).html">||(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&lt;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/~=(_:_:).html">~=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2oooiyAA9PredicateVyxGAE_AEtAA0A0RzlF">||(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2teoiyAA9PredicateVy0A4TypeQzGx_SStAA11ExpressableRzSS05ValueE0RtzlF">~=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2teoiyAA9PredicateVyxGs7KeyPathCyxSSG_SStAA0A0RzlF">~=(_:_:)</a>
               </li>
             </ul>
           </li>
@@ -136,7 +239,10 @@
                 <a class="nav-group-task-link" href="Protocols/Document.html">Document</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/IndexValueType.html">IndexValueType</a>
+                <a class="nav-group-task-link" href="Protocols/Expressable.html">Expressable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/IndexableValue.html">IndexableValue</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Logger.html">Logger</a>
@@ -144,17 +250,8 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Structs.html">Structs</a>
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore8AnyIndex">AnyIndex</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/DocumentDescriptor.html">DocumentDescriptor</a>
-              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/DocumentDeserializationError.html">DocumentDeserializationError</a>
               </li>
@@ -168,16 +265,19 @@
                 <a class="nav-group-task-link" href="Structs/DocumentStoreError/ErrorKind.html">– ErrorKind</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/Index.html">Index</a>
+                <a class="nav-group-task-link" href="Structs/Expression.html">Expression</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a>
+                <a class="nav-group-task-link" href="Structs/Identifier.html">Identifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Predicate.html">Predicate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Query.html">Query</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
+                <a class="nav-group-task-link" href="Structs/SortDescriptor.html">SortDescriptor</a>
               </li>
             </ul>
           </li>
@@ -187,8 +287,8 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Enums</h1>
-            <p>The following enums are available globally.</p>
+            <h1>Enumerations</h1>
+            <p>The following enumerations are available globally.</p>
 
           </div>
         </section>
@@ -200,9 +300,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:O13DocumentStore16IndexStorageType"></a>
-                    <a name="//apple_ref/swift/Enum/IndexStorageType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:O13DocumentStore16IndexStorageType">IndexStorageType</a>
+                    <a name="/s:13DocumentStore11StorageTypeO"></a>
+                    <a name="//apple_ref/swift/Enum/StorageType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore11StorageTypeO">StorageType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -211,29 +311,28 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Type that describes the possible storage formats.</p>
-
-<p><li>bool: Boolean storage</li>
+<li>bool: Boolean storage</li>
 <div class="aside aside-date">
     <p class="aside-title">Date</p>
-     Date storage</p>
+     Date storage
 
-<p></div>
+</div>
 <li>double: Double storage</li>
 <li>int: Integer (64 bit) storage</li>
-<li>string: String storage</li></p>
+<li>string: String storage</li>
 
-                        <a href="Enums/IndexStorageType.html" class="slightly-smaller">See more</a>
+                        <a href="Enums/StorageType.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">IndexStorageType</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">StorageType</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/IndexStorageType.swift#L19-L40">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/StorageType.swift#L19-L40">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -245,49 +344,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:O13DocumentStore17TransactionResult"></a>
-                    <a name="//apple_ref/swift/Enum/TransactionResult" class="dashAnchor"></a>
-                    <a class="token" href="#/s:O13DocumentStore17TransactionResult">TransactionResult</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Result of a transaction, either successful with a value or failed with an error.</p>
-
-<ul>
-<li>success: Success indicator with the result value</li>
-<li>failure: Failure indicator with the error that appeared</li>
-</ul>
-
-                        <a href="Enums/TransactionResult.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransactionResult</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/TransactionResult.swift#L15-L21">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:O13DocumentStore8LogLevel"></a>
+                    <a name="/s:13DocumentStore8LogLevelO"></a>
                     <a name="//apple_ref/swift/Enum/LogLevel" class="dashAnchor"></a>
-                    <a class="token" href="#/s:O13DocumentStore8LogLevel">LogLevel</a>
+                    <a class="token" href="#/s:13DocumentStore8LogLevelO">LogLevel</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -311,7 +370,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LogLevel</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LogLevel</span></code></pre>
 
                         </div>
                       </div>
@@ -328,9 +387,164 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:O13DocumentStore16TransactionError"></a>
+                    <a name="/s:13DocumentStore28ExpressionComparisonOperatorO"></a>
+                    <a name="//apple_ref/swift/Enum/ExpressionComparisonOperator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore28ExpressionComparisonOperatorO">ExpressionComparisonOperator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines how to compare two <code><a href="Structs/Expression.html">Expression</a></code>s.</p>
+
+<ul>
+<li>lessThan: &lt;</li>
+<li>lessThanOrEqualTo: &lt;=</li>
+<li>greaterThan: &gt;</li>
+<li>greaterThanOrEqualTo: &gt;=</li>
+<li>equalTo: ==</li>
+<li>notEqualTo: !=</li>
+<li>like: Matches a pattern on a string, similar in behavior to SQL LIKE.</li>
+</ul>
+
+                        <a href="Enums/ExpressionComparisonOperator.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ExpressionComparisonOperator</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/ExpressionComparisonOperator.swift#L20-L60">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore24LogicalPredicateOperatorO"></a>
+                    <a name="//apple_ref/swift/Enum/LogicalPredicateOperator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore24LogicalPredicateOperatorO">LogicalPredicateOperator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines how to combine two or more <code><a href="Structs/Predicate.html">Predicate</a></code>s.</p>
+
+<ul>
+<li>and: Logical AND operation.</li>
+<li>or: Logical OR operation.</li>
+</ul>
+
+                        <a href="Enums/LogicalPredicateOperator.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LogicalPredicateOperator</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/LogicalPredicateOperator.swift#L15-L30">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore5OrderO"></a>
+                    <a name="//apple_ref/swift/Enum/Order" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore5OrderO">Order</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Enums/Order.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Order</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/SortDescriptor.swift#L11-L23">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore10InsertModeO"></a>
+                    <a name="//apple_ref/swift/Enum/InsertMode" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore10InsertModeO">InsertMode</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Enums/InsertMode.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">InsertMode</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/ReadWritableTransaction.swift#L11-L15">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore16TransactionErrorO"></a>
                     <a name="//apple_ref/swift/Enum/TransactionError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:O13DocumentStore16TransactionError">TransactionError</a>
+                    <a class="token" href="#/s:13DocumentStore16TransactionErrorO">TransactionError</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -352,12 +566,52 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransactionError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransactionError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/TransactionError.swift#L16-L25">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore17TransactionResultO"></a>
+                    <a name="//apple_ref/swift/Enum/TransactionResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore17TransactionResultO">TransactionResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Result of a transaction, either successful with a value or failed with an error.</p>
+
+<ul>
+<li>success: Success indicator with the result value</li>
+<li>failure: Failure indicator with the error that appeared</li>
+</ul>
+
+                        <a href="Enums/TransactionResult.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TransactionResult</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Transaction/TransactionResult.swift#L15-L21">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -370,8 +624,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

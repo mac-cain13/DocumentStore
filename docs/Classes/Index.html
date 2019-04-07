@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bool Extension Reference</title>
+    <title>Index Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Bool" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/Index" class="dashAnchor"></a>
 
-    <a title="Bool Extension Reference"></a>
+    <a title="Index Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">DocumentStore Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Bool Extension Reference
+      Index Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -287,14 +287,15 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Bool</h1>
+            <h1>Index</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Bool</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Index</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:13DocumentStore12PartialIndexC">PartialIndex</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">DocumentType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="p">,</span> <span class="kt">ValueType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/IndexableValue.html">IndexableValue</a></span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Index for a <code><a href="../Protocols/Document.html">Document</a></code> used in a <code><a href="../Structs/Query.html">Query</a></code> to filter and order <code><a href="../Protocols/Document.html">Document</a></code>s in an efficient way.</p>
+
           </div>
         </section>
 
@@ -305,9 +306,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/storageType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ">storageType</a>
+                    <a name="/s:13DocumentStore5IndexC4name8resolverACyxq_GSS_q_Sgxctcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:resolver:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore5IndexC4name8resolverACyxq_GSS_q_Sgxctcfc">init(name:resolver:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -315,19 +316,159 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Conforms <code>Bool</code> to <code>StorableValue</code></p>
+                        <p>Create an <code>Index</code></p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Changing the name or ValueType of this <code>Index</code> will trigger a repopulation
+       of this index for all documents this <code>Index</code> is related to. This can be time 
+       consuming.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">storageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/StorageType.html">StorageType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">resolver</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">DocumentType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValueType</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Unique (within one document) unchangable identifier</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resolver</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Resolver to get the value for this <code>Index</code> from a <code><a href="../Protocols/Document.html">Document</a></code> instance</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/Index.swift#L22-L35">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore5IndexC4name7keyPathACyxq_GSS_s03KeyF0Cyxq_Gtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(name:keyPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore5IndexC4name7keyPathACyxq_GSS_s03KeyF0Cyxq_Gtcfc">init(name:keyPath:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create an <code>Index</code> with a <code>KeyPath</code></p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>Changing the name or ValueType of this <code>Index</code> will trigger a repopulation
+       of this index for all documents this <code>Index</code> is related to. This can be time
+       consuming.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">keyPath</span><span class="p">:</span> <span class="kt">KeyPath</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Unique (within one document) unchangable identifier</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resolver</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Resolver to get the value for this <code>Index</code> from a <code><a href="../Protocols/Document.html">Document</a></code> instance</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/Index.swift#L46-L59">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore5IndexC10expressionAA10ExpressionVyxq_Gvp"></a>
+                    <a name="//apple_ref/swift/Property/expression" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore5IndexC10expressionAA10ExpressionVyxq_Gvp">expression</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">expression</span><span class="p">:</span> <span class="kt"><a href="../Structs/Expression.html">Expression</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/IndexableValue.swift#L19">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Expressable.swift#L20-L22">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

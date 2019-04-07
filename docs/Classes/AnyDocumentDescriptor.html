@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bool Extension Reference</title>
+    <title>AnyDocumentDescriptor Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Bool" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/AnyDocumentDescriptor" class="dashAnchor"></a>
 
-    <a title="Bool Extension Reference"></a>
+    <a title="AnyDocumentDescriptor Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">DocumentStore Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Bool Extension Reference
+      AnyDocumentDescriptor Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -287,14 +287,15 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Bool</h1>
+            <h1>AnyDocumentDescriptor</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Bool</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AnyDocumentDescriptor</span> <span class="p">:</span> <span class="kt">Validatable</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Type eraser for <code><a href="../Classes/DocumentDescriptor.html">DocumentDescriptor</a></code> to make it possible to store them in for example an array.</p>
+
           </div>
         </section>
 
@@ -305,9 +306,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/storageType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ">storageType</a>
+                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -315,19 +316,18 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Conforms <code>Bool</code> to <code>StorableValue</code></p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">storageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/StorageType.html">StorageType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">AnyDocumentDescriptor</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">AnyDocumentDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/IndexableValue.swift#L19">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Document/DocumentDescriptor.swift#L85-L89">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

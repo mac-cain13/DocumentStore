@@ -8,6 +8,9 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
 
@@ -20,6 +23,12 @@
           DocumentStore Docs
         </a>
         
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
       </p>
     
         <p class="header-col header-col--secondary">
@@ -44,10 +53,28 @@
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:13DocumentStore8AnyIndexC">AnyIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/DocumentDescriptor.html">DocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/DocumentStore.html">DocumentStore</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/DocumentStore/CommitAction.html">– CommitAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Index.html">Index</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/NoLogger.html">NoLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:13DocumentStore12PartialIndexC">PartialIndex</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/ReadTransaction.html">ReadTransaction</a>
@@ -58,13 +85,25 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Enums.html">Enums</a>
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/IndexStorageType.html">IndexStorageType</a>
+                <a class="nav-group-task-link" href="Enums/ExpressionComparisonOperator.html">ExpressionComparisonOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/InsertMode.html">InsertMode</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/LogLevel.html">LogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/LogicalPredicateOperator.html">LogicalPredicateOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Order.html">Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/StorageType.html">StorageType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/TransactionError.html">TransactionError</a>
@@ -98,34 +137,97 @@
             <a class="nav-group-name-link" href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/!(_:).html">!(_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVy0A4TypeQzGxAA11ExpressableRzSb05ValueD0RtzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/!=(_:_:).html">!=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGAeA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&amp;&amp;(_:_:).html">&amp;&amp;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGs7KeyPathCyxSbGAA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&lt;(_:_:).html">&lt;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&lt;=(_:_:).html">&lt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/==(_:_:).html">==(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&gt;(_:_:).html">&gt;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&gt;=(_:_:).html">&gt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2aaoiyAA9PredicateVyxGAESg_AEtAA0A0RzlF">&amp;&amp;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/||(_:_:).html">||(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&lt;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/~=(_:_:).html">~=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2oooiyAA9PredicateVyxGAE_AEtAA0A0RzlF">||(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2teoiyAA9PredicateVy0A4TypeQzGx_SStAA11ExpressableRzSS05ValueE0RtzlF">~=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2teoiyAA9PredicateVyxGs7KeyPathCyxSSG_SStAA0A0RzlF">~=(_:_:)</a>
               </li>
             </ul>
           </li>
@@ -136,7 +238,10 @@
                 <a class="nav-group-task-link" href="Protocols/Document.html">Document</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/IndexValueType.html">IndexValueType</a>
+                <a class="nav-group-task-link" href="Protocols/Expressable.html">Expressable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/IndexableValue.html">IndexableValue</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Logger.html">Logger</a>
@@ -144,17 +249,8 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Structs.html">Structs</a>
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore8AnyIndex">AnyIndex</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/DocumentDescriptor.html">DocumentDescriptor</a>
-              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/DocumentDeserializationError.html">DocumentDeserializationError</a>
               </li>
@@ -168,16 +264,19 @@
                 <a class="nav-group-task-link" href="Structs/DocumentStoreError/ErrorKind.html">– ErrorKind</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/Index.html">Index</a>
+                <a class="nav-group-task-link" href="Structs/Expression.html">Expression</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a>
+                <a class="nav-group-task-link" href="Structs/Identifier.html">Identifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Predicate.html">Predicate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Query.html">Query</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
+                <a class="nav-group-task-link" href="Structs/SortDescriptor.html">SortDescriptor</a>
               </li>
             </ul>
           </li>
@@ -188,18 +287,21 @@
         <section class="section">
           <div class="section-content">
             
-            <a href='#documentstore' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='documentstore'>DocumentStore</h1>
+            <h1 id='documentstore' class='heading'>DocumentStore</h1>
 
 <p><em>A document-oriented datastore for iOS.</em></p>
-<a href='#why' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='why'>Why?</h2>
+<h2 id='when-to-use' class='heading'>When to use?</h2>
 
-<ul>
-<li>DocumentStore offers an simpel fool-proof way to store data</li>
-<li>CoreData and Realm are powerful, but let you make threading mistakes which are extremely hard to debug</li>
-<li>Often we don’t need all the power of CoreData or Realm</li>
-</ul>
-<a href='#how-does-it-work' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='how-does-it-work'>How does it work?</h2>
-<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<p><em>TODO:</em> Talk about when this is the correct solution.</p>
+<h2 id='how-does-it-work' class='heading'>How does it work?</h2>
+
+<p><em>TODO:</em> Small example of a Document, storing/querying for it.</p>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<p><em>TODO:</em> Explain ways to use this in your project.</p>
+<h2 id='license' class='heading'>License</h2>
+
+<p><a href="https://github.com/mac-cain13/DocumentStore">DocumentStore</a> is created by <a href="https://github.com/mac-cain13">Mathijs Kadijk</a> and released under a <a href="License">MIT License</a>.</p>
 
           </div>
         </section>
@@ -208,8 +310,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

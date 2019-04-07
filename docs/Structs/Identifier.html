@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bool Extension Reference</title>
+    <title>Identifier Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Bool" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Struct/Identifier" class="dashAnchor"></a>
 
-    <a title="Bool Extension Reference"></a>
+    <a title="Identifier Structure Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">DocumentStore Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Bool Extension Reference
+      Identifier Structure Reference
     </p>
 
     <div class="content-wrapper">
@@ -287,14 +287,15 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Bool</h1>
+            <h1>Identifier</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Bool</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Identifier</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">DocumentType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Document.html">Document</a></span><span class="p">,</span> <span class="kt">ValueType</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/IndexableValue.html">IndexableValue</a></span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Describes a unique <code>Identifier</code> for a <code><a href="../Protocols/Document.html">Document</a></code>, think of it as the primary key of the document.</p>
+
           </div>
         </section>
 
@@ -305,9 +306,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/storageType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ">storageType</a>
+                    <a name="/s:13DocumentStore10IdentifierV8resolverACyxq_Gq_xc_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(resolver:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore10IdentifierV8resolverACyxq_Gq_xc_tcfc">init(resolver:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -315,19 +316,133 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Conforms <code>Bool</code> to <code>StorableValue</code></p>
+                        <p>Intialize an <code>Identifier</code></p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>The <code>resolver</code> must always return the same identifying value for the same <code><a href="../Protocols/Document.html">Document</a></code>.
+       Not doing so will result in undefined behaviour of the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code>.</p>
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">storageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/StorageType.html">StorageType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">resolver</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">DocumentType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValueType</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resolver</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Given a <code><a href="../Protocols/Document.html">Document</a></code> the resolver should return the unique identifier</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/Identifier.swift#L21-L30">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore10IdentifierV7keyPathACyxq_Gs03KeyE0Cyxq_G_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(keyPath:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore10IdentifierV7keyPathACyxq_Gs03KeyE0Cyxq_G_tcfc">init(keyPath:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Intialize an <code>Identifier</code> with a <code>KeyPath</code></p>
+<div class="aside aside-warning">
+    <p class="aside-title">Warning</p>
+    <p>The <code>keyPath</code> must always return the same identifying value for the same <code><a href="../Protocols/Document.html">Document</a></code>.
+       Not doing so will result in undefined behaviour of the <code><a href="../Classes/DocumentStore.html">DocumentStore</a></code>.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">keyPath</span><span class="p">:</span> <span class="kt">KeyPath</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>keyPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Given a <code><a href="../Protocols/Document.html">Document</a></code> the key path should return the unique identifier</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/Identifier.swift#L38-L47">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore10IdentifierV10expressionAA10ExpressionVyxq_Gvp"></a>
+                    <a name="//apple_ref/swift/Property/expression" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore10IdentifierV10expressionAA10ExpressionVyxq_Gvp">expression</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">expression</span><span class="p">:</span> <span class="kt"><a href="../Structs/Expression.html">Expression</a></span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/IndexableValue.swift#L19">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Expressable.swift#L26-L28">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

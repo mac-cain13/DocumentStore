@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Bool Extension Reference</title>
+    <title>LogicalPredicateOperator Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Extension/Bool" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Enum/LogicalPredicateOperator" class="dashAnchor"></a>
 
-    <a title="Bool Extension Reference"></a>
+    <a title="LogicalPredicateOperator Enumeration Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">DocumentStore Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Bool Extension Reference
+      LogicalPredicateOperator Enumeration Reference
     </p>
 
     <div class="content-wrapper">
@@ -287,14 +287,20 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Bool</h1>
+            <h1>LogicalPredicateOperator</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Bool</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">LogicalPredicateOperator</span></code></pre>
 
                 </div>
               </div>
-            
+            <p>Defines how to combine two or more <code><a href="../Structs/Predicate.html">Predicate</a></code>s.</p>
+
+<ul>
+<li>and: Logical AND operation.</li>
+<li>or: Logical OR operation.</li>
+</ul>
+
           </div>
         </section>
 
@@ -305,9 +311,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/storageType" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb13DocumentStoreE11storageTypeAA07StorageD0OvpZ">storageType</a>
+                    <a name="/s:13DocumentStore24LogicalPredicateOperatorO3andyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/and" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore24LogicalPredicateOperatorO3andyA2CmF">and</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -315,19 +321,49 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Conforms <code>Bool</code> to <code>StorableValue</code></p>
+                        <p>Logical AND operation.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">storageType</span><span class="p">:</span> <span class="kt"><a href="../Enums/StorageType.html">StorageType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">and</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/IndexableValue.swift#L19">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/LogicalPredicateOperator.swift#L17">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore24LogicalPredicateOperatorO2oryA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/or" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore24LogicalPredicateOperatorO2oryA2CmF">or</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Logical OR operation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">or</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/LogicalPredicateOperator.swift#L20">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

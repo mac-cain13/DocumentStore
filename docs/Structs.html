@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Structs  Reference</title>
+    <title>Structures  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset="utf-8">
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
 
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
 
-    <a title="Structs  Reference"></a>
+    <a title="Structures  Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -20,6 +24,12 @@
           DocumentStore Docs
         </a>
         
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
       </p>
     
         <p class="header-col header-col--secondary">
@@ -34,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="index.html">DocumentStore Reference</a>
       <img class="carat" src="img/carat.png" />
-      Structs  Reference
+      Structures  Reference
     </p>
 
     <div class="content-wrapper">
@@ -44,10 +54,28 @@
             <a class="nav-group-name-link" href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:13DocumentStore8AnyIndexC">AnyIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/DocumentDescriptor.html">DocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/DocumentStore.html">DocumentStore</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/DocumentStore/CommitAction.html">– CommitAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Index.html">Index</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/NoLogger.html">NoLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes.html#/s:13DocumentStore12PartialIndexC">PartialIndex</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/ReadTransaction.html">ReadTransaction</a>
@@ -58,13 +86,25 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Enums.html">Enums</a>
+            <a class="nav-group-name-link" href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Enums/IndexStorageType.html">IndexStorageType</a>
+                <a class="nav-group-task-link" href="Enums/ExpressionComparisonOperator.html">ExpressionComparisonOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/InsertMode.html">InsertMode</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/LogLevel.html">LogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/LogicalPredicateOperator.html">LogicalPredicateOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/Order.html">Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Enums/StorageType.html">StorageType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Enums/TransactionError.html">TransactionError</a>
@@ -98,34 +138,97 @@
             <a class="nav-group-name-link" href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/!(_:).html">!(_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVy0A4TypeQzGxAA11ExpressableRzSb05ValueD0RtzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/!=(_:_:).html">!=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGAeA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&amp;&amp;(_:_:).html">&amp;&amp;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGs7KeyPathCyxSbGAA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&lt;(_:_:).html">&lt;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&lt;=(_:_:).html">&lt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/==(_:_:).html">==(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&gt;(_:_:).html">&gt;(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/&gt;=(_:_:).html">&gt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2aaoiyAA9PredicateVyxGAESg_AEtAA0A0RzlF">&amp;&amp;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/||(_:_:).html">||(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&lt;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Functions/~=(_:_:).html">~=(_:_:)</a>
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1loiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore1goiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2oooiyAA9PredicateVyxGAE_AEtAA0A0RzlF">||(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2teoiyAA9PredicateVy0A4TypeQzGx_SStAA11ExpressableRzSS05ValueE0RtzlF">~=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Functions.html#/s:13DocumentStore2teoiyAA9PredicateVyxGs7KeyPathCyxSSG_SStAA0A0RzlF">~=(_:_:)</a>
               </li>
             </ul>
           </li>
@@ -136,7 +239,10 @@
                 <a class="nav-group-task-link" href="Protocols/Document.html">Document</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/IndexValueType.html">IndexValueType</a>
+                <a class="nav-group-task-link" href="Protocols/Expressable.html">Expressable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/IndexableValue.html">IndexableValue</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Protocols/Logger.html">Logger</a>
@@ -144,17 +250,8 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="Structs.html">Structs</a>
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore8AnyIndex">AnyIndex</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/DocumentDescriptor.html">DocumentDescriptor</a>
-              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/DocumentDeserializationError.html">DocumentDeserializationError</a>
               </li>
@@ -168,16 +265,19 @@
                 <a class="nav-group-task-link" href="Structs/DocumentStoreError/ErrorKind.html">– ErrorKind</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/Index.html">Index</a>
+                <a class="nav-group-task-link" href="Structs/Expression.html">Expression</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore9Predicate">Predicate</a>
+                <a class="nav-group-task-link" href="Structs/Identifier.html">Identifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Predicate.html">Predicate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Structs/Query.html">Query</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
+                <a class="nav-group-task-link" href="Structs/SortDescriptor.html">SortDescriptor</a>
               </li>
             </ul>
           </li>
@@ -187,8 +287,8 @@
 
         <section class="section">
           <div class="section-content">
-            <h1>Structs</h1>
-            <p>The following structs are available globally.</p>
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
 
           </div>
         </section>
@@ -200,9 +300,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:V13DocumentStore28DocumentDeserializationError"></a>
+                    <a name="/s:13DocumentStore0A20DeserializationErrorV"></a>
                     <a name="//apple_ref/swift/Struct/DocumentDeserializationError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore28DocumentDeserializationError">DocumentDeserializationError</a>
+                    <a class="token" href="#/s:13DocumentStore0A20DeserializationErrorV">DocumentDeserializationError</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -218,7 +318,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DocumentDeserializationError</span><span class="p">:</span> <span class="kt">Error</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DocumentDeserializationError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
 
                         </div>
                       </div>
@@ -235,9 +335,156 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:V13DocumentStore14SortDescriptor"></a>
+                    <a name="/s:13DocumentStore10IdentifierV"></a>
+                    <a name="//apple_ref/swift/Struct/Identifier" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore10IdentifierV">Identifier</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Describes a unique <code>Identifier</code> for a <code><a href="Protocols/Document.html">Document</a></code>, think of it as the primary key of the document.</p>
+
+                        <a href="Structs/Identifier.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Identifier</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">DocumentType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="p">,</span> <span class="kt">ValueType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/IndexableValue.html">IndexableValue</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/Identifier.swift#L12-L48">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore10ExpressionV"></a>
+                    <a name="//apple_ref/swift/Struct/Expression" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore10ExpressionV">Expression</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Expression</code> that can be used to build a <code><a href="Structs/Predicate.html">Predicate</a></code>.</p>
+
+                        <a href="Structs/Expression.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Expression</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">,</span> <span class="kt">ValueType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">DocumentType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="p">,</span> <span class="kt">ValueType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/IndexableValue.html">IndexableValue</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Expression.swift#L12-L43">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore9PredicateV"></a>
+                    <a name="//apple_ref/swift/Struct/Predicate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore9PredicateV">Predicate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>Predicate</code> that can be used to filter <code><a href="Protocols/Document.html">Document</a></code>s using a <code><a href="Structs/Query.html">Query</a></code>.</p>
+
+                        <a href="Structs/Predicate.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Predicate</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">DocumentType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L12-L43">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore5QueryV"></a>
+                    <a name="//apple_ref/swift/Struct/Query" class="dashAnchor"></a>
+                    <a class="token" href="#/s:13DocumentStore5QueryV">Query</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>Query</code> that can filter and order a single type of <code><a href="Protocols/Document.html">Document</a></code> in a certain transaction.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Sorting is always done before limiting the results. So the order of calling <code>sorted</code> and
+    <code>skipping</code>/<code>limited</code> does not matter, they only change the query object that is 
+    evaluated at once when you execute it in a transaction.
+
+</div>
+
+                        <a href="Structs/Query.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">DocumentType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L16-L159">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:13DocumentStore14SortDescriptorV"></a>
                     <a name="//apple_ref/swift/Struct/SortDescriptor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
+                    <a class="token" href="#/s:13DocumentStore14SortDescriptorV">SortDescriptor</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -247,17 +494,18 @@
                       <div class="abstract">
                         <p>Descriptor that can be used to sort <code><a href="Protocols/Document.html">Document</a></code>s matched by a <code><a href="Structs/Query.html">Query</a></code>.</p>
 
+                        <a href="Structs/SortDescriptor.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SortDescriptor</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SortDescriptor</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">DocumentType</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/SortDescriptor.swift#L12-L18">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/SortDescriptor.swift#L26-L52">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -269,140 +517,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:V13DocumentStore5Index"></a>
-                    <a name="//apple_ref/swift/Struct/Index" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore5Index">Index</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Index for a <code><a href="Protocols/Document.html">Document</a></code> used in a <code><a href="Structs/Query.html">Query</a></code> to filter and order <code><a href="Protocols/Document.html">Document</a></code>s in an efficient way.</p>
-
-                        <a href="Structs/Index.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Index</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="p">,</span> <span class="kt">ValueType</span><span class="p">:</span> <span class="kt"><a href="Protocols/IndexValueType.html">IndexValueType</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/Index.swift#L12-L42">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:V13DocumentStore8AnyIndex"></a>
-                    <a name="//apple_ref/swift/Struct/AnyIndex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore8AnyIndex">AnyIndex</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Type erased version of an <code><a href="Structs/Index.html">Index</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AnyIndex</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Index/Index.swift#L45-L55">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:V13DocumentStore18DocumentDescriptor"></a>
-                    <a name="//apple_ref/swift/Struct/DocumentDescriptor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore18DocumentDescriptor">DocumentDescriptor</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Description of a <code><a href="Protocols/Document.html">Document</a></code> that among other things identifies it.</p>
-
-                        <a href="Structs/DocumentDescriptor.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DocumentDescriptor</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Document/DocumentDescriptor.swift#L12-L36">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:V13DocumentStore21AnyDocumentDescriptor"></a>
-                    <a name="//apple_ref/swift/Struct/AnyDocumentDescriptor" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore21AnyDocumentDescriptor">AnyDocumentDescriptor</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Type erased version of a <code><a href="Structs/DocumentDescriptor.html">DocumentDescriptor</a></code>.</p>
-
-                        <a href="Structs/AnyDocumentDescriptor.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AnyDocumentDescriptor</span><span class="p">:</span> <span class="kt">Validatable</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Document/DocumentDescriptor.swift#L39-L76">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:V13DocumentStore18DocumentStoreError"></a>
+                    <a name="/s:13DocumentStore0aB5ErrorV"></a>
                     <a name="//apple_ref/swift/Struct/DocumentStoreError" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore18DocumentStoreError">DocumentStoreError</a>
+                    <a class="token" href="#/s:13DocumentStore0aB5ErrorV">DocumentStoreError</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -418,89 +535,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DocumentStoreError</span><span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DocumentStoreError</span> <span class="p">:</span> <span class="kt">Error</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStoreError.swift#L12-L51">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:V13DocumentStore5Query"></a>
-                    <a name="//apple_ref/swift/Struct/Query" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore5Query">Query</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A <code>Query</code> that can filter and order a single type of <code><a href="Protocols/Document.html">Document</a></code> in a certain transaction.</p>
-
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    Sorting is always done before limiting the results. So the order of calling <code>sorted</code> and
-    <code>skipping</code>/<code>limited</code> does not matter, they only change the query object that is 
-    evaluated at once when you execute it in a transaction.
-
-</div>
-
-                        <a href="Structs/Query.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Query</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Query.swift#L16-L144">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul class="item-container">
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:V13DocumentStore9Predicate"></a>
-                    <a name="//apple_ref/swift/Struct/Predicate" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V13DocumentStore9Predicate">Predicate</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p><code>Predicate</code> that can be used to filter <code><a href="Protocols/Document.html">Document</a></code>s using a <code><a href="Structs/Query.html">Query</a></code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Predicate</span><span class="o">&lt;</span><span class="kt">DocumentType</span><span class="p">:</span> <span class="kt"><a href="Protocols/Document.html">Document</a></span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Query/Predicate.swift#L12-L18">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -513,8 +553,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>

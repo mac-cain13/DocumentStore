@@ -10,7 +10,7 @@ import Foundation
 
 /// A type that provides an interface to transfer types to a document store and back.
 public protocol Document {
-  /// Description that indentifies the document and determens how it should be indexed.
+  /// Description that indentifies the document and determines how it should be indexed.
   static var documentDescriptor: DocumentDescriptor<Self> { get }
 
   static func encode(_ document: Self) throws -> Data

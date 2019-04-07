@@ -8,6 +8,9 @@
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
     
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
 
@@ -21,6 +24,12 @@
           DocumentStore Docs
         </a>
         
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
       </p>
     
         <p class="header-col header-col--secondary">
@@ -45,10 +54,28 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/s:13DocumentStore8AnyIndexC">AnyIndex</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DocumentDescriptor.html">DocumentDescriptor</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DocumentStore.html">DocumentStore</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DocumentStore/CommitAction.html">– CommitAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Index.html">Index</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/NoLogger.html">NoLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes.html#/s:13DocumentStore12PartialIndexC">PartialIndex</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/ReadTransaction.html">ReadTransaction</a>
@@ -59,13 +86,25 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Enums.html">Enums</a>
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Enums/IndexStorageType.html">IndexStorageType</a>
+                <a class="nav-group-task-link" href="../Enums/ExpressionComparisonOperator.html">ExpressionComparisonOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/InsertMode.html">InsertMode</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/LogLevel.html">LogLevel</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/LogicalPredicateOperator.html">LogicalPredicateOperator</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Order.html">Order</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/StorageType.html">StorageType</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/TransactionError.html">TransactionError</a>
@@ -99,34 +138,97 @@
             <a class="nav-group-name-link" href="../Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/!(_:).html">!(_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1nopyAA9PredicateVy0A4TypeQzGxAA11ExpressableRzSb05ValueD0RtzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/!=(_:_:).html">!=(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGAeA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/&amp;&amp;(_:_:).html">&amp;&amp;(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1nopyAA9PredicateVyxGs7KeyPathCyxSbGAA0A0RzlF">!(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/&lt;(_:_:).html">&lt;(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/&lt;=(_:_:).html">&lt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2neoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/==(_:_:).html">==(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/&gt;(_:_:).html">&gt;(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2neoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">!=(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/&gt;=(_:_:).html">&gt;=(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2aaoiyAA9PredicateVyxGAESg_AEtAA0A0RzlF">&amp;&amp;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/||(_:_:).html">||(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&lt;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Functions/~=(_:_:).html">~=(_:_:)</a>
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1loiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1loiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1loiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2leoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2leoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2eeoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueD0QzRs_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1goiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueD0Qy_AJRtzr0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1goiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueG0QzRs0_r1_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore1goiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRz05ValueE0QzRs_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2geoiyAA9PredicateVy0A4TypeQzGx_q_tAA11ExpressableRzAaHR_AEQy_AFRS05ValueE0Qy_AJRtzr0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyq_Gx_s7KeyPathCyq_q0_GtAA11ExpressableRz0A4TypeQzRs_05ValueH0QzRs0_r1_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2geoiyAA9PredicateVyxGs7KeyPathCyxq_G_q_tAA0A0RzAA14IndexableValueR_r0_lF">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2oooiyAA9PredicateVyxGAE_AEtAA0A0RzlF">||(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2teoiyAA9PredicateVy0A4TypeQzGx_SStAA11ExpressableRzSS05ValueE0RtzlF">~=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Functions.html#/s:13DocumentStore2teoiyAA9PredicateVyxGs7KeyPathCyxSSG_SStAA0A0RzlF">~=(_:_:)</a>
               </li>
             </ul>
           </li>
@@ -137,7 +239,10 @@
                 <a class="nav-group-task-link" href="../Protocols/Document.html">Document</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/IndexValueType.html">IndexValueType</a>
+                <a class="nav-group-task-link" href="../Protocols/Expressable.html">Expressable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/IndexableValue.html">IndexableValue</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Protocols/Logger.html">Logger</a>
@@ -145,17 +250,8 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a class="nav-group-name-link" href="../Structs.html">Structs</a>
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/s:V13DocumentStore8AnyIndex">AnyIndex</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/DocumentDescriptor.html">DocumentDescriptor</a>
-              </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/DocumentDeserializationError.html">DocumentDeserializationError</a>
               </li>
@@ -169,16 +265,19 @@
                 <a class="nav-group-task-link" href="../Structs/DocumentStoreError/ErrorKind.html">– ErrorKind</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Index.html">Index</a>
+                <a class="nav-group-task-link" href="../Structs/Expression.html">Expression</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/s:V13DocumentStore9Predicate">Predicate</a>
+                <a class="nav-group-task-link" href="../Structs/Identifier.html">Identifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Predicate.html">Predicate</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/Query.html">Query</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs.html#/s:V13DocumentStore14SortDescriptor">SortDescriptor</a>
+                <a class="nav-group-task-link" href="../Structs/SortDescriptor.html">SortDescriptor</a>
               </li>
             </ul>
           </li>
@@ -191,7 +290,7 @@
             <h1>DocumentStore</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DocumentStore</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">DocumentStore</span></code></pre>
 
                 </div>
               </div>
@@ -207,9 +306,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC13DocumentStore13DocumentStorecFzT10identifierSS19documentDescriptorsGSaVS_21AnyDocumentDescriptor_5logToPS_6Logger__S0_"></a>
+                    <a name="/s:13DocumentStoreAAC10identifier19documentDescriptors5logToABSS_SayAA03AnyA10DescriptorCGAA6Logger_ptKcfc"></a>
                     <a name="//apple_ref/swift/Method/init(identifier:documentDescriptors:logTo:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC13DocumentStore13DocumentStorecFzT10identifierSS19documentDescriptorsGSaVS_21AnyDocumentDescriptor_5logToPS_6Logger__S0_">init(identifier:documentDescriptors:logTo:)</a>
+                    <a class="token" href="#/s:13DocumentStoreAAC10identifier19documentDescriptors5logToABSS_SayAA03AnyA10DescriptorCGAA6Logger_ptKcfc">init(identifier:documentDescriptors:logTo:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -218,33 +317,24 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Create a <code>DocumentStore</code>.</p>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>The identifier is basically the filename of the <code>DocumentStore</code> changing the 
     identifier will result in the creation of a new empty store.</p>
 
 </div>
-
-<p><li><p>Parameters:</p></p>
-
-<p><ul>
-<li>identifier: The unique unchangable identifier of this <code>DocumentStore</code></li>
-<li>documentDescriptors: All <code><a href="../Structs/DocumentDescriptor.html">DocumentDescriptor</a></code>s of <code><a href="../Protocols/Document.html">Document</a></code>s that will be used at any point in time</li>
-<li>logger: Optional logger to use</li>
-</ul></li>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p><code><a href="../Structs/DocumentStoreError.html">DocumentStoreError</a></code>s if initializations fails due invalid <code><a href="../Structs/DocumentDescriptor.html">DocumentDescriptor</a></code>s</p></p>
+    <p><code><a href="../Structs/DocumentStoreError.html">DocumentStoreError</a></code>s if initializations fails due invalid <code><a href="../Classes/DocumentDescriptor.html">DocumentDescriptor</a></code>s</p>
 
-<p></div></p>
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">documentDescriptors</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a></span><span class="p">],</span> <span class="n">logTo</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Logger.html">Logger</a></span> <span class="o">=</span> <span class="kt">NoLogger</span><span class="p">())</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">identifier</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">documentDescriptors</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/AnyDocumentDescriptor.html">AnyDocumentDescriptor</a></span><span class="p">],</span> <span class="n">logTo</span> <span class="nv">logger</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Logger.html">Logger</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/NoLogger.html">NoLogger</a></span><span class="p">())</span> <span class="k">throws</span></code></pre>
 
                         </div>
                       </div>
@@ -261,7 +351,6 @@
                               <td>
                                 <div>
                                   <p>The unique unchangable identifier of this <code>DocumentStore</code></p>
-
                                 </div>
                               </td>
                             </tr>
@@ -273,8 +362,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>All <code>DocumentDescriptor</code>s of <code>Document</code>s that will be used at any point in time</p>
-
+                                  <p>All <code><a href="../Classes/DocumentDescriptor.html">DocumentDescriptor</a></code>s of <code><a href="../Protocols/Document.html">Document</a></code>s that will be used at any point in time</p>
                                 </div>
                               </td>
                             </tr>
@@ -287,7 +375,6 @@
                               <td>
                                 <div>
                                   <p>Optional logger to use</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -295,7 +382,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L30-L60">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L30-L61">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -314,9 +401,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC13DocumentStore13DocumentStore4readurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_15ReadTransactionx_T_"></a>
+                    <a name="/s:13DocumentStoreAAC4read5queue7handler7actionsySo012OS_dispatch_D0C_yAA17TransactionResultOyxGcxAA04ReadI0CKctlF"></a>
                     <a name="//apple_ref/swift/Method/read(queue:handler:actions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC13DocumentStore13DocumentStore4readurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_15ReadTransactionx_T_">read(queue:handler:actions:)</a>
+                    <a class="token" href="#/s:13DocumentStoreAAC4read5queue7handler7actionsySo012OS_dispatch_D0C_yAA17TransactionResultOyxGcxAA04ReadI0CKctlF">read(queue:handler:actions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -325,34 +412,24 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Perform a read transaction on the store and get the result back in a handler.</p>
-
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Do not use the <code><a href="../Classes/ReadTransaction.html">ReadTransaction</a></code> outside of the actions block, this will result in 
        undefined behaviour.</p>
 
 </div>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Actions block will be executed on an arbitrary background thread managed by the store.</p>
 
 </div>
 
-<p><li><p>Parameters:</p></p>
-
-<p><ul>
-<li>queue: Queue to perform the handler on</li>
-<li>handler: Handler that will be called with the result of the transaction</li>
-<li>actions: Actions to perform in this transaction, returned result is passed to the handler</li>
-</ul></li></p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">read</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadTransaction.html">ReadTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">read</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadTransaction.html">ReadTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -369,7 +446,6 @@
                               <td>
                                 <div>
                                   <p>Queue to perform the handler on</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -382,7 +458,6 @@
                               <td>
                                 <div>
                                   <p>Handler that will be called with the result of the transaction</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -395,7 +470,6 @@
                               <td>
                                 <div>
                                   <p>Actions to perform in this transaction, returned result is passed to the handler</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -403,7 +477,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L75-L80">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L76-L81">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -411,9 +485,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC13DocumentStore13DocumentStore5writeFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultT__T_7actionsFzCS_20ReadWriteTransactionOS0_12CommitAction_T_"></a>
+                    <a name="/s:13DocumentStoreAAC5write5queue7handler7actionsySo012OS_dispatch_D0C_yAA17TransactionResultOyytGcAB12CommitActionOAA09ReadWriteI0CKctF"></a>
                     <a name="//apple_ref/swift/Method/write(queue:handler:actions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC13DocumentStore13DocumentStore5writeFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultT__T_7actionsFzCS_20ReadWriteTransactionOS0_12CommitAction_T_">write(queue:handler:actions:)</a>
+                    <a class="token" href="#/s:13DocumentStoreAAC5write5queue7handler7actionsySo012OS_dispatch_D0C_yAA17TransactionResultOyytGcAB12CommitActionOAA09ReadWriteI0CKctF">write(queue:handler:actions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -422,34 +496,24 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Perform a write transaction on the store.</p>
-
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Do not use the <code><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></code> outside of the actions block, this will
        result in undefined behaviour.</p>
 
 </div>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Actions block will be executed on an arbitrary background thread managed by the store.</p>
 
 </div>
 
-<p><li><p>Parameters:</p></p>
-
-<p><ul>
-<li>queue: Queue to perform the handler on</li>
-<li>handler: Handler that will be called with the result of the transaction</li>
-<li>actions: Actions to perform in this transaction, returned commit action will be executed</li>
-</ul></li></p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/DocumentStore/CommitAction.html">CommitAction</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">Void</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/DocumentStore/CommitAction.html">CommitAction</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -466,7 +530,6 @@
                               <td>
                                 <div>
                                   <p>Queue to perform the handler on</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -479,7 +542,6 @@
                               <td>
                                 <div>
                                   <p>Handler that will be called with the result of the transaction</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -492,7 +554,6 @@
                               <td>
                                 <div>
                                   <p>Actions to perform in this transaction, returned commit action will be executed</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -500,7 +561,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L93-L98">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L94-L99">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -508,9 +569,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC13DocumentStore13DocumentStore9readWriteurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_20ReadWriteTransactionTOS0_12CommitActionx__T_"></a>
+                    <a name="/s:13DocumentStoreAAC9readWrite5queue7handler7actionsySo012OS_dispatch_E0C_yAA17TransactionResultOyxGcAB12CommitActionO_xtAA04ReaddJ0CKctlF"></a>
                     <a name="//apple_ref/swift/Method/readWrite(queue:handler:actions:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC13DocumentStore13DocumentStore9readWriteurFT5queueCSo13DispatchQueue7handlerFGOS_17TransactionResultx_T_7actionsFzCS_20ReadWriteTransactionTOS0_12CommitActionx__T_">readWrite(queue:handler:actions:)</a>
+                    <a class="token" href="#/s:13DocumentStoreAAC9readWrite5queue7handler7actionsySo012OS_dispatch_E0C_yAA17TransactionResultOyxGcAB12CommitActionO_xtAA04ReaddJ0CKctlF">readWrite(queue:handler:actions:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -519,34 +580,24 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Perform a read/write transaction on the store and get the result back in a handler.</p>
-
 <div class="aside aside-warning">
     <p class="aside-title">Warning</p>
     <p>Do not use the <code><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></code> outside of the actions block, this will
        result in undefined behaviour.</p>
 
 </div>
-
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Actions block will be executed on an arbitrary background thread managed by the store.</p>
 
 </div>
 
-<p><li><p>Parameters:</p></p>
-
-<p><ul>
-<li>queue: Queue to perform the handler on</li>
-<li>handler: Handler that will be called with the result of the transaction</li>
-<li>actions: Actions to perform in this transaction, returned result is passed to the handler, commit action will be executed</li>
-</ul></li></p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">readWrite</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Classes/DocumentStore/CommitAction.html">CommitAction</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">))</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">readWrite</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="kt">DispatchQueue</span><span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Enums/TransactionResult.html">TransactionResult</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">,</span> <span class="nv">actions</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt"><a href="../Classes/ReadWriteTransaction.html">ReadWriteTransaction</a></span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt"><a href="../Classes/DocumentStore/CommitAction.html">CommitAction</a></span><span class="p">,</span> <span class="kt">T</span><span class="p">))</span></code></pre>
 
                         </div>
                       </div>
@@ -563,7 +614,6 @@
                               <td>
                                 <div>
                                   <p>Queue to perform the handler on</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -576,7 +626,6 @@
                               <td>
                                 <div>
                                   <p>Handler that will be called with the result of the transaction</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -589,7 +638,6 @@
                               <td>
                                 <div>
                                   <p>Actions to perform in this transaction, returned result is passed to the handler, commit action will be executed</p>
-
                                 </div>
                               </td>
                             </tr>
@@ -597,7 +645,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L111-L146">Show on GitHub</a>
+                        <a href="https://github.com/mac-cain13/DocumentStore/tree/master/DocumentStore/Store/DocumentStore.swift#L112-L147">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -609,9 +657,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:OC13DocumentStore13DocumentStore12CommitAction"></a>
+                    <a name="/s:13DocumentStoreAAC12CommitActionO"></a>
                     <a name="//apple_ref/swift/Enum/CommitAction" class="dashAnchor"></a>
-                    <a class="token" href="#/s:OC13DocumentStore13DocumentStore12CommitAction">CommitAction</a>
+                    <a class="token" href="#/s:13DocumentStoreAAC12CommitActionO">CommitAction</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -632,7 +680,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CommitAction</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CommitAction</span></code></pre>
 
                         </div>
                       </div>
@@ -650,8 +698,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2016 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2016-11-23)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+      <p>&copy; 2019 <a class="link" href="https://github.com/mac-cain13" target="_blank" rel="external">Mathijs Kadijk</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
 </div>
