@@ -11,17 +11,17 @@ import DocumentStore
 
 ////////
 
-let documentStore: DocumentStore! = try? DocumentStore(identifier: "MyStore",
-                                                       documentDescriptors: [Message.documentDescriptor])
+let documentStore = try! DocumentStore(identifier: "MyStore",
+                                       documentDescriptors: [Message.documentDescriptor])
 
 struct Message: Document, Codable {
   static let documentDescriptor = DocumentDescriptor<Message>(name: "Message",
-                                                              identifier: Identifier(keyPath: \.id),
-                                                              indices: [
-                                                                Index(name: "senderName", keyPath: \.sender.name),
-                                                                Index(name: "receiverName", keyPath: \.receiver.name),
-                                                                Index(name: "sentDate", keyPath: \.sentDate)
-                                                              ])
+                                                               identifier: Identifier(keyPath: \.id),
+                                                               indices: [
+                                                                 Index(name: "senderName", keyPath: \.sender.name),
+                                                                 Index(name: "receiverName", keyPath: \.receiver.name),
+                                                                 Index(name: "sentDate", keyPath: \.sentDate)
+                                                               ])
 
   let id: Int
   let read: Bool
@@ -53,14 +53,14 @@ class DocumentStoreTestsOld: XCTestCase {
 
       let message = Message(id: 1, read: false, sentDate: Date(), sender: Person(id: 1, name: "John Appleseed"), receiver: Person(id: 2, name: "Jane Bananaseed"), subject: nil, text: "Hi!\nHow about dinner?")
 
-      documentStore.write(handler: { result in
-        if case let .failure(error) = result {
+      documentStore.write(handler: { error in
+        if let error = error {
           fatalError("\(error)")
         }
-      }) { transaction in
+      }, actions: { transaction in
         try transaction.insert(document: message, mode: .addOrReplace)
         return .saveChanges
-      }
+      })
 
       /* Promise version */
       //      documentStore.write { transaction in
@@ -76,10 +76,11 @@ class DocumentStoreTestsOld: XCTestCase {
 
       let newestMessageQuery = Query<Message>()
         .sorted(by: \Message.sentDate, order: .ascending)
+//        .filtered(using: { _ in !\.read })
 
       documentStore.read(handler: { result in
         if case let .success(.some(message)) = result {
-          print(message.id)
+          debugPrint(message.id)
         }
       }) { try $0.fetchFirst(matching: newestMessageQuery) }
 

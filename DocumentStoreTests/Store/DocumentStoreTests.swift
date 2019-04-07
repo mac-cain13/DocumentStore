@@ -138,7 +138,7 @@ class DocumentStoreTests: XCTestCase {
   func testReadWriteTransactionConfiguresContext() {
     let documentStore = createDocumentStore()
     let actionExpectation = expectation(description: "Action callback")
-    let handler: (TransactionResult<Bool>) -> Void = { _ in }
+    let handler: (Result<Bool, TransactionError>) -> Void = { _ in }
 
     documentStore.readWrite(handler: handler) { _ in
       XCTAssertEqual(self.mockTransactionFactory.transactions.count, 1)
@@ -166,8 +166,8 @@ class DocumentStoreTests: XCTestCase {
 
   func testReadWriteTransactionPassesResultToHandler() {
     let handlerExpectation = expectation(description: "Handler callback")
-    let handler: (TransactionResult<Bool>) -> Void = { result in
-      guard case TransactionResult.success(true) = result else {
+    let handler: (Result<Bool, TransactionError>) -> Void = { result in
+      guard case .success(true) = result else {
         XCTFail("Expected true result")
         handlerExpectation.fulfill()
         return
@@ -185,8 +185,8 @@ class DocumentStoreTests: XCTestCase {
     let error = NSError(domain: "TestDomain", code: 42, userInfo: nil)
 
     let handlerExpectation = expectation(description: "Handler callback")
-    let handler: (TransactionResult<Bool>) -> Void = { result in
-      guard case let TransactionResult.failure(.actionThrewError(receivedError)) = result else {
+    let handler: (Result<Bool, TransactionError>) -> Void = { result in
+      guard case let .failure(.actionThrewError(receivedError)) = result else {
         XCTFail("Expected true result")
         handlerExpectation.fulfill()
         return
@@ -204,7 +204,7 @@ class DocumentStoreTests: XCTestCase {
 
   func testReadWriteTransactionHandlesSaveChangesCommitAction() {
     let handlerExpectation = expectation(description: "Handler callback")
-    let handler: (TransactionResult<Bool>) -> Void = { _ in
+    let handler: (Result<Bool, TransactionError>) -> Void = { _ in
       XCTAssertEqual(self.mockTransactionFactory.transactions.count, 1)
       guard let mockTransaction = self.mockTransactionFactory.transactions.last else {
         XCTFail("No mock transaction")
@@ -223,7 +223,7 @@ class DocumentStoreTests: XCTestCase {
 
   func testReadWriteTransactionPassesSaveChangesFailureToHandler() {
     let handlerExpectation = expectation(description: "Handler callback")
-    let handler: (TransactionResult<Bool>) -> Void = { result in
+    let handler: (Result<Bool, TransactionError>) -> Void = { result in
       guard case let .failure(.documentStoreError(error)) = result else {
         XCTFail("Unexpected transaction result")
         handlerExpectation.fulfill()
@@ -258,7 +258,7 @@ class DocumentStoreTests: XCTestCase {
     queue.setSpecific(key: queueKey, value: ())
 
     let handlerExpectation = expectation(description: "Action callback")
-    let handler: (TransactionResult<Bool>) -> Void = { _ in
+    let handler: (Result<Bool, TransactionError>) -> Void = { _ in
       XCTAssertNotNil(DispatchQueue.getSpecific(key: queueKey), "Handler not called on expected queue")
       handlerExpectation.fulfill()
     }
@@ -271,8 +271,8 @@ class DocumentStoreTests: XCTestCase {
 
   func testReadCallsHandler() {
     let handlerExpectation = expectation(description: "Handler callback")
-    let handler: (TransactionResult<Bool>) -> Void = { result in
-      guard case TransactionResult.success(true) = result else {
+    let handler: (Result<Bool, TransactionError>) -> Void = { result in
+      guard case .success(true) = result else {
         XCTFail("Expected true result")
         handlerExpectation.fulfill()
         return
@@ -288,8 +288,8 @@ class DocumentStoreTests: XCTestCase {
 
   func testWriteCallsHandler() {
     let handlerExpectation = expectation(description: "Handler callback")
-    let handler: (TransactionResult<Void>) -> Void = { result in
-      guard case TransactionResult.success(()) = result else {
+    let handler: (TransactionError?) -> Void = { error in
+      guard error == nil else {
         XCTFail("Expected void result")
         handlerExpectation.fulfill()
         return

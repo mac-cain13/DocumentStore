@@ -3,6 +3,7 @@ disabled_rules:
   - variable_name
   - missing_docs
   - type_body_length
+  - force_try
 opt_in_rules:
   - empty_count
   - closure_spacing

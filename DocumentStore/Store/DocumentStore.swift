@@ -73,7 +73,7 @@ public final class DocumentStore {
   ///   - queue: Queue to perform the handler on
   ///   - handler: Handler that will be called with the result of the transaction
   ///   - actions: Actions to perform in this transaction, returned result is passed to the handler
-  public func read<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadTransaction) throws -> T) {
+  public func read<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (Result<T, TransactionError>) -> Void, actions: @escaping (ReadTransaction) throws -> T) {
     readWrite(queue: queue, handler: handler) { transaction in
       let result = try actions(transaction)
       return (.discardChanges, result)
@@ -91,11 +91,20 @@ public final class DocumentStore {
   ///   - queue: Queue to perform the handler on
   ///   - handler: Handler that will be called with the result of the transaction
   ///   - actions: Actions to perform in this transaction, returned commit action will be executed
-  public func write(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<Void>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> CommitAction) {
-    readWrite(queue: queue, handler: handler) { transaction in
-      let commitAction = try actions(transaction)
-      return (commitAction, ())
-    }
+  public func write(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionError?) -> Void, actions: @escaping (ReadWriteTransaction) throws -> CommitAction) {
+    readWrite(queue: queue,
+              handler: { result in
+                switch result {
+                case .success:
+                  handler(nil)
+                case let .failure(error):
+                  handler(error)
+                }
+              },
+              actions: { transaction -> (DocumentStore.CommitAction, ()) in
+                let commitAction = try actions(transaction)
+                return (commitAction, ())
+              })
   }
 
   /// Perform a read/write transaction on the store and get the result back in a handler.
@@ -109,7 +118,7 @@ public final class DocumentStore {
   ///   - queue: Queue to perform the handler on
   ///   - handler: Handler that will be called with the result of the transaction
   ///   - actions: Actions to perform in this transaction, returned result is passed to the handler, commit action will be executed
-  public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (TransactionResult<T>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> (CommitAction, T)) {
+  public func readWrite<T>(queue: DispatchQueue = DispatchQueue.main, handler: @escaping (Result<T, TransactionError>) -> Void, actions: @escaping (ReadWriteTransaction) throws -> (CommitAction, T)) {
     persistentContainer.performBackgroundTask { [logger, transactionFactory, documentDescriptors] context in
       context.mergePolicy = NSMergePolicy.overwrite
 
@@ -122,7 +131,7 @@ public final class DocumentStore {
       let readWritableTransaction = transactionFactory.createTransaction(context: context, documentDescriptors: documentDescriptors, logTo: logger)
       let transaction = ReadWriteTransaction(transaction: readWritableTransaction)
 
-      let transactionResult: TransactionResult<T>
+      let transactionResult: Result<T, TransactionError>
       do {
         let (commitAction, result) = try actions(transaction)
 

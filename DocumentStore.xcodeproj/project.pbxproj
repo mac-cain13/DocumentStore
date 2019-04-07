@@ -79,7 +79,6 @@
 		D5FCEF4D1DD0650F0028364C /* DocumentDeserializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF4C1DD0650F0028364C /* DocumentDeserializationError.swift */; };
 		D5FCEF501DD065560028364C /* CommitAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF4F1DD065560028364C /* CommitAction.swift */; };
 		D5FCEF521DD065770028364C /* TransactionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF511DD065770028364C /* TransactionError.swift */; };
-		D5FCEF541DD065980028364C /* TransactionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF531DD065980028364C /* TransactionResult.swift */; };
 		D5FCEF561DD065B00028364C /* ReadWriteTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF551DD065B00028364C /* ReadWriteTransaction.swift */; };
 		D5FCEF581DD068020028364C /* Query+NSFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF571DD068020028364C /* Query+NSFetchRequest.swift */; };
 		D5FCEF5A1DD06EFE0028364C /* StorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FCEF591DD06EFE0028364C /* StorageType.swift */; };
@@ -173,7 +172,6 @@
 		D5FCEF4C1DD0650F0028364C /* DocumentDeserializationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDeserializationError.swift; sourceTree = "<group>"; };
 		D5FCEF4F1DD065560028364C /* CommitAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitAction.swift; sourceTree = "<group>"; };
 		D5FCEF511DD065770028364C /* TransactionError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionError.swift; sourceTree = "<group>"; };
-		D5FCEF531DD065980028364C /* TransactionResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionResult.swift; sourceTree = "<group>"; };
 		D5FCEF551DD065B00028364C /* ReadWriteTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteTransaction.swift; sourceTree = "<group>"; };
 		D5FCEF571DD068020028364C /* Query+NSFetchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Query+NSFetchRequest.swift"; sourceTree = "<group>"; };
 		D5FCEF591DD06EFE0028364C /* StorageType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageType.swift; sourceTree = "<group>"; };
@@ -458,7 +456,6 @@
 				D565A12A1DD75B8D000FB0C8 /* ReadTransaction.swift */,
 				D5FCEF551DD065B00028364C /* ReadWriteTransaction.swift */,
 				D5160E681DD78EB5006C8177 /* CoreDataTransaction.swift */,
-				D5FCEF531DD065980028364C /* TransactionResult.swift */,
 				D5FCEF511DD065770028364C /* TransactionError.swift */,
 			);
 			path = Transaction;
@@ -618,7 +615,6 @@
 				D5FCEF341DCE18360028364C /* SortDescriptor.swift in Sources */,
 				D59047FB1DCBA44E000F2517 /* DocumentStore.swift in Sources */,
 				D57200181DE7826900C5E585 /* ExpressionComparisonOperator.swift in Sources */,
-				D5FCEF541DD065980028364C /* TransactionResult.swift in Sources */,
 				D54B9CB61DD0EA5600F7DA25 /* NoLogger.swift in Sources */,
 				D5FCEF561DD065B00028364C /* ReadWriteTransaction.swift in Sources */,
 				D5160E691DD78EB5006C8177 /* CoreDataTransaction.swift in Sources */,

@@ -91,7 +91,7 @@ public struct Query<DocumentType: Document> {
   ///         `filtering { $0.age > 18 }` will result in a `Query` matching [21, 23, 31]. Then again
   ///         performing `filtering { $0.age < 30 }` will return [21, 23].
   ///
-  /// - Parameter isIncluded: Closure that returns the `Predicate` to filter by
+  /// - Parameter using: Closure that returns the `Predicate` to filter by
   /// - Returns: A `Query` that only matches `Document`s passing the predicate
   public func filtered(using predicate: (DocumentType.Type) -> Predicate<DocumentType>) -> Query<DocumentType> {
     var query = self
