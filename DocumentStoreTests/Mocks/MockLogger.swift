@@ -20,7 +20,7 @@ class MockLogger: Logger {
   }
 
   private(set) var loggedMessages: [LogMessage] = []
-  var logCallback: ((LogMessage) -> Void)? = nil
+  var logCallback: ((LogMessage) -> Void)?
 
   func log(level: LogLevel, message: String) {
     let logMessage = LogMessage(level: level, message: message)

@@ -220,7 +220,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
-      let _ = try transaction.fetch(matching: Query<TestDocument>())
+      _ = try transaction.fetch(matching: Query<TestDocument>())
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .serializationFailed(underlyingError) = error else {
@@ -241,7 +241,7 @@ class CoreDataTransactionTests: XCTestCase {
     entity.setValue(false, forKey: TestDocument.isTest.storageInformation.propertyName.keyPath)
 
     do {
-      let _ = try transaction.fetch(matching: Query<TestDocument>())
+      _ = try transaction.fetch(matching: Query<TestDocument>())
       XCTFail("Expected error")
     } catch let error as TransactionError {
       guard case let .serializationFailed(underlyingError) = error else {
@@ -420,7 +420,7 @@ private struct TestDocument: Document {
   static let isTest = Index<TestDocument, Bool>(name: "isTest") { _ in true }
   static let documentDescriptor = DocumentDescriptor<TestDocument>(name: "TestDocument", identifier: Identifier { _ in return UUID().uuidString }, indices: [TestDocument.isTest])
 
-  static let data = Data(bytes: [42])
+  static let data = Data([42])
   static let error = NSError(domain: "TestDomain", code: 42, userInfo: nil)
 
   static var deserializationResult = DeserializationResult.succeeds

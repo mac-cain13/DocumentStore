@@ -72,7 +72,7 @@ public class AnyDocumentDescriptor: Validatable, Equatable {
 
     // Two indices may not use the same `KeyPath` (or else querying will break)
     issues += ([identifier] + indices)
-      .flatMap { $0.storageInformation.sourceKeyPath }
+      .compactMap { $0.storageInformation.sourceKeyPath }
       .duplicates()
       .map { "DocumentDescriptor `\(name)` has multiple indices using \($0) as the source key path, every index including the identifier must use a unique key path." }
 

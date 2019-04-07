@@ -42,7 +42,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
     XCTAssertFalse(issues.isEmpty, "Invalid descriptor does not seem to be invalid")
 
     do {
-      let _ = try managedObjectModelService.validate([invalidDescriptor], logTo: NoLogger())
+      _ = try managedObjectModelService.validate([invalidDescriptor], logTo: NoLogger())
       XCTFail("Error was expected")
     } catch let error as DocumentStoreError {
       XCTAssertEqual(error.kind, DocumentStoreError.ErrorKind.documentDescriptionInvalid)
@@ -77,7 +77,7 @@ class ManagedObjectModelServiceTests: XCTestCase {
     let logger = MockLogger()
 
     do {
-      let _ = try managedObjectModelService.validate([invalidDescriptor], logTo: logger)
+      _ = try managedObjectModelService.validate([invalidDescriptor], logTo: logger)
       XCTFail("Error was expected")
     } catch let error as DocumentStoreError {
       XCTAssertEqual(logger.loggedMessages.count, 1)

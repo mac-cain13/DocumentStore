@@ -32,7 +32,7 @@ class MockTransaction: ReadWritableTransaction {
     return [
       try? DocumentType.decode(from: data),
       try? DocumentType.decode(from: data)
-    ].flatMap { $0 }
+    ].compactMap { $0 }
   }
 
   @discardableResult

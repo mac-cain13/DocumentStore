@@ -83,8 +83,6 @@ class DocumentStoreTestsOld: XCTestCase {
         }
       }) { try $0.fetchFirst(matching: newestMessageQuery) }
 
-
-
 //      documentStore.write(handler: { _ in }) { transaction in
 //        try transaction.add(document: rswiftDeveloper)
 //        return .SaveChanges

@@ -76,7 +76,7 @@ class CoreDataTransaction: ReadWritableTransaction {
 
     // Deserialize documents
     return try fetchResult
-      .flatMap {
+      .compactMap {
         do {
           guard let documentData = $0.value(forKey: DocumentDataAttributeName) as? Data else {
             let error = DocumentStoreError(

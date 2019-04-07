@@ -45,7 +45,7 @@ class DocumentStoreTests: XCTestCase {
 
   func testEmptyIdentifier() {
     do {
-      let _ = try DocumentStore(identifier: "", documentDescriptors: [])
+      _ = try DocumentStore(identifier: "", documentDescriptors: [])
       XCTFail("Expected error")
     } catch let error as DocumentStoreError {
       XCTAssertEqual(error.kind, .storeIdentifierInvalid)
@@ -59,7 +59,7 @@ class DocumentStoreTests: XCTestCase {
   func testUnderscoreIdentifier() {
     for identifier in [DocumentStoreReservedPrefix, "\(DocumentStoreReservedPrefix).Something"] {
       do {
-        let _ = try DocumentStore(identifier: identifier, documentDescriptors: [])
+        _ = try DocumentStore(identifier: identifier, documentDescriptors: [])
         XCTFail("Expected error")
       } catch let error as DocumentStoreError {
         XCTAssertEqual(error.kind, .storeIdentifierInvalid)
@@ -75,7 +75,7 @@ class DocumentStoreTests: XCTestCase {
     mockManagedObjectModelService.validateSucceeds = false
 
     do {
-      let _ = try DocumentStore(identifier: "TestStore", documentDescriptors: [])
+      _ = try DocumentStore(identifier: "TestStore", documentDescriptors: [])
       XCTFail("Error was expected")
     } catch let error as DocumentStoreError {
       XCTAssertEqual(mockManagedObjectModelService.validateCalls, 1)
@@ -90,7 +90,7 @@ class DocumentStoreTests: XCTestCase {
     mockManagedObjectModelService.validateSucceeds = true
 
     do {
-      let _ = try DocumentStore(identifier: "TestStore", documentDescriptors: [])
+      _ = try DocumentStore(identifier: "TestStore", documentDescriptors: [])
       XCTAssertEqual(mockManagedObjectModelService.validateCalls, 1)
       XCTAssertEqual(mockManagedObjectModelService.generateModelCalls, 1)
     } catch {
@@ -101,7 +101,7 @@ class DocumentStoreTests: XCTestCase {
   func testInitializerLogs() {
     do {
       let logger = MockLogger()
-      let _ = try DocumentStore(identifier: "TestDocument", documentDescriptors: [], logTo: logger)
+      _ = try DocumentStore(identifier: "TestDocument", documentDescriptors: [], logTo: logger)
 
       XCTAssertEqual(logger.loggedMessages.count, 3)
       XCTAssertEqual(logger.loggedMessages[0].level, .debug)
@@ -119,7 +119,7 @@ class DocumentStoreTests: XCTestCase {
     do {
       let logger = MockLogger()
       mockPersistentContainerFactory.createdContainersLoadingShouldSucceed = false
-      let _ = try DocumentStore(identifier: "TestDocument", documentDescriptors: [], logTo: logger)
+      _ = try DocumentStore(identifier: "TestDocument", documentDescriptors: [], logTo: logger)
 
       let errorLogExpectation = expectation(description: "Error log")
       logger.logCallback = { logMessage in
