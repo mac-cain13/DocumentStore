@@ -15,13 +15,8 @@ struct ExceptionError: Error {
   let exception: NSException
 }
 
-private enum Result<T> {
-  case success(T)
-  case failure(Error)
-}
-
 func convertExceptionToError<T>(block: () throws -> T) throws -> T {
-  var result = Result<T>.failure(ConverExceptionHasNoResultError())
+  var result = Result<T, Error>.failure(ConverExceptionHasNoResultError())
 
   let exception = Exception.raised {
     do {
