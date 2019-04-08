@@ -58,10 +58,10 @@ class QueryTests: XCTestCase {
     XCTAssertNil(query.predicate)
 
     let predicate: Predicate<TestDocument> = TestDocument.isTest == false
-    query = query.filtered { _ in predicate }
+    query = query.filtered(by: predicate)
     XCTAssertEqual(query.predicate?.foundationPredicate, predicate.foundationPredicate)
 
-    query = query.filtered { _ in predicate }
+    query = query.filtered(by: predicate)
     XCTAssertEqual(query.predicate?.foundationPredicate, (predicate && predicate).foundationPredicate)
   }
 

@@ -18,6 +18,7 @@ struct Message: Document, Codable {
   static let documentDescriptor = DocumentDescriptor<Message>(name: "Message",
                                                                identifier: Identifier(keyPath: \.id),
                                                                indices: [
+                                                                 Index(name: "read", keyPath: \.read),
                                                                  Index(name: "senderName", keyPath: \.sender.name),
                                                                  Index(name: "receiverName", keyPath: \.receiver.name),
                                                                  Index(name: "sentDate", keyPath: \.sentDate)
@@ -76,7 +77,7 @@ class DocumentStoreTestsOld: XCTestCase {
 
       let newestMessageQuery = Query<Message>()
         .sorted(by: \Message.sentDate, order: .ascending)
-//        .filtered(using: { _ in !\.read })
+        .filtered(by: !\.read && \.sender.name == "Mathijs")
 
       documentStore.read(handler: { result in
         if case let .success(.some(message)) = result {
